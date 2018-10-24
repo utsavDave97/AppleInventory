@@ -1,0 +1,24 @@
+.root
+{
+    -fx-background-color: #DCDCDC;
+}
+.red-bar
+{
+    -fx-text-box-border: white;
+    -fx-control-inner-background:white;
+    -fx-accent: #D73B3E;
+    -fx-border-radius: 5;
+    -fx-indeterminate-bar-flip: false;
+    -fx-indeterminate-bar-animation-time: 3;
+    -fx-indeterminate-bar-escape: true;
+}
+.red-bar .bar { 
+    -fx-background-radius: 15; 
+}
+.red-bar .track { 
+    -fx-background-radius: 15; 
+}
+
+.red-bar {
+    -fx-background-radius: 15;     
+}
