@@ -20,40 +20,59 @@ import javafx.stage.Stage;
  * @description This class will be launched right after the launchscreen class is launched.
  */
 
-public class logInScreen extends Application{
-
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+public class logInScreen{
+	
+public logInScreen() {
+	
+		//create the stage 
+		Stage stage = new Stage();
+		
 		//Create a gridpane layout to store content
 		GridPane gridpane = new GridPane();
+		//Create the horizontal gap between the elements in gridpane
 		gridpane.setHgap(5);
+		//create the vertical gap between the elements in gridpane
 		gridpane.setVgap(5);
+		//create the style for the gridpane background
 		gridpane.setStyle("-fx-background-color: DCDCDC");
-		//create the content for the gridpane
+		
+		//create the content for the gridpane & create the styling
+		//create the textfield for the username
 		TextField userName = new TextField();
+		//create the styling for the textfields
 		userName.setStyle("-fx-focus-color: #00FFFFFF");
+		//create the passwordfield
 		PasswordField passWord = new PasswordField();
+		//create the style for the passwordfield
 		passWord.setStyle("-fx-focus-color: #00FFFFFF");
+		//create the login button
 		Button login = new Button("Login");
+		//set the styling for the button
 		login.setStyle("-fx-border-color: B82F33");
+		//create the register button
 		Button register = new Button("Register");
+		//create the register styling
 		register.setStyle("-fx-border-color: B82F33");
+		
 		//create the imageviews for the two images		
+		//create the image for the imageview
 		Image profile = new Image("profile.png");
+		//create the imageview
 		ImageView profileView = new ImageView();
+		//set the width and height of the imageview
 		profileView.setFitHeight(32.5);
 		profileView.setFitWidth(32.5);
 		profileView.setImage(profile);
 		
+		//create the image
 		Image passKey = new Image("key.png");
+		//create the imageview
 		ImageView passView = new ImageView();
+		//set the styling for the imageview
 		passView.setFitHeight(32.5);
 		passView.setFitWidth(32.5);
 		passView.setImage(passKey);
+		
 		//add the content to the gridpane
 		gridpane.add(new Label("Username"),1,1);	
 		gridpane.add(userName, 1, 2,2,1);
@@ -68,13 +87,14 @@ public class logInScreen extends Application{
 		
 		//style the gridpane
 		gridpane.setAlignment(Pos.CENTER);
-		//add the children
 		
 		//create the scene
 		Scene scene = new Scene(gridpane, 1064, 762);
+		
 		//show the stage
-		primaryStage.setScene(scene);
-		primaryStage.show();
+		stage.setScene(scene);
+		stage.show();
+		
 	}
 
 }

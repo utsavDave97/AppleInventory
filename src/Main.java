@@ -1,3 +1,4 @@
+import Screens.logInScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -78,9 +79,8 @@ public class Main extends Application
 		 */
 		EventHandler<ActionEvent> onFinished = e->
 		{
-			mainStage = primaryStage;
-			//mainStage.setScene(new loginScene());
-			mainStage.show();
+			new logInScreen();
+			primaryStage.close();
 		};
 		
 		//Timeline processes KeyFrame after specified time 
