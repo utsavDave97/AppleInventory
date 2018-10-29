@@ -22,3 +22,21 @@
 .red-bar {
     -fx-background-radius: 15;     
 }
+
+#menu {
+    -fx-background-color: #DCDCDC;
+    -fx-spacing: 10;
+}
+
+#menu .button {
+    -fx-pref-height: 80;
+    -fx-pref-width: 200;
+    -fx-border-width: 3 3 3 3;
+    -fx-background-color: #B8B8B8;
+    -fx-font-size: 15;
+}
+
+#menu .button:hover {
+    -fx-border-color: #B82F33;
+    -fx-border-width: 3 3 3 3;
+}
