@@ -1,5 +1,6 @@
 package Screens;
 
+import Screens.homeScreen;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -99,12 +100,17 @@ public logInScreen() {
 		//style the gridpane
 		gridpane.setAlignment(Pos.CENTER);
 		
+		login.setOnAction(e->{
+			new homeScreen();
+			stage.close();
+		});
+		
 		pane.setMargin(title, new Insets(40,0,0,0));
 		pane.setTop(title);
 		pane.setAlignment(title, Pos.CENTER);
 		pane.setCenter(gridpane);
 		//create the scene
-		Scene scene = new Scene(pane, 1064, 762);
+		Scene scene = new Scene(pane, 1024, 768);
 		
 		//show the stage
 		stage.setScene(scene);
