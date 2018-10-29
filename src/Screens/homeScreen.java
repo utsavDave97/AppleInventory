@@ -30,6 +30,9 @@ public class homeScreen
 				
 		root.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
 		
+		//Color c = Color.web("#DCDCDC");
+		root.setStyle("-fx-background-color: #DCDCDC;");
+		
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
@@ -229,6 +232,11 @@ public class homeScreen
 	    
 	    navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
+	    });
+	    
+	    newTransaction.setOnAction(e->{
+	    	new newTransactionScreen();
+	    	homeStage.close();
 	    });
 		
 		root.setTop(navigationToolBar);

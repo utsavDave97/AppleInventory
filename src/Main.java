@@ -79,7 +79,7 @@ public class Main extends Application
 		 * Which means, after the ProgressBar loads it should pop up Log In Screen
 		 */
 		EventHandler<ActionEvent> onFinished = e->
-		{    //new newTransactionScreen();
+		{ 
 			new logInScreen();
 			primaryStage.close();
 		};
