@@ -56,3 +56,7 @@ local.properties
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Database Credential properties file
+ /resources/dbcredential.properties
+
