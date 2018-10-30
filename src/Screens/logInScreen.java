@@ -105,6 +105,11 @@ public logInScreen() {
 			stage.close();
 		});
 		
+		register.setOnAction(e->{
+			new registerScreen();
+			stage.close();
+		});
+		
 		pane.setMargin(title, new Insets(40,0,0,0));
 		pane.setTop(title);
 		pane.setAlignment(title, Pos.CENTER);
