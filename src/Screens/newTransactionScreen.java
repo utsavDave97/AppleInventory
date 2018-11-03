@@ -233,7 +233,30 @@ public class newTransactionScreen {
 	    						  updateStock,
 	    						  deleteStock);
 
+	    newTransaction.setOnAction(e->{
+	    	new newTransactionScreen();
+	    	transactionStage.close();
+	    });
 	    
+	    completedTransaction.setOnAction(e->{
+	    	
+	    //transactionStage.close();
+	    });
+	    
+	    addStock.setOnAction(e->{
+	    	new addStockScreen();
+	    	transactionStage.close();
+	    });
+	    
+	    updateStock.setOnAction(e->{
+	    	new updateStockScreen();
+	    	transactionStage.close();
+	    });
+	    
+	    deleteStock.setOnAction(e->{
+	    	
+	    	//transactionStage.close();
+	    });
 	    //menu.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
 	    menu.setStyle("-fx-background-color: #DCDCDC;");
 	    menu.setTranslateX(0);

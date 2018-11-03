@@ -249,9 +249,22 @@ public class homeScreen
 	    	homeStage.close();
 	    });
 	    
+	    completedTransaction.setOnAction(e->{
+	    	
+	    });
+	    
 	    addStock.setOnAction(e->{
 	    	new addStockScreen();
 	    	homeStage.close();
+	    });
+	    
+	    updateStock.setOnAction(e->{
+	    	new updateStockScreen();
+	    	homeStage.close();
+	    });
+	    
+	    deleteStock.setOnAction(e->{
+	    	
 	    });
 	    
 	    logOutButton.setOnAction(e->{
