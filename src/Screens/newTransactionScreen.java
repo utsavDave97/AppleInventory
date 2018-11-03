@@ -264,7 +264,7 @@ public class newTransactionScreen {
 				+ "-fx-font-size:15pt;"
 				+ "-fx-min-height:35";
 		 //add label for name
-	    Label nameLabel=new Label("Name:");
+	    Label nameLabel=new Label("Type:");
 	    //set the name font
 	     nameLabel.setStyle("-fx-font-family: Quicksand;"
 	     				  + "-fx-font-size: 12pt;");
@@ -332,13 +332,13 @@ public class newTransactionScreen {
 	   	subtotal.setEditable(false);
 		//create the styling for the textfield
 		subtotal.setStyle(textFieldStyle);
-		//create the login button
+		//create the reset button
 		Button reset = new Button("Reset");
 		//set the styling for the button
 		reset.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
-		//create the register button
+		//create the submit button
 		Button submit = new Button("Submit");
 		//create the register styling
 		submit.setStyle("-fx-border-color:B82F33;"

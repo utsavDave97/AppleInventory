@@ -9,6 +9,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -37,7 +40,14 @@ public class homeScreen
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
 		
-		ToolBar navigationToolBar = new ToolBar(navigationButton);
+		final Pane spacer = new Pane();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		
+		ImageView logOutImage = new ImageView("logout.png");
+		ToggleButton logOutButton = new ToggleButton("Log Out");
+		logOutButton.setGraphic(logOutImage);
+		
+		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
 		
 		
 		VBox menu = new VBox();
@@ -236,6 +246,16 @@ public class homeScreen
 	    
 	    newTransaction.setOnAction(e->{
 	    	new newTransactionScreen();
+	    	homeStage.close();
+	    });
+	    
+	    addStock.setOnAction(e->{
+	    	new addStockScreen();
+	    	homeStage.close();
+	    });
+	    
+	    logOutButton.setOnAction(e->{
+	    	new logInScreen();
 	    	homeStage.close();
 	    });
 		
