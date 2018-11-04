@@ -86,66 +86,161 @@ public class updateStockScreen
 		//Creating newTransaction Button and styling it
 	    Button newTransaction = new Button("New Transaction");
 	    newTransaction.setEffect(ds);
-	    newTransaction.setStyle("-fx-font-family: Quicksand;");
+	    newTransaction.setStyle("-fx-font-family: Quicksand;"
+	    		+ "-fx-pref-height: 80;" + 
+	    		"    -fx-pref-width: 200;" + 
+	    		"    -fx-border-width: 3 3 3 3;" + 
+	    		"    -fx-background-color: #B8B8B8;" + 
+	    		"    -fx-font-size: 15;");	   
 	    newTransaction.setOnMouseEntered(e->{
 	    	newTransaction.setScaleX(1.1);
 	    	newTransaction.setScaleY(1.1);
+	    	newTransaction.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;"
+		    		+ "-fx-border-color: #B82F33;" + 
+		    		"    -fx-border-width: 3 3 3 3;");
 	    });
 	    newTransaction.setOnMouseExited(e->{
 	    	newTransaction.setScaleX(1);
 	    	newTransaction.setScaleY(1);
+	    	newTransaction.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;");
 	    });   
 	    
 	    //Creating completedTransaction Button and styling it
 	    Button completedTransaction = new Button("Completed Transaction");
 	    completedTransaction.setEffect(ds);
-	    completedTransaction.setStyle("-fx-font-family: Quicksand;");
+	    completedTransaction.setStyle("-fx-font-family: Quicksand;"
+	    		+ "-fx-pref-height: 80;" + 
+	    		"    -fx-pref-width: 200;" + 
+	    		"    -fx-border-width: 3 3 3 3;" + 
+	    		"    -fx-background-color: #B8B8B8;" + 
+	    		"    -fx-font-size: 15;");
 	    completedTransaction.setOnMouseEntered(e->{
-	    	completedTransaction.setScaleX(1.1);
-	    	completedTransaction.setScaleY(1.1);
+	    		completedTransaction.setScaleX(1.1);
+	    		completedTransaction.setScaleY(1.1);
+	    		completedTransaction.setStyle("-fx-font-family: Quicksand;"
+			    		+ "-fx-pref-height: 80;" + 
+			    		"    -fx-pref-width: 200;" + 
+			    		"    -fx-border-width: 3 3 3 3;" + 
+			    		"    -fx-background-color: #B8B8B8;" + 
+			    		"    -fx-font-size: 15;"
+			    		+ "-fx-border-color: #B82F33;" + 
+			    		"    -fx-border-width: 3 3 3 3;");
 	    });
 	    completedTransaction.setOnMouseExited(e->{
-	    	completedTransaction.setScaleX(1);
-	    	completedTransaction.setScaleY(1);
+	    		completedTransaction.setScaleX(1);
+	    		completedTransaction.setScaleY(1);
+	    	    completedTransaction.setStyle("-fx-font-family: Quicksand;"
+			    		+ "-fx-pref-height: 80;" + 
+			    		"    -fx-pref-width: 200;" + 
+			    		"    -fx-border-width: 3 3 3 3;" + 
+			    		"    -fx-background-color: #B8B8B8;" + 
+			    		"    -fx-font-size: 15;");
 	    }); 
 	    
 	    //Creating addStock Button and styling it
 	    Button addStock = new Button("Add to Stock");
 	    addStock.setEffect(ds);
-	    addStock.setStyle("-fx-font-family: Quicksand;");
+	    addStock.setStyle("-fx-font-family: Quicksand;"
+	    		+ "-fx-pref-height: 80;" + 
+	    		"    -fx-pref-width: 200;" + 
+	    		"    -fx-border-width: 3 3 3 3;" + 
+	    		"    -fx-background-color: #B8B8B8;" + 
+	    		"    -fx-font-size: 15;");	    
 	    addStock.setOnMouseEntered(e->{
 	    	addStock.setScaleX(1.1);
 	    	addStock.setScaleY(1.1);
+	    	addStock.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;"
+		    		+ "-fx-border-color: #B82F33;" + 
+		    		"    -fx-border-width: 3 3 3 3;");
 	    });
 	    addStock.setOnMouseExited(e->{
 	    	addStock.setScaleX(1);
 	    	addStock.setScaleY(1);
+	    	addStock.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;");
 	    }); 
 	    
 	    //Creating updateStock Button and styling it
 	    Button updateStock = new Button("Update Stock");
 	    updateStock.setEffect(ds);
-	    updateStock.setStyle("-fx-font-family: Quicksand;");
+	    updateStock.setStyle("-fx-font-family: Quicksand;"
+	    		+ "-fx-pref-height: 80;" + 
+	    		"    -fx-pref-width: 200;" + 
+	    		"    -fx-border-width: 3 3 3 3;" + 
+	    		"    -fx-background-color: #B8B8B8;" + 
+	    		"    -fx-font-size: 15;");	    
 	    updateStock.setOnMouseEntered(e->{
 	    	updateStock.setScaleX(1.1);
 	    	updateStock.setScaleY(1.1);
+	    	updateStock.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;"
+		    		+ "-fx-border-color: #B82F33;" + 
+		    		"    -fx-border-width: 3 3 3 3;");
 	    });
 	    updateStock.setOnMouseExited(e->{
 	    	updateStock.setScaleX(1);
 	    	updateStock.setScaleY(1);
+	    	updateStock.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;");
 	    }); 
 	    
 	    //Creating deleteStock Button and styling it
 	    Button deleteStock = new Button("Delete Stock");
 	    deleteStock.setEffect(ds);
-	    deleteStock.setStyle("-fx-font-family: Quicksand;");
+	    deleteStock.setStyle("-fx-font-family: Quicksand;"
+	    		+ "-fx-pref-height: 80;" + 
+	    		"    -fx-pref-width: 200;" + 
+	    		"    -fx-border-width: 3 3 3 3;" + 
+	    		"    -fx-background-color: #B8B8B8;" + 
+	    		"    -fx-font-size: 15;");		    
 	    deleteStock.setOnMouseEntered(e->{
 	    	deleteStock.setScaleX(1.1);
 	    	deleteStock.setScaleY(1.1);
+	    	deleteStock.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;"
+		    		+ "-fx-border-color: #B82F33;" + 
+		    		"    -fx-border-width: 3 3 3 3;");
 	    });
 	    deleteStock.setOnMouseExited(e->{
 	    	deleteStock.setScaleX(1);
 	    	deleteStock.setScaleY(1);
+	    	deleteStock.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;");
 	    }); 
 	    
 	    //Adding all the buttons to navigationDrawer
@@ -157,7 +252,9 @@ public class updateStockScreen
 
 	    
 	    //Styling navigationDrawer
-	    menu.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
+	    //menu.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
+	    
+	    
 	    
 	    //Creating translation effects on navigationDrawer
 	    menu.setTranslateX(0);
@@ -345,9 +442,22 @@ public class updateStockScreen
 	    	updateStage.close();
 	    });
 	    
+	    completedTransaction.setOnAction(e->{
+	    	
+	    });
+	    
 	    addStock.setOnAction(e->{
 	    	new addStockScreen();
 	    	updateStage.close();
+	    });
+	    
+	    updateStock.setOnAction(e->{
+	    	new updateStockScreen();
+	    	updateStage.close();
+	    });
+	    
+	    deleteStock.setOnAction(e->{
+	    	
 	    });
 	    
 	    
