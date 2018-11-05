@@ -250,7 +250,8 @@ public class homeScreen
 	    });
 	    
 	    completedTransaction.setOnAction(e->{
-	    	
+	    	new completedTranScreen();
+	    	homeStage.close();
 	    });
 	    
 	    addStock.setOnAction(e->{
