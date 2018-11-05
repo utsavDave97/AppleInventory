@@ -29,6 +29,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -64,7 +66,17 @@ public class completedTranScreen {
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
 		
-		ToolBar navigationToolBar = new ToolBar(navigationButton);
+		//Creating space between navigation button and log out button
+		final Pane spacer = new Pane();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+		
+		//Creating logOutButton and setting its image
+		ImageView logOutImage = new ImageView("logout.png");
+		ToggleButton logOutButton = new ToggleButton("Log Out");
+		logOutButton.setGraphic(logOutImage);
+				
+		//Creating toolBar and adding navigation button and logout button to it
+		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
 		
 		
 		
@@ -261,6 +273,35 @@ public class completedTranScreen {
 	    
 	    navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
+	    });
+	    
+	    newTransaction.setOnAction(e->{
+	    	new newTransactionScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    completedTransaction.setOnAction(e->{
+	    	new completedTranScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    addStock.setOnAction(e->{
+	    	new addStockScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    updateStock.setOnAction(e->{
+	    	new updateStockScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    deleteStock.setOnAction(e->{
+	    	
+	    });
+	    
+	    logOutButton.setOnAction(e->{
+	    	new logInScreen();
+	    	comtransStage.close();
 	    });
 	    
 		//create the content for the Completed transaction
