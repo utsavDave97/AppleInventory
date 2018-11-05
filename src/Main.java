@@ -1,3 +1,4 @@
+import Screens.completedTranScreen;
 import Screens.logInScreen;
 import Screens.newTransactionScreen;
 import javafx.animation.KeyFrame;
@@ -81,6 +82,7 @@ public class Main extends Application
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
 			new logInScreen();
+			//new completedTranScreen();
 			primaryStage.close();
 		};
 		
