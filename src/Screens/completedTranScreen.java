@@ -1,53 +1,71 @@
 package Screens;
 
+
+
+
+
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 /**
- * 
- * @author utsav
+ * @despription Display the completed sale items which can also be revised by user
+ * @author wjqcau
  *
  */
-
-public class homeScreen 
-{
-	public homeScreen()
-	{
-		Stage homeStage = new Stage();
+public class completedTranScreen {
+	
+	public completedTranScreen() {
+		/**********************************************************************
+		 *                Basic Stage,Pane Definition                          *
+		 ***********************************************************************/
+        //create the stage 
+		Stage comtransStage = new Stage();
 		
 		BorderPane root = new BorderPane();
-				
-		root.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
-		
-		//Color c = Color.web("#DCDCDC");
 		root.setStyle("-fx-background-color: #DCDCDC;");
+		
+
+		
+		/**********************************************************************
+		 *                  Navigation Items                                   *
+		 ***********************************************************************/
+		
 		
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
 		
-		final Pane spacer = new Pane();
-		HBox.setHgrow(spacer, Priority.ALWAYS);
+		ToolBar navigationToolBar = new ToolBar(navigationButton);
 		
-		ImageView logOutImage = new ImageView("logout.png");
-		ToggleButton logOutButton = new ToggleButton("Log Out");
-		logOutButton.setGraphic(logOutImage);
-		
-		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
 		
 		
 		VBox menu = new VBox();
@@ -60,8 +78,8 @@ public class homeScreen
 		ds.setOffsetX(6);
 		ds.setOffsetY(6);
 		ds.setColor(Color.GREY);
-	    
-	    Button newTransaction = new Button("New Transaction");
+		
+		Button newTransaction = new Button("New Transaction");
 	    newTransaction.setEffect(ds);
 	    newTransaction.setStyle("-fx-font-family: Quicksand;"
 	    		+ "-fx-pref-height: 80;" + 
@@ -224,7 +242,7 @@ public class homeScreen
 
 	    
 	    //menu.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
-	    
+	    menu.setStyle("-fx-background-color: #DCDCDC;");
 	    menu.setTranslateX(0);
 	    TranslateTransition menuTranslation = new TranslateTransition(Duration.millis(500), menu);
 	    
@@ -240,42 +258,43 @@ public class homeScreen
 	        menuTranslation.play();
 	    });
 	    
+	    
 	    navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
 	    });
 	    
-	    newTransaction.setOnAction(e->{
-	    	new newTransactionScreen();
-	    	homeStage.close();
-	    });
-	    
-	    completedTransaction.setOnAction(e->{
-	    	
-	    });
-	    
-	    addStock.setOnAction(e->{
-	    	new addStockScreen();
-	    	homeStage.close();
-	    });
-	    
-	    updateStock.setOnAction(e->{
-	    	new updateStockScreen();
-	    	homeStage.close();
-	    });
-	    
-	    deleteStock.setOnAction(e->{
-	    	
-	    });
-	    
-	    logOutButton.setOnAction(e->{
-	    	new logInScreen();
-	    	homeStage.close();
-	    });
+		//create the content for the Completed transaction
 		
-		root.setTop(navigationToolBar);
-		Scene scene = new Scene(root,1024,768);
-		homeStage.setScene(scene);
-		homeStage.show();
 		
-	}
+	    /**********************************************************************
+		 *                Table View Content                                  *
+		 ***********************************************************************/    
+	    TabPane compTransactionPane=new TabPane();
+	    
+	    Tab newComtrasancionTab=new Tab("Current Transaction");
+	     
+	    newComtrasancionTab.setStyle("-fx-font-size:16;");
+	    newComtrasancionTab.setClosable(false);
+	    newComtrasancionTab.setContent(new currentranTab());
+	    Tab updateTransactionTab=new Tab("History Transaction");
+	    updateTransactionTab.setClosable(false);
+	    updateTransactionTab.setStyle("-fx-font-size:16;");
+	    updateTransactionTab.setContent(new historyTranTab());
+	    compTransactionPane.getTabs().addAll(newComtrasancionTab,updateTransactionTab);
+	    root.setTop(navigationToolBar);
+	    root.setCenter(compTransactionPane);
+	    //root.setBottom(hbox);
+	  //create the scene
+		Scene scene = new Scene(root, 1024, 768);
+		
+		
+		//show the stage
+		comtransStage.setScene(scene);
+		comtransStage.show();
+
+
+  }
+	 
+   
+
 }
