@@ -10,7 +10,8 @@ import java.sql.Statement;
  * @author wjqcau
  *
  */
-public class AppDAO {
+public class DBConnection {
+	private static DBConnection instance = null;
 	private static Connection dbConnection=null;
 	private Statement statement=null;
 	
@@ -20,20 +21,41 @@ public class AppDAO {
 	 * @return void
 	 * @throws ClassNotFoundException
 	 */
-	public AppDAO() throws ClassNotFoundException {
+	private DBConnection() throws ClassNotFoundException
+	{
 		ReadCredential dbCredential=new ReadCredential();
-	 
-	 try {
-		 //Load class
-		 Class.forName(dbCredential.getDbDriver());
-		 //Initializing dbconnection
-		dbConnection= (Connection) DriverManager.getConnection(dbCredential.getDbURL(),
-				dbCredential.getDbUserName(),dbCredential.getDbPassword());
-		if(dbConnection!=null) {System.out.println("connect Succeffully");}
-		else System.out.println("connect failed!");
-	   } catch (SQLException e) {e.printStackTrace();}
 		
+		if(dbConnection == null)
+		{
+			try {
+				 //Load class
+				 Class.forName(dbCredential.getDbDriver());
+				 //Initializing dbconnection
+				dbConnection= (Connection) DriverManager.getConnection(dbCredential.getDbURL()+"?useSSL=false",
+						dbCredential.getDbUserName(),dbCredential.getDbPassword());
+				if(dbConnection!=null) {System.out.println("connect Succeffully");}
+				else System.out.println("connect failed!");
+			   } 
+			 catch (SQLException e) 
+			 {
+				 e.printStackTrace();
+			 }
+		}
 	}
+	
+	//Create a getInstance method
+	public static DBConnection getInstance() throws ClassNotFoundException {
+		if(instance == null) {
+			instance = new DBConnection();
+		}
+		return instance;
+	}
+
+	//getter method :Access db connection
+		public Connection getDbConnection() {
+			return dbConnection;
+		}
+	
 	/**
 	 * -Description: Search Database and return the search result.
 	 * @param sql
@@ -53,12 +75,13 @@ public class AppDAO {
 		return resultSet;
 			
 	}
+	
+	
 	/**
 	 * @description Executing: update,delete,insert according parameter sql statement
 	 * @param String updateSql
 	 * @return boolean value(true/false)
 	 */
-	
 	public Boolean UpdateRecords(String updateSql) {
 		 int rowsOfUpdate=0;
 		try {
@@ -75,10 +98,7 @@ public class AppDAO {
 	}
 	
 	
-	//getter method :Access db connection
-	public Connection getDbConnection() {
-		return dbConnection;
-	}
+	
 	
 
 }

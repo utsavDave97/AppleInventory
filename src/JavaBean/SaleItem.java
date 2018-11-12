@@ -4,14 +4,14 @@ package JavaBean;
  * @author wjqcau
  *
  */
-public class saleItem {
+public class SaleItem {
  private String prod_Id;
  private int sale_Id;
  private int sale_qty;
  //Constructor without parameters
- public saleItem() {}
+ public SaleItem() {}
  //Constructor with all parameters
-public saleItem(String prod_Id, int sale_Id, int sale_qty) {
+public SaleItem(String prod_Id, int sale_Id, int sale_qty) {
 	super();
 	this.prod_Id = prod_Id;
 	this.sale_Id = sale_Id;

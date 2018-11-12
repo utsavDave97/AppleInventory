@@ -3,13 +3,13 @@ package JavaBean;
  * @description this class is in responding to database table:user_role
  * @author wjqcau
  */
-public class userRole {
+public class UserRole {
  private String email;
  private char role_Id;
  //Constructor without parameter
- public userRole() {}
+ public UserRole() {}
  //Constructor with all parameters
-public userRole(String email, char role_Id) {
+public UserRole(String email, char role_Id) {
 	super();
 	this.email = email;
 	this.role_Id = role_Id;

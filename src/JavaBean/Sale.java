@@ -2,16 +2,16 @@ package JavaBean;
 
 import java.sql.Timestamp;
 
-public class sale {
+public class Sale {
 	private int sale_Id;
 	private String email;
 	private String tax;
 	private String total;
 	private Timestamp sale_time;
 	//Constructor
-	public sale() {	}
+	public Sale() {	}
 	//Constructor with some parameters
-	public sale(String email, String tax, String total, Timestamp sale_time) {
+	public Sale(String email, String tax, String total, Timestamp sale_time) {
 		super();
 		this.email = email;
 		this.tax = tax;
@@ -20,7 +20,7 @@ public class sale {
 	}
 	//Constructor with all parameters=========becarefull using this one, sale_Id will be created by 
 	 //database automatically
-	public sale(int sale_Id, String email, String tax, String total, Timestamp sale_time) {
+	public Sale(int sale_Id, String email, String tax, String total, Timestamp sale_time) {
 		super();
 		this.sale_Id = sale_Id;
 		this.email = email;

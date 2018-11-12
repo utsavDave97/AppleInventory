@@ -4,15 +4,15 @@ package JavaBean;
  * @author wjqcau
  *
  */
-public class product {
+public class Product {
  private String prod_Id;
  private String prod_name;
  private String prod_price;
  private String origin_place;
  //Constructor with no parameter
- public product() {}
+ public Product() {}
  //Constructor with parameters except for orgin_place
-public product(String prod_Id, String prod_name, String prod_price) {
+public Product(String prod_Id, String prod_name, String prod_price) {
 	super();
 	this.prod_Id = prod_Id;
 	this.prod_name = prod_name;
