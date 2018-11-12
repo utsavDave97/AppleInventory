@@ -4,13 +4,13 @@ package JavaBean;
  * @author wjqcau
  *
  */
-public class stock {
+public class Stock {
  private String prod_Id;
  private String prod_qty;
  
- public stock() {}
+ public Stock() {}
 
-public stock(String prod_Id, String prod_qty) {
+public Stock(String prod_Id, String prod_qty) {
 	super();
 	this.prod_Id = prod_Id;
 	this.prod_qty = prod_qty;

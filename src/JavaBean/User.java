@@ -1,23 +1,20 @@
 package JavaBean;
 
-public class user {
+public class User {
   //Declare properties which are exactly the same with user_table fields
   private String email;
   private String firstname;
   private String lastname;
-  private String telephone;
-  private char gender;
+  
   //Constructor:no parameter
-  public user() {}
+  public User() {}
   
   //Constructor:all parameters
-public user(String email, String firstname, String lastname, String telephone, char gender) {
+public User(String email, String firstname, String lastname, String telephone, char gender) {
 	super();
 	this.email = email;
 	this.firstname = firstname;
 	this.lastname = lastname;
-	this.telephone = telephone;
-	this.gender = gender;
 }
 //Getter and setter
 public String getEmail() {
@@ -42,24 +39,7 @@ public String getLastname() {
 
 public void setLastname(String lastname) {
 	this.lastname = lastname;
-}
-
-public String getTelephone() {
-	return telephone;
-}
-
-public void setTelephone(String telephone) {
-	this.telephone = telephone;
-}
-
-public char getGender() {
-	return gender;
-}
-
-public void setGender(char gender) {
-	this.gender = gender;
-}
- 
+} 
   
 }
 

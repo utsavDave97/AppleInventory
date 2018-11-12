@@ -1,4 +1,4 @@
-import Database.AppDAO;
+import Database.DBConnection;
 
 public class TestDatabase {
 /**
@@ -9,9 +9,9 @@ public class TestDatabase {
  */
 	public static void main(String[] args) {
 		//Test 1: database connection
-		AppDAO dabase;
+		DBConnection dabase;
 		try {
-			AppDAO dababase=new AppDAO();
+			DBConnection dababase= DBConnection.getInstance();
 		} catch (ClassNotFoundException e) {
 			
 			e.printStackTrace();
@@ -34,11 +34,11 @@ public class TestDatabase {
 		
 		//===============================For ProductDao Test:====================================
 		
-				//Test 2: Insert data to the table
-				//Test 3:Query data from table
-				//Test 4:update data
-				//Test 5 Delete
-				//Test 6 Insert
+		//Test 2: Insert data to the table
+		//Test 3:Query data from table
+		//Test 4:update data
+		//Test 5 Delete
+		//Test 6 Insert
 		
 
 	}
