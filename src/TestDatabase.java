@@ -10,9 +10,12 @@ public class TestDatabase {
 	public static void main(String[] args) {
 		//Test 1: database connection
 		DBConnection dabase;
-		try {
-			DBConnection dababase= DBConnection.getInstance();
-		} catch (ClassNotFoundException e) {
+		try 
+		{
+			dabase= DBConnection.getInstance();
+		} 
+		catch (ClassNotFoundException e) 
+		{
 			
 			e.printStackTrace();
 		}
