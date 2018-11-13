@@ -4,13 +4,13 @@ package JavaBean;
  * @author wjqcau
  *
  */
-public class password {
+public class Password {
 	private String email;
 	private String user_password;
 	
-    public password() {}
+    public Password() {}
 
-	public password(String email, String user_password) {
+	public Password(String email, String user_password) {
 		super();
 		this.email = email;
 		this.user_password = user_password;
