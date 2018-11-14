@@ -5,24 +5,24 @@ package JavaBean;
  *
  */
 public class Stock {
- private String prod_Id;
+ private String prod_id;
  private String prod_qty;
  
  public Stock() {}
 
-public Stock(String prod_Id, String prod_qty) {
+public Stock(String prod_id, String prod_qty) {
 	super();
-	this.prod_Id = prod_Id;
+	this.prod_id = prod_id;
 	this.prod_qty = prod_qty;
 }
  //getter and setter
 
 public String getProd_Id() {
-	return prod_Id;
+	return prod_id;
 }
 
-public void setProd_Id(String prod_Id) {
-	this.prod_Id = prod_Id;
+public void setProd_Id(String prod_id) {
+	this.prod_id = prod_id;
 }
 
 public String getProd_qty() {
