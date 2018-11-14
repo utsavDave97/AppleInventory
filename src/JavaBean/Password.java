@@ -6,14 +6,14 @@ package JavaBean;
  */
 public class Password {
 	private String email;
-	private String user_password;
+	private String password;
 	
     public Password() {}
 
-	public Password(String email, String user_password) {
+	public Password(String email, String password) {
 		super();
 		this.email = email;
-		this.user_password = user_password;
+		this.password = password;
 	}
     //getter and setter
 
@@ -26,11 +26,11 @@ public class Password {
 	}
 
 	public String getUser_password() {
-		return user_password;
+		return password;
 	}
 
-	public void setUser_password(String user_password) {
-		this.user_password = user_password;
+	public void setUser_password(String password) {
+		this.password = password;
 	}
 	
 

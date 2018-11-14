@@ -3,36 +3,34 @@ package JavaBean;
 import java.sql.Timestamp;
 
 public class Sale {
-	private int sale_Id;
+	private int sale_id;
 	private String email;
 	private String tax;
 	private String total;
-	private Timestamp sale_time;
+	
 	//Constructor
 	public Sale() {	}
 	//Constructor with some parameters
-	public Sale(String email, String tax, String total, Timestamp sale_time) {
+	public Sale(String email, String tax, String total) {
 		super();
 		this.email = email;
 		this.tax = tax;
 		this.total = total;
-		this.sale_time = sale_time;
 	}
 	//Constructor with all parameters=========becarefull using this one, sale_Id will be created by 
 	 //database automatically
-	public Sale(int sale_Id, String email, String tax, String total, Timestamp sale_time) {
+	public Sale(int sale_id, String email, String tax, String total) {
 		super();
-		this.sale_Id = sale_Id;
+		this.sale_id = sale_id;
 		this.email = email;
 		this.tax = tax;
 		this.total = total;
-		this.sale_time = sale_time;
 	}
 	public int getSale_Id() {
-		return sale_Id;
+		return sale_id;
 	}
-	public void setSale_Id(int sale_Id) {
-		this.sale_Id = sale_Id;
+	public void setSale_Id(int sale_id) {
+		this.sale_id = sale_id;
 	}
 	public String getEmail() {
 		return email;
@@ -52,15 +50,5 @@ public class Sale {
 	public void setTotal(String total) {
 		this.total = total;
 	}
-	public Timestamp getSale_time() {
-		return sale_time;
-	}
-	public void setSale_time(Timestamp sale_time) {
-		this.sale_time = sale_time;
-	}
-	
-	
-	
-	
 
 }

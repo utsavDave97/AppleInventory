@@ -122,18 +122,3 @@ public class Const
 			TABLE_SALE + "(" + SALE_COLUMN_ID + "));";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
