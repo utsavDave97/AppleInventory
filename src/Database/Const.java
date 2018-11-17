@@ -6,14 +6,14 @@ public class Const
 	
 	/*---------------Creating Constants for User Table------------------*/
 	public static final String TABLE_USER = "user";
-	public static final String USER_COLUMN_EMAIL = "email_id";
+	public static final String USER_COLUMN_EMAIL_ID = "email_id";
+	public static final String USER_COLUMN_EMAIL = "email";
 	public static final String USER_COLUMN_FNAME = "fname";
 	public static final String USER_COLUMN_LNAME = "lname";
 	
 	/*---------------Creating Constants for Password Table------------------*/
 	public static final String TABLE_PASSWORD = "password";
 	public static final String PASSWORD_COLUMN_EMAIL_ID = "email_id";
-	public static final String PASSWORD_COLUMN_EMAIL = "email";
 	public static final String PASSWORD_COLUMN_PASS = "password";
 	
 	/*---------------Creating Constants for Role Table------------------*/
@@ -55,7 +55,8 @@ public class Const
 	/*---------------Creating User Table------------------*/
 	public static final String CREATE_TABLE_USER = 
 				"CREATE TABLE " + TABLE_USER + " (" +
-				USER_COLUMN_EMAIL + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+				USER_COLUMN_EMAIL_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
+				USER_COLUMN_EMAIL + " VARCHAR(30) NOT NULL, " + 
 				USER_COLUMN_FNAME + " VARCHAR(20) NOT NULL, " + 
 				USER_COLUMN_LNAME + " VARCHAR(20) NOT NULL);";
 	
@@ -63,10 +64,9 @@ public class Const
 	public static final String CREATE_TABLE_PASSWORD = 
 			"CREATE TABLE " + TABLE_PASSWORD + " (" +
 			PASSWORD_COLUMN_EMAIL_ID + " INT NOT NULL PRIMARY KEY, " +
-			PASSWORD_COLUMN_EMAIL + " VARCHAR(40) NOT NULL, " +
-			PASSWORD_COLUMN_PASS + " VARCHAR(30) NOT NULL, " +
+			PASSWORD_COLUMN_PASS + " VARCHAR(60) NOT NULL, " +
 			"FOREIGN KEY (" + PASSWORD_COLUMN_EMAIL_ID + ") REFERENCES " + 
-			TABLE_USER + "(" + USER_COLUMN_EMAIL + "));";
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 	
 	/*---------------Creating Role Table------------------*/
 	public static final String CREATE_TABLE_ROLE =
@@ -81,7 +81,7 @@ public class Const
 			USER_ROLE_COLUMN_ID + " INT NOT NULL, " +
 			"PRIMARY KEY (" + USER_ROLE_COLUMN_EMAIL_ID + "," + USER_ROLE_COLUMN_ID + ")," +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_EMAIL_ID + ") REFERENCES " + 
-			TABLE_USER + "(" + USER_COLUMN_EMAIL + "), " +
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "), " +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_ID + ") REFERENCES " + 
 			TABLE_ROLE + "(" + ROLE_COLUMN_ID + "));";
 	
@@ -109,7 +109,7 @@ public class Const
 			SALE_COLUMN_TAX + " VARCHAR(10) NOT NULL, " +
 			SALE_COLUMN_TOTAL + " VARCHAR(10) NOT NULL, " +
 			"FOREIGN KEY (" + SALE_COLUMN_EMAIL + ") REFERENCES " +
-			TABLE_USER + "(" + USER_COLUMN_EMAIL + "));";
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 			
 	/*---------------Creating Sale Item Table------------------*/
 	public static final String CREATE_TABLE_SALE_ITEM =
