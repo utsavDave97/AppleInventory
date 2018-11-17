@@ -5,26 +5,37 @@ package JavaBean;
  *
  */
 public class Product {
- private String prod_id;
+ private int prod_id;
  private String prod_name;
  private String prod_price;
  private String prod_taste;
+ private String prod_qty;
  
- 
+
+public String getProd_qty() {
+	return prod_qty;
+}
+
+
+public void setProd_qty(String prod_qty) {
+	this.prod_qty = prod_qty;
+}
+
 
 //Constructor with no parameter
  public Product() {}
  
- //Constructor with parameters except for orgin_place
-public Product(String prod_id, String prod_name, String prod_price) {
+ 
+public Product(String prod_name, String prod_price, String prod_taste, String prod_qty) {
 	super();
-	this.prod_id = prod_id;
 	this.prod_name = prod_name;
 	this.prod_price = prod_price;
+	this.prod_taste = prod_taste;
+	this.prod_qty = prod_qty;
 }
 
-//Constructor with parameters except for orgin_place
-public Product(String prod_id, String prod_name, String prod_price, String prod_taste) {
+
+public Product(int prod_id, String prod_name, String prod_price, String prod_taste) {
 	super();
 	this.prod_id = prod_id;
 	this.prod_name = prod_name;
@@ -32,10 +43,10 @@ public Product(String prod_id, String prod_name, String prod_price, String prod_
 	this.prod_taste = prod_taste;
 }
 //Getter and setter
-public String getProd_Id() {
+public int getProd_Id() {
 	return prod_id;
 }
-public void setProd_Id(String prod_id) {
+public void setProd_Id(int prod_id) {
 	this.prod_id = prod_id;
 }
 public String getProd_name() {
