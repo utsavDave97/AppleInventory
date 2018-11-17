@@ -5,9 +5,14 @@ package JavaBean;
  */
 public class UserRole {
  private String email;
- private char role_id;
+ private int role_id;
  //Constructor without parameter
  public UserRole() {}
+ //constructor with one paramater
+ public UserRole(int role_id) {
+	 super();
+	 this.role_id = role_id;
+ }
  //Constructor with all parameters
 public UserRole(String email, char role_id) {
 	super();
@@ -21,10 +26,10 @@ public String getEmail() {
 public void setEmail(String email) {
 	this.email = email;
 }
-public char getRole_Id() {
+public int getRole_Id() {
 	return role_id;
 }
-public void setRole_Id(char role_id) {
+public void setRole_Id(int role_id) {
 	this.role_id = role_id;
 }
 

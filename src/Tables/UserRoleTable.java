@@ -3,49 +3,48 @@ package Tables;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import DAO.UserDAO;
+import DAO.UserRoleDAO;
 import Database.Const;
 import Database.DBConnection;
-import JavaBean.User;
+import JavaBean.UserRole;
 
-public class UserTable implements UserDAO{
+public class UserRoleTable implements UserRoleDAO{
 
 	@Override
-	public ArrayList<User> getAllUsers() {
+	public ArrayList<UserRole> getAllUserRoles() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User getUser(String email) {
+	public UserRole getUserRole(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updateUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void deleteUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void createUser(User user) {
-		String query = "INSERT INTO " + Const.TABLE_USER + "(" + Const.USER_COLUMN_EMAIL+", "
-				+ Const.USER_COLUMN_FNAME+", "+Const.USER_COLUMN_LNAME + ") VALUES ('"+
-				user.getEmail()+"','"+user.getFirstname()+"','"+user.getLastname()+"')";
+	public void createUserRole(UserRole userRole) {
+		String query = "INSERT INTO " + Const.TABLE_USER_ROLE + "(" + Const.USER_ROLE_COLUMN_ID +") VALUES ('"+userRole.getRole_Id()+"')";
+		
 		try {
 			DBConnection db = DBConnection.getInstance();
 			db.getDbConnection().createStatement().execute(query);
 			System.out.println("Inserted record!");
 		}catch(SQLException  e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 
 }
