@@ -1,4 +1,4 @@
-import Screens.completedTranScreen;
+	import Screens.completedTranScreen;
 import Screens.logInScreen;
 import Screens.newTransactionScreen;
 import javafx.animation.KeyFrame;
