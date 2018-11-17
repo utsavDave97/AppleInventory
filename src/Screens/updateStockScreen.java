@@ -4,6 +4,8 @@
 
 package Screens;
 
+import JavaBean.Product;
+import Tables.ProductTable;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,6 +24,7 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -37,6 +41,8 @@ public class updateStockScreen
 {
 	public updateStockScreen()
 	{
+		ProductTable table = new ProductTable();
+		
 		Stage updateStage = new Stage();
 		//Create the root pane and give it styling
 		
@@ -214,6 +220,28 @@ public class updateStockScreen
 		submit.setStyle("-fx-border-color:B82F33;"
 					  + "-fx-font-family: Quicksand;"
 					  + "-fx-font-size: 12pt;");
+		
+		reset.setOnAction(e->{
+	    	nameField.clear();
+	    	quantityField.clear();
+	    	priceField.clear();
+	    });
+	    
+	    submit.setOnAction(e->{
+//	    	Product product = new Product(
+//	    			nameField.getText().trim(),
+//	    			quantityField.getText().trim(),
+//	    			priceField.getText().trim()
+//	    			);
+//	    	
+//	    	table.createProduct(product);
+	    	
+	    	Alert successInsert = new Alert(AlertType.INFORMATION);
+	    	successInsert.setTitle("Successful Insert");
+	    	successInsert.setHeaderText(null);
+	    	successInsert.setContentText("Record has been inserted!");
+	    	successInsert.showAndWait();
+	    });
 		
 		//Set content to GridPane
 		gridPane.add(typeLabel, 0, 0);

@@ -5,24 +5,25 @@ package JavaBean;
  *
  */
 public class Password {
-	private String email;
+	private int email_id;
 	private String password;
 	
     public Password() {}
 
-	public Password(String email, String password) {
+	public Password(int email_id, String password) {
 		super();
-		this.email = email;
+		this.email_id = email_id;
 		this.password = password;
 	}
     //getter and setter
 
-	public String getEmail() {
-		return email;
+
+	public int getEmail_id() {
+		return email_id;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail_id(int email_id) {
+		this.email_id = email_id;
 	}
 
 	public String getUser_password() {

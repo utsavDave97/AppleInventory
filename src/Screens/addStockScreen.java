@@ -3,12 +3,16 @@
  */
 package Screens;
 
+import JavaBean.Product;
+import Tables.ProductTable;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -32,6 +36,8 @@ public class addStockScreen
 	
 	public addStockScreen()
 	{
+		ProductTable table = new ProductTable();
+		
 		//Create the Stage
 		Stage addStockStage = new Stage();
 		
@@ -180,6 +186,29 @@ public class addStockScreen
 	    
 	    deleteStock.setOnAction(e->{
 	    	
+	    });
+	    
+	    reset.setOnAction(e->{
+	    	typeField.clear();
+	    	quantityField.clear();
+	    	priceField.clear();
+	    });
+	    
+	    submit.setOnAction(e->{
+	    	Product product = new Product(
+	    			typeField.getText().trim(),
+	    			priceField.getText().trim(),
+	    			tasteNames.getSelectionModel().getSelectedItem().toString(),
+	    			quantityField.getText().trim()
+	    			);
+	    	
+	    	table.createProduct(product);
+	    	
+	    	Alert successInsert = new Alert(AlertType.INFORMATION);
+	    	successInsert.setTitle("Successful Insert");
+	    	successInsert.setHeaderText(null);
+	    	successInsert.setContentText("Record has been inserted!");
+	    	successInsert.showAndWait();
 	    });
 	    
 	    root.setTop(navigationToolBar);
