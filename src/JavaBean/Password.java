@@ -10,6 +10,13 @@ public class Password {
 	
     public Password() {}
 
+    //create a method for just taking a passoword
+    
+    public Password(String password) {
+    		super();
+    		this.password = password;
+    }
+    
 	public Password(int email_id, String password) {
 		super();
 		this.email_id = email_id;

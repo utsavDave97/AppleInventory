@@ -3,42 +3,43 @@ package Tables;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import DAO.UserDAO;
+import DAO.PasswordDAO;
 import Database.Const;
 import Database.DBConnection;
-import JavaBean.User;
+import JavaBean.Password;
 
-public class UserTable implements UserDAO{
+public class PasswordTable implements PasswordDAO{
 
 	@Override
-	public ArrayList<User> getAllUsers() {
+	public ArrayList<Password> getAllPasswords() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User getUser(String email) {
+	public Password getPassword(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void updateUser(User user) {
+	public void updatePassword(Password password) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void deleteUser(User user) {
+	public void deletePassword(Password password) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void createUser(User user) {
-		String query = "INSERT INTO " + Const.TABLE_USER + "(" + Const.USER_COLUMN_EMAIL+", "
-				+ Const.USER_COLUMN_FNAME+", "+Const.USER_COLUMN_LNAME + ") VALUES ('"+
-				user.getEmail()+"','"+user.getFirstname()+"','"+user.getLastname()+"')";
+	public void createPassword(Password password) {
+		
+		String query = "INSERT INTO " + Const.TABLE_PASSWORD + "(" + Const.PASSWORD_COLUMN_PASS +") VALUES ('"+
+				password.getUser_password()+"')";
+		
 		try {
 			DBConnection db = DBConnection.getInstance();
 			db.getDbConnection().createStatement().execute(query);
@@ -46,6 +47,7 @@ public class UserTable implements UserDAO{
 		}catch(SQLException  e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 }
