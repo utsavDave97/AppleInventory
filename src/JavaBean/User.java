@@ -2,6 +2,7 @@ package JavaBean;
 
 public class User {
   //Declare properties which are exactly the same with user_table fields
+  private int email_id;
   private String email;
   private String fname;
   private String lname;
@@ -10,12 +11,28 @@ public class User {
   public User() {}
   
   //Constructor:all parameters
-public User(String email, String fname, String lname, String telephone) {
+public User(int email_id,String email, String fname, String lname) {
+	super();
+	this.email_id = email_id;
+	this.email = email;
+	this.fname = fname;
+	this.lname = lname;
+}
+
+public User(String email, String fname, String lname) {
 	super();
 	this.email = email;
 	this.fname = fname;
 	this.lname = lname;
 }
+public int getEmail_id() {
+	return email_id;
+}
+
+public void setEmail_id(int email_id) {
+	this.email_id = email_id;
+}
+
 //Getter and setter
 public String getEmail() {
 	return email;
