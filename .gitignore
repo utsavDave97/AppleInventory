@@ -59,3 +59,8 @@ local.properties
 
 # Add igore database credential file
 *.properties
+
+# ignore credentials constants file
+src/Database/Const_Credential.java
+
+
