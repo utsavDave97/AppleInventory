@@ -1,5 +1,7 @@
 package Database;
 
+import jdk.internal.dynalink.beans.StaticClass;
+
 public class Const 
 {
 	//create a constant for each of the table and column names
@@ -44,6 +46,7 @@ public class Const
 	public static final String SALE_COLUMN_EMAIL = "email";
 	public static final String SALE_COLUMN_TAX = "tax";
 	public static final String SALE_COLUMN_TOTAL = "total";
+	public static final String SALE_COLUMN_TIME="sale_time";
 	
 	/*---------------Creating Constants for Sale Item Table------------------*/
 	public static final String TABLE_SALE_ITEM = "sale_item";
@@ -63,12 +66,17 @@ public class Const
 	/*---------------Creating Password Table------------------*/
 	public static final String CREATE_TABLE_PASSWORD = 
 			"CREATE TABLE " + TABLE_PASSWORD + " (" +
-			PASSWORD_COLUMN_EMAIL_ID + " INT NOT NULL PRIMARY KEY, " +
+			PASSWORD_COLUMN_EMAIL_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
 			PASSWORD_COLUMN_PASS + " VARCHAR(60) NOT NULL, " +
 			"FOREIGN KEY (" + PASSWORD_COLUMN_EMAIL_ID + ") REFERENCES " + 
 			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 	
 	/*---------------Creating Role Table------------------*/
+	
+	public static final int CLERKROLEID = 1;
+	public static final int MANAGERROLEID = 2;
+	public static final int ADMINISTRATORROLEID = 3;
+	
 	public static final String CREATE_TABLE_ROLE =
 			"CREATE TABLE " + TABLE_ROLE + " (" +
 			ROLE_COLUMN_ID + " INT NOT NULL PRIMARY KEY, " +
@@ -77,7 +85,7 @@ public class Const
 	/*---------------Creating User Role Table------------------*/
 	public static final String CREATE_TABLE_USER_ROLE =
 			"CREATE TABLE " + TABLE_USER_ROLE + " (" +
-			USER_ROLE_COLUMN_EMAIL_ID + " INT NOT NULL, " +
+			USER_ROLE_COLUMN_EMAIL_ID + " INT NOT NULL AUTO_INCREMENT, " +
 			USER_ROLE_COLUMN_ID + " INT NOT NULL, " +
 			"PRIMARY KEY (" + USER_ROLE_COLUMN_EMAIL_ID + "," + USER_ROLE_COLUMN_ID + ")," +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_EMAIL_ID + ") REFERENCES " + 
@@ -108,6 +116,7 @@ public class Const
 			SALE_COLUMN_EMAIL + " INT NOT NULL, " +
 			SALE_COLUMN_TAX + " VARCHAR(10) NOT NULL, " +
 			SALE_COLUMN_TOTAL + " VARCHAR(10) NOT NULL, " +
+			SALE_COLUMN_TIME  +"DATE NOT NULL, " +
 			"FOREIGN KEY (" + SALE_COLUMN_EMAIL + ") REFERENCES " +
 			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 			

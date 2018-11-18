@@ -2,6 +2,13 @@ package Screens;
 
 import javax.swing.JComboBox;
 
+import Database.Const;
+import JavaBean.Password;
+import JavaBean.User;
+import JavaBean.UserRole;
+import Tables.PasswordTable;
+import Tables.UserRoleTable;
+import Tables.UserTable;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -48,11 +55,11 @@ public registerScreen(){
 			lnameLabel.setStyle("-fx-font-family: Quicksand");
 			//create a textfield for the last name
 			TextField lname = new TextField();
-			//create a label for the username
-			Label userNameLabel = new Label("User Name:");
-			userNameLabel.setStyle("-fx-font-family: Quicksand");
-			//create a textfied for the username
-			TextField userName = new TextField();
+			//create a label for the email
+			Label emailLabel = new Label("Email:");
+			emailLabel.setStyle("-fx-font-family: Quicksand");
+			//create a textfied for the email
+			TextField email = new TextField();
 			//create a label for the position
 			Label positionLabel = new Label("Position:");
 			positionLabel.setStyle("-fx-font-family: Quicksand");
@@ -81,8 +88,8 @@ public registerScreen(){
 			pane.add(lnameLabel, 0, 1);
 			pane.add(lname, 1, 1,3,1);
 			
-			pane.add(userNameLabel, 0, 2);
-			pane.add(userName, 1, 2,3,1);
+			pane.add(emailLabel, 0, 2);
+			pane.add(email, 1, 2,3,1);
 			
 			pane.add(positionLabel, 0, 3);
 			pane.add(combo, 1, 3,3,1);
@@ -93,16 +100,49 @@ public registerScreen(){
 			//set an onclick listiner for the backbutton
 			back.setOnAction(e->{
 				new logInScreen();
+				stage.close();
 			});
 			//set an onclick listener for the register button
 			register.setOnAction(e->{
-				//this is where the database query will be implemented
+				//create a new usertable object
+				UserTable usertable = new UserTable();
+				//create a new passwordtable object
+				PasswordTable passwordtable = new PasswordTable();
+				//create a new userrole object
+				UserRoleTable useroletable = new UserRoleTable();
+				//create new user object
+				User user = new User();
+				//create a new password object
+				Password passwordobj = new Password();
+				//create a new userole object
+				UserRole userrole = new UserRole();
+				//use the user methods
+				user.setEmail(email.getText());
+				user.setFirstname(fname.getText());
+				user.setLastname(lname.getText());
+				//use the password methods
+				passwordobj.setUser_password(passWord.getText());
+				//use the userrole methods
+				if(combo.getSelectionModel().getSelectedItem() == "Clerk") {
+					userrole.setRole_Id(Const.CLERKROLEID);
+				}else if(combo.getSelectionModel().getSelectedItem()=="manager") {
+					userrole.setRole_Id(Const.MANAGERROLEID);
+				}else if(combo.getSelectionModel().getSelectedItem()=="administrator") {
+					userrole.setRole_Id(Const.ADMINISTRATORROLEID);
+				}
+				
+				
+				
+				//send the information to the database
+				usertable.createUser(user);
+				passwordtable.createPassword(passwordobj);
+				useroletable.createUserRole(userrole);
 			});
 			//set an onclick listener for the clear button
 			clearInfo.setOnAction(e->{
 				fname.setText("");
 				lname.setText("");
-				userName.setText("");
+				email.setText("");
 				passWord.setText("");
 			});
 			//add to hbox and set to bottom

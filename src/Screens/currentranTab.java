@@ -1,5 +1,6 @@
 package Screens;
 
+import Screens.TableViewItems.SaleItem;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -38,9 +39,49 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 
 				//create the content for the Completed transaction
 		
-		
+       /**********************************************************************
+        *                Top choose and add sale Item                                  *
+        ***********************************************************************/    		
+    //Declare a hbox to holding the operations
+     HBox addItemBox=new HBox(40); 
+     addItemBox.setPadding(new Insets(20,20,20,250));
+     addItemBox.setStyle("-fx-border-color:gray;\n"
+        		+ "-fx-border-width:0 0 1 0;\n"
+        		+ "-fx-border-style:solid;");
+     Label nameLabel=new Label("Type:");
+     //set the name font
+     nameLabel.setStyle("-fx-font-family: Quicksand;"
+ 				  + "-fx-font-size: 12pt;");
+      // Create the ObservableLists for the ComboBox
+      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
+		"Gala", 
+		"Red Delicious", 
+		"Granny Smith",
+		"Honeycrisp",
+		"Golden Delicious",
+		"Pink Lady",
+		"Opal",
+		"Jazz");  
+      // Create the ListView for the seasons
+      ComboBox appleNames = new ComboBox(appleList);
+      //Give the first default selection item
+      appleNames.getSelectionModel().selectFirst();
+      //Set List Style Font
+      appleNames.setStyle(" -fx-font-family: Quicksand;"
+				  + "-fx-font-size: 12pt;");
+      // Set the Size of the ComoBox
+      appleNames.setPrefSize(200, 30);
+      //add a button to add more apple items
+      Button addItemButton=new Button("Add Item");
+      addItemButton.setStyle("-fx-border-color: B82F33;"
+					 + "-fx-font-family: Quicksand;"
+					 + "-fx-font-size: 12pt;");
+      addItemBox.getChildren().addAll(appleNames,addItemButton);
+         
+
+
 	    /**********************************************************************
-		 *                Table View Content                                  *
+		 *                Table List Content                                  *
 		 ***********************************************************************/    
 	    TableView<SaleItem> table = new TableView<SaleItem>();
 	     final ObservableList<SaleItem> data =
@@ -113,10 +154,10 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         		+ "-fx-padding:0 0 0 10;\n"
         		+ "-fx-background-color:white");
         taxTextBox.getChildren().add(taxText);
-        taxTextBox.setMinWidth(460);
+        taxTextBox.setMinWidth(465);
         
         HBox taxHbox=new HBox();
-        taxHbox.setSpacing(152);
+        taxHbox.setSpacing(155);
         taxHbox.getChildren().addAll(taxLable,taxTextBox);
        
         
@@ -135,7 +176,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         		+ "-fx-border-style:solid;\n"
         		+ "-fx-padding:0 0 0 10;\n"
         		+ "-fx-background-color:white");
-        amountTextBox.setMinWidth(460);
+        amountTextBox.setMinWidth(465);
         
         
         
@@ -179,14 +220,14 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 					  + "-fx-font-size: 12pt;");
 						
 		 final HBox hbox = new HBox();
-		 hbox.setSpacing(50);
-		 hbox.setPadding(new Insets(10, 0, 100, 300));
+		 hbox.setSpacing(200);
+		 hbox.setPadding(new Insets(60, 0, 100, 300));
 		    
 		 hbox.getChildren().addAll(reset,submit);
 	    //Set content to GridPane
 		
 	    
-	   
+	   this.setTop(addItemBox);
 	    this.setCenter(vbox);
 	    this.setBottom(hbox);
 	  //create the scene
@@ -198,73 +239,6 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 
 
   }
-	 /**
-	  * @description this inner class mainly provide data structure for tableview
-	  * @author wjqcau
-	  *
-	  */
-    public static class SaleItem {
- 
-        private  SimpleStringProperty upcNumber;
-        private  SimpleStringProperty name;
-        private  SimpleStringProperty price;
-        private  SimpleStringProperty totPrice;
-        private  TextField quantity;
-        private  CheckBox reviseCheck;
-        private  Button delButton;
-        private SaleItem(String upcNumber, String name, String price,String totPrice) {
-        	this.quantity=new TextField();
-        	this.reviseCheck=new CheckBox();
-        	this.delButton=new Button("Delete");
-        	//reviseCheck.setId("1");
-            this.upcNumber = new SimpleStringProperty(upcNumber);
-            this.name = new SimpleStringProperty(name);
-            this.price = new SimpleStringProperty(price);
-            this.totPrice=new SimpleStringProperty(totPrice);
-          
-        }
- 
-        public String getName() {
-            return name.get();
-        }
- 
-        public void setName(String productName) {
-          name.set(productName);
-        }
- 
-        public String getUpcNumber() {
-            return upcNumber.get();
-        }
- 
-        public void setUpcNumber(String upcNum) {
-            upcNumber.set(upcNum);
-        }
- 
-        public String getPrice() {
-            return price.get();
-        }
- 
-        public void setPrice(String productPrice) {
-            price.set(productPrice);
-        }
-        
-        
-        public void setTotPrice(String totPri) {
-        	totPrice.set(totPri);
-        }
-        public String getTotPrice() {return totPrice.get();}
-        
-        public void setReviseCheck(CheckBox reviseCheck) {
-        	this.reviseCheck=reviseCheck;
-        }
-        public CheckBox getReviseCheck() {return reviseCheck;}
-        public void setDelButton(Button delButton) {this.delButton=delButton;}
-        public Button getDelButton() {return delButton;}
-        public TextField getQuantity() {return quantity;}
-        public void setQuantity(TextField quantity) {this.quantity=quantity;}	
-		
-		
-		
-	}
+
 
 }
