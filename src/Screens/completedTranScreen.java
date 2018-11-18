@@ -80,7 +80,7 @@ public class completedTranScreen
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
 		
 		Button newTransaction = new Button("New Transaction");
-		Button completedTransaction = new Button("Completed Transaction");
+		Button completedTransaction = new Button("Competed Transaction");
 		Button addStock = new Button("Add Stock");
 		Button updateStock = new Button("Update Stock");
 		Button deleteStock = new Button("Delete Stock");

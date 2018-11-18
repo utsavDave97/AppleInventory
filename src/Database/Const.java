@@ -1,5 +1,7 @@
 package Database;
 
+import jdk.internal.dynalink.beans.StaticClass;
+
 public class Const 
 {
 	//create a constant for each of the table and column names
@@ -44,6 +46,7 @@ public class Const
 	public static final String SALE_COLUMN_EMAIL = "email";
 	public static final String SALE_COLUMN_TAX = "tax";
 	public static final String SALE_COLUMN_TOTAL = "total";
+	public static final String SALE_COLUMN_TIME="sale_time";
 	
 	/*---------------Creating Constants for Sale Item Table------------------*/
 	public static final String TABLE_SALE_ITEM = "sale_item";
@@ -113,6 +116,7 @@ public class Const
 			SALE_COLUMN_EMAIL + " INT NOT NULL, " +
 			SALE_COLUMN_TAX + " VARCHAR(10) NOT NULL, " +
 			SALE_COLUMN_TOTAL + " VARCHAR(10) NOT NULL, " +
+			SALE_COLUMN_TIME  +"DATE NOT NULL, " +
 			"FOREIGN KEY (" + SALE_COLUMN_EMAIL + ") REFERENCES " +
 			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 			
