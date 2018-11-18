@@ -1,8 +1,6 @@
 package Screens;
 
-import Screens.historyTranTab.SaleHisItem;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -79,7 +77,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 					 + "-fx-font-size: 12pt;");
       addItemBox.getChildren().addAll(appleNames,addItemButton);
          
-     
+
 
 	    /**********************************************************************
 		 *                Table List Content                                  *
@@ -208,9 +206,9 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         vbox.getChildren().addAll(table,sumDesVbox);
 	    
 	    //create the cancel button
-		Button cancel = new Button("Cancel");
+		Button reset = new Button("Cancel");
 		//set the styling for the button
-		cancel.setStyle("-fx-border-color: B82F33;"
+		reset.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		//create the submit button
@@ -224,7 +222,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 		 hbox.setSpacing(200);
 		 hbox.setPadding(new Insets(60, 0, 100, 300));
 		    
-		 hbox.getChildren().addAll(cancel,submit);
+		 hbox.getChildren().addAll(reset,submit);
 	    //Set content to GridPane
 		
 	    
@@ -234,32 +232,9 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	  //create the scene
 		
 		
-	/**************************************************************************************
-	 *         add  button event
-	 *************************************************************************************/
-	//add item button event
-	    addItemButton.setOnAction(e->{
-	    	    	
-		 data.add(new SaleItem("0002", "Fuji", "2.5", "3.2"));
-	 });
-	 //delete button event
-	 table.setOnMouseClicked(e->{
-		 for(SaleItem  saleItem:data) {
-			 saleItem.getDelButton().setOnAction(chosenEvent->{
-				 Platform.runLater(() -> {data.remove(saleItem);}); 
-			 });
-		 }
-	 });
-	 
-	//add cancel button event
-	 cancel.setOnAction(e->{
-		for(SaleItem saleItem:data) {
-			 Platform.runLater(() -> {data.remove(saleItem);}); 
-		} 
-		 
-		 
-	 });
-
+		
+		//show the stage
+	
 
 
   }
