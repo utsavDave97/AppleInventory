@@ -81,7 +81,8 @@ public class Main extends Application
 		 */
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
-			new logInScreen();
+			new newTransactionScreen();
+			//new logInScreen();
 			//new completedTranScreen();
 			primaryStage.close();
 		};

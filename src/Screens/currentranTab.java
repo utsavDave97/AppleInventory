@@ -1,6 +1,8 @@
 package Screens;
 
+import Screens.historyTranTab.SaleHisItem;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,9 +40,49 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 
 				//create the content for the Completed transaction
 		
-		
+       /**********************************************************************
+        *                Top choose and add sale Item                                  *
+        ***********************************************************************/    		
+    //Declare a hbox to holding the operations
+     HBox addItemBox=new HBox(40); 
+     addItemBox.setPadding(new Insets(20,20,20,250));
+     addItemBox.setStyle("-fx-border-color:gray;\n"
+        		+ "-fx-border-width:0 0 1 0;\n"
+        		+ "-fx-border-style:solid;");
+     Label nameLabel=new Label("Type:");
+     //set the name font
+     nameLabel.setStyle("-fx-font-family: Quicksand;"
+ 				  + "-fx-font-size: 12pt;");
+      // Create the ObservableLists for the ComboBox
+      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
+		"Gala", 
+		"Red Delicious", 
+		"Granny Smith",
+		"Honeycrisp",
+		"Golden Delicious",
+		"Pink Lady",
+		"Opal",
+		"Jazz");  
+      // Create the ListView for the seasons
+      ComboBox appleNames = new ComboBox(appleList);
+      //Give the first default selection item
+      appleNames.getSelectionModel().selectFirst();
+      //Set List Style Font
+      appleNames.setStyle(" -fx-font-family: Quicksand;"
+				  + "-fx-font-size: 12pt;");
+      // Set the Size of the ComoBox
+      appleNames.setPrefSize(200, 30);
+      //add a button to add more apple items
+      Button addItemButton=new Button("Add Item");
+      addItemButton.setStyle("-fx-border-color: B82F33;"
+					 + "-fx-font-family: Quicksand;"
+					 + "-fx-font-size: 12pt;");
+      addItemBox.getChildren().addAll(appleNames,addItemButton);
+         
+     
+
 	    /**********************************************************************
-		 *                Table View Content                                  *
+		 *                Table List Content                                  *
 		 ***********************************************************************/    
 	    TableView<SaleItem> table = new TableView<SaleItem>();
 	     final ObservableList<SaleItem> data =
@@ -113,10 +155,10 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         		+ "-fx-padding:0 0 0 10;\n"
         		+ "-fx-background-color:white");
         taxTextBox.getChildren().add(taxText);
-        taxTextBox.setMinWidth(460);
+        taxTextBox.setMinWidth(465);
         
         HBox taxHbox=new HBox();
-        taxHbox.setSpacing(152);
+        taxHbox.setSpacing(155);
         taxHbox.getChildren().addAll(taxLable,taxTextBox);
        
         
@@ -135,7 +177,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         		+ "-fx-border-style:solid;\n"
         		+ "-fx-padding:0 0 0 10;\n"
         		+ "-fx-background-color:white");
-        amountTextBox.setMinWidth(460);
+        amountTextBox.setMinWidth(465);
         
         
         
@@ -166,9 +208,9 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         vbox.getChildren().addAll(table,sumDesVbox);
 	    
 	    //create the cancel button
-		Button reset = new Button("Cancel");
+		Button cancel = new Button("Cancel");
 		//set the styling for the button
-		reset.setStyle("-fx-border-color: B82F33;"
+		cancel.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		//create the submit button
@@ -179,22 +221,45 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 					  + "-fx-font-size: 12pt;");
 						
 		 final HBox hbox = new HBox();
-		 hbox.setSpacing(50);
-		 hbox.setPadding(new Insets(10, 0, 100, 300));
+		 hbox.setSpacing(200);
+		 hbox.setPadding(new Insets(60, 0, 100, 300));
 		    
-		 hbox.getChildren().addAll(reset,submit);
+		 hbox.getChildren().addAll(cancel,submit);
 	    //Set content to GridPane
 		
 	    
-	   
+	   this.setTop(addItemBox);
 	    this.setCenter(vbox);
 	    this.setBottom(hbox);
 	  //create the scene
 		
 		
-		
-		//show the stage
-	
+	/**************************************************************************************
+	 *         add  button event
+	 *************************************************************************************/
+	//add item button event
+	    addItemButton.setOnAction(e->{
+	    	    	
+		 data.add(new SaleItem("0002", "Fuji", "2.5", "3.2"));
+	 });
+	 //delete button event
+	 table.setOnMouseClicked(e->{
+		 for(SaleItem  saleItem:data) {
+			 saleItem.getDelButton().setOnAction(chosenEvent->{
+				 Platform.runLater(() -> {data.remove(saleItem);}); 
+			 });
+		 }
+	 });
+	 
+	//add cancel button event
+	 cancel.setOnAction(e->{
+		for(SaleItem saleItem:data) {
+			 Platform.runLater(() -> {data.remove(saleItem);}); 
+		} 
+		 
+		 
+	 });
+
 
 
   }
