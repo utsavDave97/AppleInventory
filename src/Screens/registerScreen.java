@@ -100,6 +100,7 @@ public registerScreen(){
 			//set an onclick listiner for the backbutton
 			back.setOnAction(e->{
 				new logInScreen();
+				stage.close();
 			});
 			//set an onclick listener for the register button
 			register.setOnAction(e->{
