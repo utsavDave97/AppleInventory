@@ -9,6 +9,7 @@ import DAO.ProductDAO;
 import Database.Const;
 import Database.DBConnection;
 import JavaBean.Product;
+import javafx.collections.FXCollections;
 
 public class ProductTable implements ProductDAO 
 {
@@ -39,7 +40,8 @@ public class ProductTable implements ProductDAO
 		{
 			e.printStackTrace();
 		}
-		return null;
+		
+		return products;
 	}
 
 	@Override
@@ -94,20 +96,12 @@ public class ProductTable implements ProductDAO
 	@Override
 	public void createProduct(Product product) 
 	{
-		String query = "START TRANSACTION; "
-				+ "INSERT INTO " + Const.TABLE_PRODUCT +
+		String query = "INSERT INTO " + Const.TABLE_PRODUCT +
 				   "(" + Const.PRODUCT_COLUMN_NAME + ", " +
 				   Const.PRODUCT_COLUMN_PRICE + "," +
 				   Const.PRODUCT_COLUMN_TASTE + ") VALUES ('" +
 				   product.getProd_name() + "','" + product.getProd_price() + "','" + 
-				   product.getProd_taste() + "');"
-				   	 + "INSERT INTO " + Const.TABLE_STOCK + 
-				   "(" + Const.STOCK_COLUMN_ID + "," +
-				   	 Const.STOCK_COLUMN_QUANTITY + ") VALUES ('" +
-				   product.getProd_Id() + "','" +
-				   product.getProd_qty() + "'); "
-				   		+ "COMMIT;";
-		
+				   product.getProd_taste() + "');";
 		
 		try 
 		{

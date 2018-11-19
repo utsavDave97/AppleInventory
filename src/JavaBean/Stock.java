@@ -5,31 +5,36 @@ package JavaBean;
  *
  */
 public class Stock {
- private String prod_id;
- private String prod_qty;
+ private int prod_id;
+ private int prod_qty;
  
  public Stock() {}
 
-public Stock(String prod_id, String prod_qty) {
+public Stock(int prod_id, int prod_qty) {
 	super();
 	this.prod_id = prod_id;
 	this.prod_qty = prod_qty;
 }
+
+public Stock(int prod_qty) {
+	super();
+	this.prod_qty = prod_qty;
+}
  //getter and setter
 
-public String getProd_Id() {
+public int getProd_Id() {
 	return prod_id;
 }
 
-public void setProd_Id(String prod_id) {
+public void setProd_Id(int prod_id) {
 	this.prod_id = prod_id;
 }
 
-public String getProd_qty() {
+public int getProd_qty() {
 	return prod_qty;
 }
 
-public void setProd_qty(String prod_qty) {
+public void setProd_qty(int prod_qty) {
 	this.prod_qty = prod_qty;
 }
 

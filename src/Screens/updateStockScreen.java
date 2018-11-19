@@ -6,12 +6,7 @@ package Screens;
 
 import JavaBean.Product;
 import Tables.ProductTable;
-import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,12 +15,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -33,15 +26,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class updateStockScreen 
 {
+	Product product;
+	
 	public updateStockScreen()
 	{
-		ProductTable table = new ProductTable();
+		ProductTable productTable = new ProductTable();
 		
 		Stage updateStage = new Stage();
 		//Create the root pane and give it styling
@@ -100,21 +93,28 @@ public class updateStockScreen
 		typeLabel.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
 		
-		ObservableList<String> typeList = FXCollections.<String>observableArrayList("Fuji", 
-				"Gala", 
-				"Red Delicious",
-				"Granny Smith",
-				"Honeycrisp",
-				"Golden Delicious",
-				"Pink Lady",
-				"Opal",
-				"Jazz");
+//		ObservableList<String> typeList = FXCollections.<String>observableArrayList("Fuji", 
+//				"Gala", 
+//				"Red Delicious",
+//				"Granny Smith",
+//				"Honeycrisp",
+//				"Golden Delicious",
+//				"Pink Lady",
+//				"Opal",
+//				"Jazz");
+//		
+//		ComboBox typeNames = new ComboBox(typeList);
 		
-		ComboBox typeNames = new ComboBox(typeList);
-		typeNames.getSelectionModel().selectFirst();
+		ComboBox<Product> typeNames = new ComboBox<>();
+		typeNames.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
+		
+		
+		//typeNames.getSelectionModel().selectFirst();
 		typeNames.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
 		typeNames.setPrefSize(300, 30);
+		
+		
 	    
 		//Creating TypeField
 		Label changeTypeLabel = new Label("Do you want to change type's name?");
@@ -140,6 +140,8 @@ public class updateStockScreen
 		nameField.setEditable(false);
 		
 		changeTypeYes.setOnAction(e->{
+			product = typeNames.getSelectionModel().getSelectedItem();
+			nameField.setText(product.getProd_name());
 			nameField.setEditable(true);
 		});
 		changeTypeNo.setOnAction(e->{
@@ -170,6 +172,8 @@ public class updateStockScreen
 		quantityField.setEditable(false);
 		
 		changeQuantityYes.setOnAction(e->{
+			product = typeNames.getSelectionModel().getSelectedItem();
+			quantityField.setText(product.getProd_qty());
 			quantityField.setEditable(true);
 		});
 		changeQuantityNo.setOnAction(e->{
@@ -200,6 +204,8 @@ public class updateStockScreen
 		priceField.setEditable(false);
 		
 		changePriceYes.setOnAction(e->{
+			product = typeNames.getSelectionModel().getSelectedItem();
+			priceField.setText(product.getProd_price());
 			priceField.setEditable(true);
 		});
 		changePriceNo.setOnAction(e->{
@@ -234,12 +240,12 @@ public class updateStockScreen
 //	    			priceField.getText().trim()
 //	    			);
 //	    	
-//	    	table.createProduct(product);
+//	    	productTable.updateProduct(product);
 	    	
 	    	Alert successInsert = new Alert(AlertType.INFORMATION);
-	    	successInsert.setTitle("Successful Insert");
+	    	successInsert.setTitle("Successfully Updated");
 	    	successInsert.setHeaderText(null);
-	    	successInsert.setContentText("Record has been inserted!");
+	    	successInsert.setContentText("Record has been updated!");
 	    	successInsert.showAndWait();
 	    });
 		
