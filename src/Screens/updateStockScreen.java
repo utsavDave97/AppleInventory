@@ -84,9 +84,11 @@ public class updateStockScreen
 		Button addStock = new Button("Add Stock");
 		Button updateStock = new Button("Update Stock");
 		Button deleteStock = new Button("Delete Stock");
+		Button accountManagement = new Button("Account Management");
+		Button statisticScreen = new Button("Statistic Screen");
+
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
 		
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock);
-	    
 	    //Creating default textField style
 	    String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 				+ "-fx-font-size:15pt;"
@@ -291,6 +293,16 @@ public class updateStockScreen
 	    
 	    updateStock.setOnAction(e->{
 	    	new updateStockScreen();
+	    	updateStage.close();
+	    });
+	    
+	    accountManagement.setOnAction(e->{
+	    	//add in the new screen launcher here
+	    	//close the current stage here
+	    });
+	    
+	    statisticScreen.setOnAction(e->{
+	    	new statisticScreen();
 	    	updateStage.close();
 	    });
 	    

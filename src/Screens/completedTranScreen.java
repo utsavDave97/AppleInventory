@@ -84,8 +84,10 @@ public class completedTranScreen
 		Button addStock = new Button("Add Stock");
 		Button updateStock = new Button("Update Stock");
 		Button deleteStock = new Button("Delete Stock");
-		
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock);
+		Button accountManagement = new Button("Account Management");
+		Button statisticScreen = new Button("Statistic Screen");
+
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
 		
 	    navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
@@ -108,6 +110,16 @@ public class completedTranScreen
 	    
 	    updateStock.setOnAction(e->{
 	    	new updateStockScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    accountManagement.setOnAction(e->{
+	    	//add in the new screen launcher here
+	    	//close the current stage here
+	    });
+	    
+	    statisticScreen.setOnAction(e->{
+	    	new statisticScreen();
 	    	comtransStage.close();
 	    });
 	    
