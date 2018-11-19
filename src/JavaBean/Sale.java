@@ -4,25 +4,36 @@ import java.sql.Timestamp;
 
 public class Sale {
 	private int sale_id;
-	private String email;
+	private int email_id;
 	private String tax;
 	private String total;
+	private String sale_time;
+	
 	
 	//Constructor
 	public Sale() {	}
 	//Constructor with some parameters
-	public Sale(String email, String tax, String total) {
+	public Sale(int email_id, String tax, String total) {
 		super();
-		this.email = email;
+		this.email_id = email_id;
 		this.tax = tax;
 		this.total = total;
 	}
+	
+	public Sale(int email_id, String tax, String total, String sale_time) {
+		super();
+		this.email_id = email_id;
+		this.tax = tax;
+		this.total = total;
+		this.sale_time = sale_time;
+	}
+	
 	//Constructor with all parameters=========becarefull using this one, sale_Id will be created by 
 	 //database automatically
-	public Sale(int sale_id, String email, String tax, String total) {
+	public Sale(int sale_id, int email_id, String tax, String total) {
 		super();
 		this.sale_id = sale_id;
-		this.email = email;
+		this.email_id = email_id;
 		this.tax = tax;
 		this.total = total;
 	}
@@ -32,12 +43,23 @@ public class Sale {
 	public void setSale_Id(int sale_id) {
 		this.sale_id = sale_id;
 	}
-	public String getEmail() {
-		return email;
+	
+	
+	public int getEmail_id() {
+		return email_id;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail_id(int email_id) {
+		this.email_id = email_id;
 	}
+	
+	
+	public String getSale_time() {
+		return sale_time;
+	}
+	public void setSale_time(String sale_time) {
+		this.sale_time = sale_time;
+	}
+	
 	public String getTax() {
 		return tax;
 	}
