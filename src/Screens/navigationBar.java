@@ -20,6 +20,8 @@ public class navigationBar
 										   Button completedTransaction,
 										   Button addStock,
 										   Button updateStock,
+										   Button statisticScreen,
+										   Button accountManagement,
 										   Button deleteStock)
 	{	
 		VBox menu = new VBox();
@@ -158,6 +160,67 @@ public class navigationBar
 	    }); 
 	    
 	    
+	    statisticScreen.setEffect(ds);
+	    statisticScreen.setStyle("-fx-font-family: Quicksand;"
+	    				+ "-fx-pref-height: 80;" + 
+	    				"    -fx-pref-width: 200;" + 
+	    				"    -fx-border-width: 3 3 3 3;" + 
+	    				"    -fx-background-color: #B8B8B8;" + 
+	    				"    -fx-font-size: 15;");
+	    statisticScreen.setOnMouseEntered(e->{
+	    	statisticScreen.setScaleX(1.1);
+	    	statisticScreen.setScaleY(1.1);
+	    	statisticScreen.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;"
+		    		+ "-fx-border-color: #B82F33;" + 
+		    		"    -fx-border-width: 3 3 3 3;");
+	    });
+	    statisticScreen.setOnMouseExited(e->{
+	    	statisticScreen.setScaleX(1);
+	    	statisticScreen.setScaleY(1);
+	    	statisticScreen.setStyle("-fx-font-family: Quicksand;"
+    				+ "-fx-pref-height: 80;" + 
+    				"    -fx-pref-width: 200;" + 
+    				"    -fx-border-width: 3 3 3 3;" + 
+    				"    -fx-background-color: #B8B8B8;" + 
+    				"    -fx-font-size: 15;");
+	    }); 
+	    
+	    accountManagement.setEffect(ds);
+	    accountManagement.setStyle("-fx-font-family: Quicksand;"
+	    				+ "-fx-pref-height: 80;" + 
+	    				"    -fx-pref-width: 200;" + 
+	    				"    -fx-border-width: 3 3 3 3;" + 
+	    				"    -fx-background-color: #B8B8B8;" + 
+	    				"    -fx-font-size: 15;");
+	    accountManagement.setOnMouseEntered(e->{
+	    	accountManagement.setScaleX(1.1);
+	    	accountManagement.setScaleY(1.1);
+	    	accountManagement.setStyle("-fx-font-family: Quicksand;"
+		    		+ "-fx-pref-height: 80;" + 
+		    		"    -fx-pref-width: 200;" + 
+		    		"    -fx-border-width: 3 3 3 3;" + 
+		    		"    -fx-background-color: #B8B8B8;" + 
+		    		"    -fx-font-size: 15;"
+		    		+ "-fx-border-color: #B82F33;" + 
+		    		"    -fx-border-width: 3 3 3 3;");
+	    });
+	    accountManagement.setOnMouseExited(e->{
+	    	accountManagement.setScaleX(1);
+	    	accountManagement.setScaleY(1);
+	    	accountManagement.setStyle("-fx-font-family: Quicksand;"
+    				+ "-fx-pref-height: 80;" + 
+    				"    -fx-pref-width: 200;" + 
+    				"    -fx-border-width: 3 3 3 3;" + 
+    				"    -fx-background-color: #B8B8B8;" + 
+    				"    -fx-font-size: 15;");
+	    });
+	    
+	    
 	    deleteStock.setEffect(ds);
 	    deleteStock.setStyle("-fx-font-family: Quicksand;"
 	    		+ "-fx-pref-height: 80;" + 
@@ -191,6 +254,8 @@ public class navigationBar
 	    menu.getChildren().addAll(newTransaction,
 	    						  completedTransaction,
 	    						  addStock,
+	    						  accountManagement,
+	    						  statisticScreen,
 	    						  updateStock,
 	    						  deleteStock);
 
