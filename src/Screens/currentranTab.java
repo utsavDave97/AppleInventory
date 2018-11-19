@@ -1,5 +1,12 @@
 package Screens;
 
+
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import Database.DBConnection;
 import Screens.TableViewItems.SaleItem;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -12,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -94,8 +102,8 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    TableView<SaleItem> table = new TableView<SaleItem>();
 	     final ObservableList<SaleItem> data =
 	            FXCollections.observableArrayList(
-	            new SaleItem("0001", "Fuji", "2","6"),
-	            new SaleItem("0002", "Garla", "3","7"));
+	            new SaleItem(1, "Fuji", "2","6"),
+	            new SaleItem(2, "Garla", "3","7"));
 	           
 	    table.setEditable(true);
 	  
@@ -103,7 +111,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         reviseCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("reviseCheck"));
         
-        TableColumn upcCol = new TableColumn("UPC");
+        TableColumn upcCol = new TableColumn("ProdID");
         upcCol.setMinWidth(100);
         upcCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("upcNumber"));
@@ -246,8 +254,14 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    
 	    //add Item	    
 	    addItemButton.setOnAction(e->{
-			data.add(new SaleItem("0002", "FUJI", "3.0", "18"));
-			
+			data.add(new SaleItem(1, "FUJI", "3.0", "18"));
+		   DBConnection dbConnection=DBConnection.getInstance();
+		   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		   Date date = new Date();
+	      String  dateStr =dateFormat.format(date);
+		   System.out.println(dateStr);
+		   
+		  // INSERT INTO sale(sale_id,email,sale_time,tax,total) VALUES(0,1,2018-12-13,'23','123');
 			
 		});
 	    

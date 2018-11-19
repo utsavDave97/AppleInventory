@@ -116,7 +116,7 @@ timeCol.setMinWidth(200);
 timeCol.setCellValueFactory(
         new PropertyValueFactory<SaleRecord, String>("saleTime"));
 
-TableColumn nameCol = new TableColumn("Name");
+TableColumn nameCol = new TableColumn("Clerk");
 
 nameCol.setCellValueFactory(
         new PropertyValueFactory<SaleItem, String>("name"));

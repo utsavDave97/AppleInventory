@@ -78,7 +78,7 @@ public class historyTranTab extends BorderPane{
 	        timeCol.setCellValueFactory(
 	        new PropertyValueFactory<SaleHisItem, String>("saleTime"));
 	        
-	        TableColumn operatorCol = new TableColumn("Operator");
+	        TableColumn operatorCol = new TableColumn("Clerk");
 	        operatorCol.setMinWidth(150);
 	        operatorCol.setCellValueFactory(
 	                new PropertyValueFactory<SaleHisItem, String>("operater"));
