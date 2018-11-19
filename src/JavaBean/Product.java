@@ -9,36 +9,18 @@ public class Product {
  private String prod_name;
  private String prod_price;
  private String prod_taste;
- private String prod_qty;
  
-
-public String getProd_qty() {
-	return prod_qty;
-}
-
-
-public void setProd_qty(String prod_qty) {
-	this.prod_qty = prod_qty;
-}
-
 
 //Constructor with no parameter
  public Product() {}
  
 
- public Product(String prod_name, String prod_price, String prod_taste) {
-		super();
-		this.prod_name = prod_name;
-		this.prod_price = prod_price;
-		this.prod_qty = prod_taste;
-	}
  
-public Product(String prod_name, String prod_price, String prod_taste, String prod_qty) {
+public Product(String prod_name, String prod_price, String prod_taste) {
 	super();
 	this.prod_name = prod_name;
 	this.prod_price = prod_price;
 	this.prod_taste = prod_taste;
-	this.prod_qty = prod_qty;
 }
 
 

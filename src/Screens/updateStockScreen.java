@@ -5,6 +5,7 @@
 package Screens;
 
 import JavaBean.Product;
+import JavaBean.Stock;
 import Tables.ProductTable;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
@@ -31,6 +32,7 @@ import javafx.stage.Stage;
 public class updateStockScreen 
 {
 	Product product;
+	Stock stock;
 	
 	public updateStockScreen()
 	{
@@ -93,23 +95,10 @@ public class updateStockScreen
 		typeLabel.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
 		
-//		ObservableList<String> typeList = FXCollections.<String>observableArrayList("Fuji", 
-//				"Gala", 
-//				"Red Delicious",
-//				"Granny Smith",
-//				"Honeycrisp",
-//				"Golden Delicious",
-//				"Pink Lady",
-//				"Opal",
-//				"Jazz");
-//		
-//		ComboBox typeNames = new ComboBox(typeList);
-		
 		ComboBox<Product> typeNames = new ComboBox<>();
 		typeNames.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
 		
 		
-		//typeNames.getSelectionModel().selectFirst();
 		typeNames.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
 		typeNames.setPrefSize(300, 30);
@@ -173,7 +162,7 @@ public class updateStockScreen
 		
 		changeQuantityYes.setOnAction(e->{
 			product = typeNames.getSelectionModel().getSelectedItem();
-			quantityField.setText(product.getProd_qty());
+			quantityField.setText(Integer.toString(stock.getProd_qty()));
 			quantityField.setEditable(true);
 		});
 		changeQuantityNo.setOnAction(e->{
