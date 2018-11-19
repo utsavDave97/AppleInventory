@@ -4,7 +4,7 @@ package JavaBean;
  * @author wjqcau
  */
 public class Role {
- private char role_id;
+ private int role_id;
  private String role_name;
  //Constructor without parameter
  public Role() {}
@@ -15,10 +15,10 @@ public Role(char role_id, String role_name) {
 	this.role_name = role_name;
 }
  //getter and setters
-public char getRole_Id() {
+public int getRole_Id() {
 	return role_id;
 }
-public void setRole_Id(char role_id) {
+public void setRole_Id(int role_id) {
 	this.role_id = role_id;
 }
 public String getRole_name() {

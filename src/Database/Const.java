@@ -43,7 +43,7 @@ public class Const
 	/*---------------Creating Constants for Sale Table------------------*/
 	public static final String TABLE_SALE = "sale";
 	public static final String SALE_COLUMN_ID = "sale_id";
-	public static final String SALE_COLUMN_EMAIL = "email";
+	public static final String SALE_COLUMN_EMAIL_ID = "email_id";
 	public static final String SALE_COLUMN_TAX = "tax";
 	public static final String SALE_COLUMN_TOTAL = "total";
 	public static final String SALE_COLUMN_TIME="sale_time";
@@ -105,7 +105,7 @@ public class Const
 	public static final String CREATE_TABLE_STOCK =
 			"CREATE TABLE " + TABLE_STOCK + " (" +
 			STOCK_COLUMN_ID + " INT NOT NULL PRIMARY KEY, " +
-			STOCK_COLUMN_QUANTITY + " VARCHAR(10) NOT NULL, " +
+			STOCK_COLUMN_QUANTITY + " INT NOT NULL, " +
 			"FOREIGN KEY (" + STOCK_COLUMN_ID + ") REFERENCES " +
 			TABLE_PRODUCT + "(" + PRODUCT_COLUMN_ID + "));";
 	
@@ -113,11 +113,11 @@ public class Const
 	public static final String CREATE_TABLE_SALE =
 			"CREATE TABLE " + TABLE_SALE + " (" +
 			SALE_COLUMN_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-			SALE_COLUMN_EMAIL + " INT NOT NULL, " +
-			SALE_COLUMN_TAX + " VARCHAR(10) NOT NULL, " +
-			SALE_COLUMN_TOTAL + " VARCHAR(10) NOT NULL, " +
-			SALE_COLUMN_TIME  +" DATE NOT NULL, " +
-			"FOREIGN KEY (" + SALE_COLUMN_EMAIL + ") REFERENCES " +
+			SALE_COLUMN_EMAIL_ID + " INT NOT NULL, " +
+			SALE_COLUMN_TAX + " FLOAT NOT NULL, " +
+			SALE_COLUMN_TOTAL + " FLOAT NOT NULL, " +
+			SALE_COLUMN_TIME  +" VARCHAR(30) NOT NULL, " +
+			"FOREIGN KEY (" + SALE_COLUMN_EMAIL_ID + ") REFERENCES " +
 			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 			
 	/*---------------Creating Sale Item Table------------------*/

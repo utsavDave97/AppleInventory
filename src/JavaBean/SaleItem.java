@@ -5,7 +5,7 @@ package JavaBean;
  *
  */
 public class SaleItem {
- private String prod_id;
+ private int prod_id;
  private int sale_id;
  private int sale_qty;
  
@@ -13,17 +13,17 @@ public class SaleItem {
  //Constructor without parameters
  public SaleItem() {}
  //Constructor with all parameters
- public SaleItem(String prod_id, int sale_id, int sale_qty) 
+ public SaleItem(int prod_id, int sale_id, int sale_qty) 
  {
 	super();
 	this.prod_id = prod_id;
 	this.sale_id = sale_id;
 	this.sale_qty = sale_qty;
  }
-public String getProd_Id() {
+public int getProd_Id() {
 	return prod_id;
 }
-public void setProd_Id(String prod_id) {
+public void setProd_Id(int prod_id) {
 	this.prod_id = prod_id;
 }
 public int getSale_Id() {

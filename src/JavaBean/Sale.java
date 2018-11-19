@@ -5,22 +5,21 @@ import java.sql.Timestamp;
 public class Sale {
 	private int sale_id;
 	private int email_id;
-	private String tax;
-	private String total;
+	private double tax;
+	private double total;
 	private String sale_time;
-	
 	
 	//Constructor
 	public Sale() {	}
 	//Constructor with some parameters
-	public Sale(int email_id, String tax, String total) {
+	public Sale(int email_id, float tax, float total) {
 		super();
 		this.email_id = email_id;
 		this.tax = tax;
 		this.total = total;
 	}
 	
-	public Sale(int email_id, String tax, String total, String sale_time) {
+	public Sale(int email_id, float tax, float total, String sale_time) {
 		super();
 		this.email_id = email_id;
 		this.tax = tax;
@@ -28,15 +27,6 @@ public class Sale {
 		this.sale_time = sale_time;
 	}
 	
-	//Constructor with all parameters=========becarefull using this one, sale_Id will be created by 
-	 //database automatically
-	public Sale(int sale_id, int email_id, String tax, String total) {
-		super();
-		this.sale_id = sale_id;
-		this.email_id = email_id;
-		this.tax = tax;
-		this.total = total;
-	}
 	public int getSale_Id() {
 		return sale_id;
 	}
@@ -60,16 +50,16 @@ public class Sale {
 		this.sale_time = sale_time;
 	}
 	
-	public String getTax() {
+	public double getTax() {
 		return tax;
 	}
-	public void setTax(String tax) {
+	public void setTax(double tax) {
 		this.tax = tax;
 	}
-	public String getTotal() {
+	public double getTotal() {
 		return total;
 	}
-	public void setTotal(String total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 
