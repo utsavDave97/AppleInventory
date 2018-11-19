@@ -1,9 +1,15 @@
 package Screens;
 
-import JavaBean.Product;
+
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import Database.DBConnection;
 import Screens.TableViewItems.SaleItem;
-import Tables.ProductTable;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -36,8 +43,6 @@ import javafx.util.Duration;
 public class currentranTab extends BorderPane{
 	public currentranTab() {
 		
-		ProductTable productTable = new ProductTable();
-		
 this.setStyle("-fx-background-color: #DCDCDC;");
 		
 
@@ -48,7 +53,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         ***********************************************************************/    		
     //Declare a hbox to holding the operations
      HBox addItemBox=new HBox(40); 
-     addItemBox.setPadding(new Insets(20,20,20,250));
+     addItemBox.setPadding(new Insets(20,20,20,150));
      addItemBox.setStyle("-fx-border-color:gray;\n"
         		+ "-fx-border-width:0 0 1 0;\n"
         		+ "-fx-border-style:solid;");
@@ -57,26 +62,19 @@ this.setStyle("-fx-background-color: #DCDCDC;");
      nameLabel.setStyle("-fx-font-family: Quicksand;"
  				  + "-fx-font-size: 12pt;");
       // Create the ObservableLists for the ComboBox
-//      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
-//		"Gala", 
-//		"Red Delicious", 
-//		"Granny Smith",
-//		"Honeycrisp",
-//		"Golden Delicious",
-//		"Pink Lady",
-//		"Opal",
-//		"Jazz");  
-//      
-//      
-//     ComboBox appleNames = new ComboBox(appleList);
-     
-//      // Create the ListView for the seasons
-      ComboBox<Product> appleNames = new ComboBox<>();
-      appleNames.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
-      
-      
+      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
+		"Gala", 
+		"Red Delicious", 
+		"Granny Smith",
+		"Honeycrisp",
+		"Golden Delicious",
+		"Pink Lady",
+		"Opal",
+		"Jazz");  
+      // Create the ListView for the seasons
+      ComboBox appleNames = new ComboBox(appleList);
       //Give the first default selection item
-      //appleNames.getSelectionModel().selectFirst();
+      appleNames.getSelectionModel().selectFirst();
       //Set List Style Font
       appleNames.setStyle(" -fx-font-family: Quicksand;"
 				  + "-fx-font-size: 12pt;");
@@ -87,8 +85,14 @@ this.setStyle("-fx-background-color: #DCDCDC;");
       addItemButton.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
+      //add deleteItem
+      Button deleteItemButton=new Button("Delete Item");
+      deleteItemButton.setStyle("-fx-border-color: B82F33;"
+					 + "-fx-font-family: Quicksand;"
+					 + "-fx-font-size: 12pt;");
       
-      addItemBox.getChildren().addAll(appleNames,addItemButton);
+      
+      addItemBox.getChildren().addAll(appleNames,addItemButton,deleteItemButton);
          
 
 
@@ -98,50 +102,46 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    TableView<SaleItem> table = new TableView<SaleItem>();
 	     final ObservableList<SaleItem> data =
 	            FXCollections.observableArrayList(
-	            new SaleItem("0001", "Fuji", "2","6"));
+	            new SaleItem(1, "Fuji", "2","6"),
+	            new SaleItem(2, "Garla", "3","7"));
 	           
 	    table.setEditable(true);
 	  
-	    
-        TableColumn upcCol = new TableColumn("UPC Number");
+	    TableColumn reviseCol=new TableColumn("Check");
+        reviseCol.setCellValueFactory(
+                new PropertyValueFactory<SaleItem, String>("reviseCheck"));
+        
+        TableColumn upcCol = new TableColumn("ProdID");
         upcCol.setMinWidth(100);
         upcCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("upcNumber"));
- 
+        
         TableColumn nameCol = new TableColumn("Name");
        
         nameCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("name"));
- 
+        nameCol.setMinWidth(150);
+        
         TableColumn priceCol = new TableColumn("Price");
         
         priceCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("price"));
+        priceCol.setMinWidth(100);
         
        TableColumn totCol = new TableColumn("Total Price");
         
        totCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("totPrice"));
-        
+        totCol.setMinWidth(100);
  
         TableColumn quantityCol=new TableColumn("Qty");
         quantityCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("quantity"));
         
-        TableColumn reviseCol=new TableColumn("ReviseQty");
-        reviseCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("reviseCheck"));
-        
-        
-
-        TableColumn delCol=new TableColumn("Delete");
-        delCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("delButton"));
-          
-        table.getColumns().addAll(upcCol,nameCol,priceCol,totCol,quantityCol,reviseCol,delCol);
+        table.getColumns().addAll(reviseCol,upcCol,nameCol,priceCol,totCol,quantityCol);
         table.setItems(data);
         table.setMaxWidth(750);
-        table.setStyle("-fx-font-size: 14;");
+        table.setStyle("-fx-font-size: 16;");
         
         /**********************************************************************
 		 *                Bottom tax and totalAmount                           *
@@ -218,9 +218,9 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         vbox.getChildren().addAll(table,sumDesVbox);
 	    
 	    //create the cancel button
-		Button reset = new Button("Cancel");
+		Button cancel = new Button("Cancel");
 		//set the styling for the button
-		reset.setStyle("-fx-border-color: B82F33;"
+		cancel.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		//create the submit button
@@ -234,7 +234,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 		 hbox.setSpacing(200);
 		 hbox.setPadding(new Insets(60, 0, 100, 300));
 		    
-		 hbox.getChildren().addAll(reset,submit);
+		 hbox.getChildren().addAll(cancel,submit);
 	    //Set content to GridPane
 		
 	    
@@ -243,9 +243,51 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    this.setBottom(hbox);
 	  //create the scene
 		
+	    /**********************************************************************
+		 *               Add all Action Here                           *
+		 ***********************************************************************/  	
+	
+        //**************appleList Initializing**************from database-------
+	    
+	    
+	    
+	    
+	    //add Item	    
+	    addItemButton.setOnAction(e->{
+			data.add(new SaleItem(1, "FUJI", "3.0", "18"));
+		   DBConnection dbConnection=DBConnection.getInstance();
+		   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		   Date date = new Date();
+	      String  dateStr =dateFormat.format(date);
+		   System.out.println(dateStr);
+		   
+		  // INSERT INTO sale(sale_id,email,sale_time,tax,total) VALUES(0,1,2018-12-13,'23','123');
+			
+		});
+	    
+	    //Delete Item
+	    
+	    deleteItemButton.setOnAction(e->{
+	    	for(SaleItem saleItem:data) {
+	    		if(saleItem.getReviseCheck().isSelected()) {
+	    			Platform.runLater(() -> {data.remove(saleItem);});
+	    			}
+	    	}
+	    	
+	    });
 		
-		
-		//show the stage
+	    //reset
+	   cancel.setOnAction(e->{
+	    	for(SaleItem saleItem:data) {
+	    		Platform.runLater(() -> {data.remove(saleItem);});
+	    	}
+	    	
+	    });
+	    //submit
+	    submit.setOnAction(e->{
+	    	
+	    });
+	    
 	
 
 
