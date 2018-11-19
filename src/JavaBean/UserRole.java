@@ -4,7 +4,7 @@ package JavaBean;
  * @author wjqcau
  */
 public class UserRole {
- private String email;
+ private int email_id;
  private int role_id;
  //Constructor without parameter
  public UserRole() {}
@@ -14,17 +14,18 @@ public class UserRole {
 	 this.role_id = role_id;
  }
  //Constructor with all parameters
-public UserRole(String email, char role_id) {
+public UserRole(int email_id, int role_id) {
 	super();
-	this.email = email;
+	this.email_id = email_id;
 	this.role_id = role_id;
 }
- //getter and setters
-public String getEmail() {
-	return email;
+
+
+public int getEmail_id() {
+	return email_id;
 }
-public void setEmail(String email) {
-	this.email = email;
+public void setEmail_id(int email_id) {
+	this.email_id = email_id;
 }
 public int getRole_Id() {
 	return role_id;
