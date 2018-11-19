@@ -2,6 +2,7 @@ package Screens;
 
 import Screens.TableViewItems.SaleItem;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,7 +45,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         ***********************************************************************/    		
     //Declare a hbox to holding the operations
      HBox addItemBox=new HBox(40); 
-     addItemBox.setPadding(new Insets(20,20,20,250));
+     addItemBox.setPadding(new Insets(20,20,20,150));
      addItemBox.setStyle("-fx-border-color:gray;\n"
         		+ "-fx-border-width:0 0 1 0;\n"
         		+ "-fx-border-style:solid;");
@@ -76,7 +77,14 @@ this.setStyle("-fx-background-color: #DCDCDC;");
       addItemButton.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
-      addItemBox.getChildren().addAll(appleNames,addItemButton);
+      //add deleteItem
+      Button deleteItemButton=new Button("Delete Item");
+      deleteItemButton.setStyle("-fx-border-color: B82F33;"
+					 + "-fx-font-family: Quicksand;"
+					 + "-fx-font-size: 12pt;");
+      
+      
+      addItemBox.getChildren().addAll(appleNames,addItemButton,deleteItemButton);
          
 
 
@@ -91,46 +99,41 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	           
 	    table.setEditable(true);
 	  
-	    
-        TableColumn upcCol = new TableColumn("UPC Number");
+	    TableColumn reviseCol=new TableColumn("Check");
+        reviseCol.setCellValueFactory(
+                new PropertyValueFactory<SaleItem, String>("reviseCheck"));
+        
+        TableColumn upcCol = new TableColumn("UPC");
         upcCol.setMinWidth(100);
         upcCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("upcNumber"));
- 
+        
         TableColumn nameCol = new TableColumn("Name");
        
         nameCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("name"));
- 
+        nameCol.setMinWidth(150);
+        
         TableColumn priceCol = new TableColumn("Price");
         
         priceCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("price"));
+        priceCol.setMinWidth(100);
         
        TableColumn totCol = new TableColumn("Total Price");
         
        totCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("totPrice"));
-        
+        totCol.setMinWidth(100);
  
         TableColumn quantityCol=new TableColumn("Qty");
         quantityCol.setCellValueFactory(
                 new PropertyValueFactory<SaleItem, String>("quantity"));
         
-        TableColumn reviseCol=new TableColumn("ReviseQty");
-        reviseCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("reviseCheck"));
-        
-        
-
-        TableColumn delCol=new TableColumn("Delete");
-        delCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("delButton"));
-          
-        table.getColumns().addAll(upcCol,nameCol,priceCol,totCol,quantityCol,reviseCol,delCol);
+        table.getColumns().addAll(reviseCol,upcCol,nameCol,priceCol,totCol,quantityCol);
         table.setItems(data);
         table.setMaxWidth(750);
-        table.setStyle("-fx-font-size: 14;");
+        table.setStyle("-fx-font-size: 16;");
         
         /**********************************************************************
 		 *                Bottom tax and totalAmount                           *
@@ -207,9 +210,9 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         vbox.getChildren().addAll(table,sumDesVbox);
 	    
 	    //create the cancel button
-		Button reset = new Button("Cancel");
+		Button cancel = new Button("Cancel");
 		//set the styling for the button
-		reset.setStyle("-fx-border-color: B82F33;"
+		cancel.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		//create the submit button
@@ -223,7 +226,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 		 hbox.setSpacing(200);
 		 hbox.setPadding(new Insets(60, 0, 100, 300));
 		    
-		 hbox.getChildren().addAll(reset,submit);
+		 hbox.getChildren().addAll(cancel,submit);
 	    //Set content to GridPane
 		
 	    
@@ -232,9 +235,45 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    this.setBottom(hbox);
 	  //create the scene
 		
+	    /**********************************************************************
+		 *               Add all Action Here                           *
+		 ***********************************************************************/  	
+	
+        //**************appleList Initializing**************from database-------
+	    
+	    
+	    
+	    
+	    //add Item	    
+	    addItemButton.setOnAction(e->{
+			data.add(new SaleItem("0002", "FUJI", "3.0", "18"));
+			
+			
+		});
+	    
+	    //Delete Item
+	    
+	    deleteItemButton.setOnAction(e->{
+	    	for(SaleItem saleItem:data) {
+	    		if(saleItem.getReviseCheck().isSelected()) {
+	    			Platform.runLater(() -> {data.remove(saleItem);});
+	    			}
+	    	}
+	    	
+	    });
 		
-		
-		//show the stage
+	    //reset
+	   cancel.setOnAction(e->{
+	    	for(SaleItem saleItem:data) {
+	    		Platform.runLater(() -> {data.remove(saleItem);});
+	    	}
+	    	
+	    });
+	    //submit
+	    submit.setOnAction(e->{
+	    	
+	    });
+	    
 	
 
 
