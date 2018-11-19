@@ -39,16 +39,12 @@ public class searchTranTab extends BorderPane{
 	        *                Top choose and add sale Item                                  *
 	        ***********************************************************************/    		
 	    //Declare a hbox to holding the operations
-	     HBox addItemBox=new HBox(40); 
-	     addItemBox.setPadding(new Insets(20,20,20,250));
+	     HBox addItemBox=new HBox(10); 
+	     addItemBox.setPadding(new Insets(20,10,20,20));
 	     addItemBox.setStyle("-fx-border-color:gray;\n"
 	        		+ "-fx-border-width:0 0 1 0;\n"
 	        		+ "-fx-border-style:solid;");
-	     
-	     TextField startTime=new TextField();
-	     startTime.setEditable(false);
-	     startTime.setMinSize(50, 40);
-	     
+	   
 	     
 	     final DatePicker datePickerTo = new DatePicker();
 			//set datePicker style
@@ -59,7 +55,7 @@ public class searchTranTab extends BorderPane{
 		    @Override
 			public void handle(Event event) {
 		    	LocalDate date = datePickerTo.getValue();
-		    	startTime.setText(date.toString());
+		    	
 		         System.err.println("Selected date: " + date);
 			}
 		 });
@@ -71,13 +67,7 @@ public class searchTranTab extends BorderPane{
 	     toLabel.setStyle("-fx-font-family: Quicksand;"
 	 				  + "-fx-font-size: 12pt;");
 	    
-	    
-	     //add another time choose textfield
-	     
-	     TextField endTime=new TextField();
-	     endTime.setEditable(false);
-	     endTime.setMinSize(50, 40);
-	     
+	   
 	     
 	     final DatePicker datePickerEnd = new DatePicker();
 			//set datePicker style
@@ -88,7 +78,7 @@ public class searchTranTab extends BorderPane{
 		    @Override
 			public void handle(Event event) {
 		    	LocalDate date = datePickerTo.getValue();
-		    	endTime.setText(date.toString());
+		    
 		         System.err.println("Selected date: " + date);
 			}
 		 });
@@ -103,7 +93,7 @@ public class searchTranTab extends BorderPane{
 	      searchButton.setStyle("-fx-border-color: B82F33;"
 						 + "-fx-font-family: Quicksand;"
 						 + "-fx-font-size: 12pt;");
-	      addItemBox.getChildren().addAll(startTime,datePickerTo,toLabel,endTime,datePickerEnd,searchButton);
+	      addItemBox.getChildren().addAll(datePickerTo,toLabel,datePickerEnd,searchButton);
 	         
 	     
 
@@ -122,7 +112,7 @@ table.setEditable(true);
 
 
 TableColumn timeCol = new TableColumn("Sale Time");
-timeCol.setMinWidth(100);
+timeCol.setMinWidth(200);
 timeCol.setCellValueFactory(
         new PropertyValueFactory<SaleRecord, String>("saleTime"));
 
@@ -130,108 +120,46 @@ TableColumn nameCol = new TableColumn("Name");
 
 nameCol.setCellValueFactory(
         new PropertyValueFactory<SaleItem, String>("name"));
+nameCol.setMinWidth(200);
+
 
 TableColumn taxCol = new TableColumn("Tax");
 
 taxCol.setCellValueFactory(
         new PropertyValueFactory<SaleItem, String>("tax"));
 
+taxCol.setMinWidth(150);
+
+
 TableColumn totCol = new TableColumn("Total Price");
+
 
 totCol.setCellValueFactory(
         new PropertyValueFactory<SaleItem, String>("total"));
+totCol.setMinWidth(200);
 
-
+setMinHeight(150);
   
 table.getColumns().addAll(timeCol,nameCol,taxCol,totCol);
 table.setItems(data);
 table.setMaxWidth(750);
-table.setStyle("-fx-font-size: 14;");
+table.setStyle("-fx-font-size: 16;");
 
 /**********************************************************************
  *                Bottom tax and totalAmount                           *
  ***********************************************************************/  
-String textStyle="-fx-font-size:15pt;"
-		+ "-fx-font-family: Quicksand;";
-
-//"-fx-fill: #00FFFF;"
- 
-Label taxLable=new Label("Tax:                ");
-taxLable.setStyle("-fx-font-family: Quicksand;"
-		  + "-fx-font-size: 15pt;");
-
-
-Text taxText=new Text("0");
-taxText.setStyle(textStyle);
-HBox taxTextBox=new HBox();
-taxTextBox.setStyle("-fx-border-color:green;\n"
-		+ "-fx-border-width:0 0 0 2;\n"
-		+ "-fx-border-style:solid;\n"
-		+ "-fx-padding:0 0 0 10;\n"
-		+ "-fx-background-color:white");
-taxTextBox.getChildren().add(taxText);
-taxTextBox.setMinWidth(465);
-
-HBox taxHbox=new HBox();
-taxHbox.setSpacing(155);
-taxHbox.getChildren().addAll(taxLable,taxTextBox);
-
-
-Label totAmountLable=new Label("Total Amount:");
-totAmountLable.setStyle("-fx-font-family: Quicksand;"
-		  + "-fx-font-size: 15pt;");
-
-Text totAmountText=new Text("0");
-
-totAmountText.setStyle("-fx-font-size:15pt;\n" 
-		+ "-fx-font-family: Quicksand;");
-HBox amountTextBox=new HBox();
-amountTextBox.getChildren().add(totAmountText);
-amountTextBox.setStyle("-fx-border-color:green;\n"
-		+ "-fx-border-width:0 0 0 2;\n"
-		+ "-fx-border-style:solid;\n"
-		+ "-fx-padding:0 0 0 10;\n"
-		+ "-fx-background-color:white");
-amountTextBox.setMinWidth(465);
-
-
-
-HBox totAmountHbox=new HBox();
-totAmountHbox.setSpacing(150);
-totAmountHbox.getChildren().addAll(totAmountLable,amountTextBox);
-totAmountHbox.setStyle("-fx-border-color:green;\n"
-		+ "-fx-border-width:2 0 0 0;\n"
-		+ "-fx-border-style:solid;\n"
-		+ "-fx-padding:0 0 0 0");
-
-
-VBox sumDesVbox=new VBox();      
-sumDesVbox.getChildren().addAll(taxHbox,totAmountHbox);
-sumDesVbox.setMaxWidth(750);
-sumDesVbox.setPadding(new Insets(0,0,0,0));
-sumDesVbox.setStyle("-fx-border-color:green;\n"
-		+ "-fx-border-width:2;\n"
-		+ "-fx-border-style:solid;");
-
-
 
 
 final VBox vbox = new VBox();
 vbox.setSpacing(5);
 vbox.setPadding(new Insets(30, 10, 0, 10));
 
-vbox.getChildren().addAll(table,sumDesVbox);
+vbox.getChildren().addAll(table);
 
-//create the cancel button
-Button cancel = new Button("Cancel");
-//set the styling for the button
-cancel.setStyle("-fx-border-color: B82F33;"
-			 + "-fx-font-family: Quicksand;"
-			 + "-fx-font-size: 12pt;");
 //create the submit button
-Button submit = new Button("Submit");
+Button clear = new Button("Clear");
 //create the register styling
-submit.setStyle("-fx-border-color:B82F33;"
+clear.setStyle("-fx-border-color:B82F33;"
 			  + "-fx-font-family: Quicksand;"
 			  + "-fx-font-size: 12pt;");
 				
@@ -239,7 +167,7 @@ submit.setStyle("-fx-border-color:B82F33;"
  hbox.setSpacing(200);
  hbox.setPadding(new Insets(60, 0, 100, 300));
     
- hbox.getChildren().addAll(cancel,submit);
+ hbox.getChildren().addAll(clear);
 //Set content to GridPane
 
 
@@ -252,29 +180,20 @@ this.setBottom(hbox);
 /**************************************************************************************
 *         add  button event
 *************************************************************************************/
-//add item button event
-//addItemButton.setOnAction(e->{
-//	    	
-// data.add(new SaleItem("0002", "Fuji", "2.5", "3.2"));
-//});
-////delete button event
-//table.setOnMouseClicked(e->{
-// for(SaleItem  saleItem:data) {
-//	 saleItem.getDelButton().setOnAction(chosenEvent->{
-//		 Platform.runLater(() -> {data.remove(saleItem);}); 
-//	 });
-// }
-//});
-//
-////add cancel button event
-//cancel.setOnAction(e->{
-//for(SaleItem saleItem:data) {
-//	 Platform.runLater(() -> {data.remove(saleItem);}); 
-//} 
-// 
-// 
-//});
 
+//add search button action
+
+  searchButton.setOnAction(e->{
+	  
+  });
+  
+  //add clear button
+  
+  clear.setOnAction(e->{
+		for(SaleRecord saleRecord:data) {
+    		Platform.runLater(() -> {data.remove(saleRecord);});
+    	}
+  });
 
 
 }

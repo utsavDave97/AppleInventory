@@ -128,12 +128,12 @@ public class completedTranScreen
 		 ***********************************************************************/    
 	    TabPane compTransactionPane=new TabPane();
 	    
-	    Tab newComtrasancionTab=new Tab("Current Transaction");
+	    Tab newComtrasancionTab=new Tab("Search Transaction");
 	     
 	    newComtrasancionTab.setStyle("-fx-font-size:16;");
 	    newComtrasancionTab.setClosable(false);
-	    newComtrasancionTab.setContent(new currentranTab());
-	    Tab updateTransactionTab=new Tab("History Transaction");
+	    newComtrasancionTab.setContent(new searchTranTab());
+	    Tab updateTransactionTab=new Tab("Delete Transaction");
 	    updateTransactionTab.setClosable(false);
 	    updateTransactionTab.setStyle("-fx-font-size:16;");
 	    updateTransactionTab.setContent(new historyTranTab());
