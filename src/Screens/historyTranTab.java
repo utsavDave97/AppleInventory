@@ -78,7 +78,7 @@ public class historyTranTab extends BorderPane{
 	        timeCol.setCellValueFactory(
 	        new PropertyValueFactory<SaleHisItem, String>("saleTime"));
 	        
-	        TableColumn operatorCol = new TableColumn("Operator");
+	        TableColumn operatorCol = new TableColumn("Clerk");
 	        operatorCol.setMinWidth(150);
 	        operatorCol.setCellValueFactory(
 	                new PropertyValueFactory<SaleHisItem, String>("operater"));
@@ -119,10 +119,10 @@ public class historyTranTab extends BorderPane{
 			
 							
 			 final HBox hbox = new HBox();
-			 hbox.setSpacing(50);
-			 hbox.setPadding(new Insets(10, 0, 100, 300));
+			
+			 hbox.setPadding(new Insets(10, 0, 100,300));
 			    
-			 hbox.getChildren().addAll(delete);   
+			 hbox.getChildren().add(delete);   
 		    
 			 VBox centerVbox=new VBox();
 			 centerVbox.setSpacing(20);

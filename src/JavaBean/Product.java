@@ -25,6 +25,13 @@ public void setProd_qty(String prod_qty) {
 //Constructor with no parameter
  public Product() {}
  
+
+ public Product(String prod_name, String prod_price, String prod_taste) {
+		super();
+		this.prod_name = prod_name;
+		this.prod_price = prod_price;
+		this.prod_qty = prod_taste;
+	}
  
 public Product(String prod_name, String prod_price, String prod_taste, String prod_qty) {
 	super();
@@ -69,6 +76,10 @@ public void setProd_taste(String prod_taste) {
 	this.prod_taste = prod_taste;
 } 
  
+
+public String toString() {
+	return this.prod_name;
+}
  
 }
 

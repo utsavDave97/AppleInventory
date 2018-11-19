@@ -4,7 +4,9 @@
 package Screens;
 
 import JavaBean.Product;
+import JavaBean.Stock;
 import Tables.ProductTable;
+import Tables.StockTable;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,6 +39,8 @@ public class addStockScreen
 	public addStockScreen()
 	{
 		ProductTable table = new ProductTable();
+		StockTable stockTable = new StockTable();
+		
 		
 		//Create the Stage
 		Stage addStockStage = new Stage();
@@ -210,11 +214,15 @@ public class addStockScreen
 	    	Product product = new Product(
 	    			typeField.getText().trim(),
 	    			priceField.getText().trim(),
-	    			tasteNames.getSelectionModel().getSelectedItem().toString(),
-	    			quantityField.getText().trim()
+	    			tasteNames.getSelectionModel().getSelectedItem().toString()
+	    			);
+	    	
+	    	Stock stock = new Stock(
+	    			Integer.parseInt(quantityField.getText())
 	    			);
 	    	
 	    	table.createProduct(product);
+	    	stockTable.createStock(stock);
 	    	
 	    	Alert successInsert = new Alert(AlertType.INFORMATION);
 	    	successInsert.setTitle("Successful Insert");
