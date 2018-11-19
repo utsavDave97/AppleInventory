@@ -1,6 +1,8 @@
 package Screens;
 
+import JavaBean.Product;
 import Screens.TableViewItems.SaleItem;
+import Tables.ProductTable;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -34,6 +36,8 @@ import javafx.util.Duration;
 public class currentranTab extends BorderPane{
 	public currentranTab() {
 		
+		ProductTable productTable = new ProductTable();
+		
 this.setStyle("-fx-background-color: #DCDCDC;");
 		
 
@@ -53,19 +57,26 @@ this.setStyle("-fx-background-color: #DCDCDC;");
      nameLabel.setStyle("-fx-font-family: Quicksand;"
  				  + "-fx-font-size: 12pt;");
       // Create the ObservableLists for the ComboBox
-      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
-		"Gala", 
-		"Red Delicious", 
-		"Granny Smith",
-		"Honeycrisp",
-		"Golden Delicious",
-		"Pink Lady",
-		"Opal",
-		"Jazz");  
-      // Create the ListView for the seasons
-      ComboBox appleNames = new ComboBox(appleList);
+//      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
+//		"Gala", 
+//		"Red Delicious", 
+//		"Granny Smith",
+//		"Honeycrisp",
+//		"Golden Delicious",
+//		"Pink Lady",
+//		"Opal",
+//		"Jazz");  
+//      
+//      
+//     ComboBox appleNames = new ComboBox(appleList);
+     
+//      // Create the ListView for the seasons
+      ComboBox<Product> appleNames = new ComboBox<>();
+      appleNames.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
+      
+      
       //Give the first default selection item
-      appleNames.getSelectionModel().selectFirst();
+      //appleNames.getSelectionModel().selectFirst();
       //Set List Style Font
       appleNames.setStyle(" -fx-font-family: Quicksand;"
 				  + "-fx-font-size: 12pt;");
@@ -76,6 +87,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
       addItemButton.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
+      
       addItemBox.getChildren().addAll(appleNames,addItemButton);
          
 
@@ -86,8 +98,7 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    TableView<SaleItem> table = new TableView<SaleItem>();
 	     final ObservableList<SaleItem> data =
 	            FXCollections.observableArrayList(
-	            new SaleItem("0001", "Fuji", "2","6"),
-	            new SaleItem("0002", "Garla", "3","7"));
+	            new SaleItem("0001", "Fuji", "2","6"));
 	           
 	    table.setEditable(true);
 	  
