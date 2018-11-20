@@ -86,8 +86,8 @@ public class homeScreen
 	    });
 	    
 	    accountManagement.setOnAction(e->{
-	    	//add in the new screen launcher here
-	    	//close the current stage here
+	    	new accountManagementScreen();
+	    	homeStage.close();
 	    });
 	    
 	    statisticScreen.setOnAction(e->{

@@ -127,8 +127,8 @@ public class statisticScreen{
 	    });
 	    
 	    accountManagement.setOnAction(e->{
-	    	//add in the new screen launcher here
-	    	//close the current stage here
+	    	new accountManagementScreen();
+	    	stage.close();
 	    });
 	    
 	    statisticScreen.setOnAction(e->{
