@@ -32,13 +32,19 @@ public registerScreen(){
 			Stage stage = new Stage();
 			//create the borderPane to hold the information
 			BorderPane borderpane = new BorderPane();
+			//set the style of the borderpane
 			borderpane.setStyle("-fx-background-color: DCDCDC");
+			//import the google stylesheet for the quicksand font
 			borderpane.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
 			//create the gridpane to hold the information
 			GridPane pane = new GridPane();
+			//set the alignment for the gridpane
 			pane.setAlignment(Pos.CENTER);
+			//set the hgap for the gripdane
 			pane.setHgap(5);
+			//set the vgap for the gridpane
 			pane.setVgap(5);
+			//set alignment for the gridpane
 			pane.setAlignment(Pos.CENTER);
 			//create an hbox to store the back,clear,register buttons
 			HBox row = new HBox();

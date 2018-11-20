@@ -114,8 +114,8 @@ public class completedTranScreen
 	    });
 	    
 	    accountManagement.setOnAction(e->{
-	    	//add in the new screen launcher here
-	    	//close the current stage here
+	    	new accountManagementScreen();
+	    	comtransStage.close();
 	    });
 	    
 	    statisticScreen.setOnAction(e->{
