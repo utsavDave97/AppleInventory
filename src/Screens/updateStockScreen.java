@@ -1,12 +1,12 @@
 /**
  * @author utsav
  */
-
 package Screens;
 
 import JavaBean.Product;
 import JavaBean.Stock;
 import Tables.ProductTable;
+import Tables.StockTable;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,10 +37,11 @@ public class updateStockScreen
 	public updateStockScreen()
 	{
 		ProductTable productTable = new ProductTable();
+		StockTable stockTable = new StockTable();
 		
 		Stage updateStage = new Stage();
-		//Create the root pane and give it styling
 		
+		//Create the root pane and give it styling
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #DCDCDC;");
 		root.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
@@ -105,7 +106,6 @@ public class updateStockScreen
 				 + "-fx-font-size: 12pt;");
 		typeNames.setPrefSize(300, 30);
 		
-		
 	    
 		//Creating TypeField
 		Label changeTypeLabel = new Label("Do you want to change type's name?");
@@ -131,10 +131,10 @@ public class updateStockScreen
 		nameField.setEditable(false);
 		
 		changeTypeYes.setOnAction(e->{
-			product = typeNames.getSelectionModel().getSelectedItem();
-			nameField.setText(product.getProd_name());
+			nameField.setText(typeNames.getSelectionModel().getSelectedItem().getProd_name());
 			nameField.setEditable(true);
 		});
+		
 		changeTypeNo.setOnAction(e->{
 			nameField.setEditable(false);
 		});
@@ -162,11 +162,14 @@ public class updateStockScreen
 		quantityField.setStyle(textFieldStyle);
 		quantityField.setEditable(false);
 		
-		changeQuantityYes.setOnAction(e->{
-			product = typeNames.getSelectionModel().getSelectedItem();
-			quantityField.setText(Integer.toString(stock.getProd_qty()));
+		changeQuantityYes.setOnAction(e->
+		{	
+			quantityField.setText(stockTable.getAllStocks().get(typeNames.getSelectionModel().getSelectedIndex()).toString());
+			
+			
 			quantityField.setEditable(true);
 		});
+		
 		changeQuantityNo.setOnAction(e->{
 			quantityField.setEditable(false);
 		});
@@ -195,8 +198,7 @@ public class updateStockScreen
 		priceField.setEditable(false);
 		
 		changePriceYes.setOnAction(e->{
-			product = typeNames.getSelectionModel().getSelectedItem();
-			priceField.setText(product.getProd_price());
+			priceField.setText(typeNames.getSelectionModel().getSelectedItem().getProd_price());
 			priceField.setEditable(true);
 		});
 		changePriceNo.setOnAction(e->{
@@ -205,9 +207,9 @@ public class updateStockScreen
 		
 		
 		//Create Reset Button
-		Button reset = new Button("Reset");
+		Button fetch = new Button("Fetch");
 		//set the styling for the button
-		reset.setStyle("-fx-border-color: B82F33;"
+		fetch.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		
@@ -218,26 +220,45 @@ public class updateStockScreen
 					  + "-fx-font-family: Quicksand;"
 					  + "-fx-font-size: 12pt;");
 		
-		reset.setOnAction(e->{
-	    	nameField.clear();
-	    	quantityField.clear();
-	    	priceField.clear();
+		fetch.setOnAction(e->{
+//	    	nameField.clear();
+//	    	quantityField.clear();
+//	    	priceField.clear();
+			
+			final String typeName = typeNames.getSelectionModel().getSelectedItem().getProd_name();
+			final String price = typeNames.getSelectionModel().getSelectedItem().getProd_price();
+			final int id = typeNames.getSelectionModel().getSelectedItem().getProd_Id();
+			final int quantity = Integer.parseInt(quantityField.getText());
+			
+			System.out.println("Product ID: " + productTable.getProductID(typeName, price));
+			System.out.println("Stock ID: " + stockTable.getStockID(id, quantity));
+			
+			int prodID = productTable.getProductID(typeName, price);
+			int stockID = stockTable.getStockID(id, quantity);
+			
+			product = new Product(prodID,
+								typeNames.getSelectionModel().getSelectedItem().getProd_name(),
+								typeNames.getSelectionModel().getSelectedItem().getProd_price());
+			
+			stock = new Stock(stockID,
+							 Integer.parseInt(quantityField.getText()));
 	    });
 	    
-	    submit.setOnAction(e->{
-//	    	Product product = new Product(
-//	    			nameField.getText().trim(),
-//	    			quantityField.getText().trim(),
-//	    			priceField.getText().trim()
-//	    			);
-//	    	
-//	    	productTable.updateProduct(product);
+	    submit.setOnAction(e->
+	    {
+	    	 product.setProd_name(nameField.getText());
+	    	 product.setProd_price(priceField.getText());
 	    	
-	    	Alert successInsert = new Alert(AlertType.INFORMATION);
-	    	successInsert.setTitle("Successfully Updated");
-	    	successInsert.setHeaderText(null);
-	    	successInsert.setContentText("Record has been updated!");
-	    	successInsert.showAndWait();
+	    	stock.setProd_qty(Integer.parseInt(quantityField.getText()));
+	    	
+	    	stockTable.updateStock(stock);
+	    	productTable.updateProduct(product);
+	    	
+//	    	Alert successInsert = new Alert(AlertType.INFORMATION);
+//	    	successInsert.setTitle("Successfully Updated");
+//	    	successInsert.setHeaderText(null);
+//	    	successInsert.setContentText("Record has been updated!");
+//	    	successInsert.showAndWait();
 	    });
 		
 		//Set content to GridPane
@@ -262,7 +283,7 @@ public class updateStockScreen
 		gridPane.add(priceLabel, 0, 6);
 		gridPane.add(priceField, 1, 6);
 		
-		gridPane.add(reset, 1, 8);
+		gridPane.add(fetch, 1, 8);
 		gridPane.add(submit,2, 8);
 		
 		
@@ -304,7 +325,6 @@ public class updateStockScreen
 	    deleteStock.setOnAction(e->{
 	    	
 	    });
-	    
 	    
 	    root.setTop(navigationToolBar);
 	    root.setCenter(gridPane);
