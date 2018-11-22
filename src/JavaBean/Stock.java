@@ -38,5 +38,8 @@ public void setProd_qty(int prod_qty) {
 	this.prod_qty = prod_qty;
 }
 
+public String toString() {
+	return this.prod_qty+"";
+}
 
 }

@@ -67,18 +67,41 @@ public class ProductTable implements ProductDAO
 		return product;
 	}
 
+	public int getProductID(String typeName, String price)
+	{
+		int id = 0;
+		
+		String query = "SELECT " + Const.PRODUCT_COLUMN_ID + " FROM " + Const.TABLE_PRODUCT
+						+ " WHERE " + Const.PRODUCT_COLUMN_NAME + " = '" + typeName + "' AND "
+						+ Const.PRODUCT_COLUMN_PRICE + " = '" + price +"';";
+		
+		try
+		{
+			Statement getStock = db.getDbConnection().createStatement();
+			ResultSet data = getStock.executeQuery(query);
+			
+			data.next();
+			id = data.getInt(Const.PRODUCT_COLUMN_ID);
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
+	
 	@Override
 	public void updateProduct(Product product) 
 	{
 		String query = "UPDATE " + Const.TABLE_PRODUCT + " SET " +
-		         Const.PRODUCT_COLUMN_NAME + " " + product.getProd_name() +  "," +
-		         Const.PRODUCT_COLUMN_PRICE + " " + product.getProd_price() +  "," +
-		         Const.PRODUCT_COLUMN_TASTE + " " + product.getProd_taste() + "," +
+		         Const.PRODUCT_COLUMN_NAME + "='" + product.getProd_name() +  "' ," +
+		         Const.PRODUCT_COLUMN_PRICE + "='" + product.getProd_price() +  "' " +
 		         " WHERE " + Const.PRODUCT_COLUMN_ID + " = " + product.getProd_Id();
 		try 
 		{
 			Statement updateProduct = db.getDbConnection().createStatement();
-			updateProduct.executeQuery(query);
+			updateProduct.executeUpdate(query);
 		} 
 		catch (SQLException e) 
 		{
