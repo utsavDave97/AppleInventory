@@ -23,6 +23,19 @@ public Product(String prod_name, String prod_price, String prod_taste) {
 	this.prod_taste = prod_taste;
 }
 
+public Product(String prod_name, String prod_price) {
+	super();
+	this.prod_name = prod_name;
+	this.prod_price = prod_price;
+}
+
+
+public Product(int prod_id, String prod_name, String prod_price) {
+	super();
+	this.prod_id = prod_id;
+	this.prod_name = prod_name;
+	this.prod_price = prod_price;
+}
 
 public Product(int prod_id, String prod_name, String prod_price, String prod_taste) {
 	super();
