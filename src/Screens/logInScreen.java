@@ -1,6 +1,9 @@
 package Screens;
 
 import Screens.homeScreen;
+import Tables.PasswordTable;
+import Database.Const;
+import JavaBean.Password;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -101,7 +104,23 @@ public logInScreen() {
 		gridpane.setAlignment(Pos.CENTER);
 		
 		login.setOnAction(e->{
-			new homeScreen();
+			//create an instance of the password class
+			Password password = new Password();
+			PasswordTable passwordtable = new PasswordTable();
+			String hashedGivenPass = password.hashPassword(passWord.getText());
+			//System.out.println(hashedGivenPass);
+			
+			
+			if(passwordtable.getPassword(hashedGivenPass)==true) {
+				System.out.println(passwordtable.getPassword(hashedGivenPass));
+				System.out.println("Correct credentials");
+				new homeScreen();
+			}else {
+				System.out.println("false credentials");
+				new logInScreen();
+			}
+			
+			
 			stage.close();
 		});
 		
@@ -122,5 +141,7 @@ public logInScreen() {
 		stage.show();
 		
 	}
+
+	
 
 }
