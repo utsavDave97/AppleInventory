@@ -258,24 +258,6 @@ public class navigationBar
 	    						  statisticScreen,
 	    						  updateStock,
 	    						  deleteStock);
-
-	    
-	    //menu.getStylesheets().add(getClass().getResource("progress.css").toExternalForm());
-	    
-	    menu.setTranslateX(0);
-	    TranslateTransition menuTranslation = new TranslateTransition(Duration.millis(500), menu);
-	    
-	    menuTranslation.setFromX(0);
-	    menuTranslation.setToX(-180);
-	    
-	    menu.setOnMouseEntered(evt -> {
-	        menuTranslation.setRate(-1);
-	        menuTranslation.play();
-	    });
-	    menu.setOnMouseExited(evt -> {
-	        menuTranslation.setRate(1);
-	        menuTranslation.play();
-	    });
 	
 	    return menu;
 	}
