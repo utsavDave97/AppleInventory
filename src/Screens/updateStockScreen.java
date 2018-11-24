@@ -8,6 +8,7 @@ import JavaBean.Stock;
 import Tables.ProductTable;
 import Tables.StockTable;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,6 +22,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -67,13 +69,21 @@ public class updateStockScreen
 		final Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		
+		final Pane spacer2 = new Pane();
+		HBox.setHgrow(spacer2, Priority.ALWAYS);
+		
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 		
+		Label heading = new Label("AppleCore INC.");
+		heading.setStyle("-fx-text-fill: #B82F33;"
+				+ "-fx-font-family: Quicksand;"
+				+ "-fx-font-size: 30;");
+		
 		//Creating toolBar and adding navigation button and logout button to it
-		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
+		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
 		
 		Button newTransaction = new Button("New Transaction");
 		Button completedTransaction = new Button("Completed Transaction");
@@ -207,9 +217,9 @@ public class updateStockScreen
 		
 		
 		//Create Reset Button
-		Button fetch = new Button("Fetch");
+		Button reset = new Button("Reset");
 		//set the styling for the button
-		fetch.setStyle("-fx-border-color: B82F33;"
+		reset.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		
@@ -220,12 +230,16 @@ public class updateStockScreen
 					  + "-fx-font-family: Quicksand;"
 					  + "-fx-font-size: 12pt;");
 		
-		fetch.setOnAction(e->{
-//	    	nameField.clear();
-//	    	quantityField.clear();
-//	    	priceField.clear();
-			
-			final String typeName = typeNames.getSelectionModel().getSelectedItem().getProd_name();
+		reset.setOnAction(e->{
+	    	nameField.clear();
+	    	quantityField.clear();
+	    	priceField.clear();
+
+	    });
+	    
+	    submit.setOnAction(e->
+	    {
+	    	final String typeName = typeNames.getSelectionModel().getSelectedItem().getProd_name();
 			final String price = typeNames.getSelectionModel().getSelectedItem().getProd_price();
 			final int id = typeNames.getSelectionModel().getSelectedItem().getProd_Id();
 			final int quantity = Integer.parseInt(quantityField.getText());
@@ -242,10 +256,7 @@ public class updateStockScreen
 			
 			stock = new Stock(stockID,
 							 Integer.parseInt(quantityField.getText()));
-	    });
-	    
-	    submit.setOnAction(e->
-	    {
+	    	
 	    	 product.setProd_name(nameField.getText());
 	    	 product.setProd_price(priceField.getText());
 	    	
@@ -283,7 +294,7 @@ public class updateStockScreen
 		gridPane.add(priceLabel, 0, 6);
 		gridPane.add(priceField, 1, 6);
 		
-		gridPane.add(fetch, 1, 8);
+		gridPane.add(reset, 1, 8);
 		gridPane.add(submit,2, 8);
 		
 		
@@ -291,6 +302,17 @@ public class updateStockScreen
 	    navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
 	    });
+	    
+	    gridPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		{
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				root.setLeft(null);
+			}
+	
+		});
 	    
 	    newTransaction.setOnAction(e->{
 	    	new newTransactionScreen();
