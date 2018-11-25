@@ -8,7 +8,7 @@ import JavaBean.User;
 public interface UserDAO 
 {
 	public ArrayList<User> getAllUsers();
-	public User getUser(String email);
+	public Boolean getUser(String email);
 	public void updateUser(User user);
 	public void deleteUser(User user);
 	public void createUser(User user);

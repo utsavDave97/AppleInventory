@@ -30,6 +30,8 @@ public registerScreen(){
 	
 			//create the stage to hold the content
 			Stage stage = new Stage();
+			//create an instance of the password for the password hash
+			Password hashedPass = new Password();
 			//create the borderPane to hold the information
 			BorderPane borderpane = new BorderPane();
 			//set the style of the borderpane
@@ -126,8 +128,11 @@ public registerScreen(){
 				user.setEmail(email.getText());
 				user.setFirstname(fname.getText());
 				user.setLastname(lname.getText());
+				//use the hashing method here to generate the string for the password
+				
+				
 				//use the password methods
-				passwordobj.setUser_password(passWord.getText());
+				passwordobj.setUser_password(hashedPass.hashPassword(passWord.getText()));
 				//use the userrole methods
 				if(combo.getSelectionModel().getSelectedItem() == "Clerk") {
 					userrole.setRole_Id(Const.CLERKROLEID);
@@ -162,5 +167,7 @@ public registerScreen(){
 			stage.setScene(scene);
 			stage.show();
 	}
+
+	
 
 }
