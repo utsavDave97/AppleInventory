@@ -1,52 +1,69 @@
 package Screens;
 
-
-
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.Optional;
+import java.util.TimeZone;
 import Database.DBConnection;
-import Screens.TableViewItems.SaleItem;
-import javafx.animation.TranslateTransition;
+import JavaBean.Product;
+import JavaBean.Sale;
+import JavaBean.SaleItem;
+import Screens.TableViewItems.EditingCell;
+import Screens.TableViewItems.ScreenSaleItem;
+import Tables.ProductTable;
+import Tables.SaleItemTable;
+import Tables.SaleTable;
+import Tables.UserTable;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToolBar;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
+import sun.net.NetworkServer;
 public class currentranTab extends BorderPane{
+	//Declare variable for new transaction screen
+	ArrayList <Product> products;
+	ArrayList<Sale> sales;
+	ArrayList<SaleItem> saleItems;
+	ArrayList<Integer> saleItemId;
+	ProductTable productTable;
+	SaleTable saleTable;
+	SaleItemTable saleItemTable;
+	UserTable userTable;
+	//According to HST of year of 2016
+	private final float  TAXRATE=0.13f;
+	private double endTotalAmount=0;
+	private double endTax=0;
+	
+	 final ObservableList<ScreenSaleItem> data =
+	            FXCollections.observableArrayList();
+	
+	//Constructor 
+	@SuppressWarnings("unchecked")
 	public currentranTab() {
 		
-this.setStyle("-fx-background-color: #DCDCDC;");
-		
+     this.setStyle("-fx-background-color: #DCDCDC;");
 
-				//create the content for the Completed transaction
+	  //create the content for the Completed transaction
 		
        /**********************************************************************
         *                Top choose and add sale Item                                  *
@@ -61,25 +78,20 @@ this.setStyle("-fx-background-color: #DCDCDC;");
      //set the name font
      nameLabel.setStyle("-fx-font-family: Quicksand;"
  				  + "-fx-font-size: 12pt;");
-      // Create the ObservableLists for the ComboBox
-      ObservableList<String> appleList = FXCollections.<String>observableArrayList("Fuji", 
-		"Gala", 
-		"Red Delicious", 
-		"Granny Smith",
-		"Honeycrisp",
-		"Golden Delicious",
-		"Pink Lady",
-		"Opal",
-		"Jazz");  
-      // Create the ListView for the seasons
-      ComboBox appleNames = new ComboBox(appleList);
+          
+      
+      // Create the Combobox for user choose
+		ComboBox<Product> comboApples=new ComboBox<>();
+	    initialateProducts();
+		comboApples.setItems(FXCollections.observableArrayList(products));
+
       //Give the first default selection item
-      appleNames.getSelectionModel().selectFirst();
+      comboApples.getSelectionModel().selectFirst();
       //Set List Style Font
-      appleNames.setStyle(" -fx-font-family: Quicksand;"
+      comboApples.setStyle(" -fx-font-family: Quicksand;"
 				  + "-fx-font-size: 12pt;");
       // Set the Size of the ComoBox
-      appleNames.setPrefSize(200, 30);
+      comboApples.setPrefSize(200, 30);
       //add a button to add more apple items
       Button addItemButton=new Button("Add Item");
       addItemButton.setStyle("-fx-border-color: B82F33;"
@@ -92,55 +104,88 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 					 + "-fx-font-size: 12pt;");
       
       
-      addItemBox.getChildren().addAll(appleNames,addItemButton,deleteItemButton);
+      addItemBox.getChildren().addAll(comboApples,addItemButton,deleteItemButton);
          
 
 
 	    /**********************************************************************
 		 *                Table List Content                                  *
 		 ***********************************************************************/    
-	    TableView<SaleItem> table = new TableView<SaleItem>();
-	     final ObservableList<SaleItem> data =
-	            FXCollections.observableArrayList(
-	            new SaleItem(1, "Fuji", "2","6"),
-	            new SaleItem(2, "Garla", "3","7"));
+	    TableView<ScreenSaleItem> table = new TableView<ScreenSaleItem>();
+	    
 	           
 	    table.setEditable(true);
 	  
 	    TableColumn reviseCol=new TableColumn("Check");
         reviseCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("reviseCheck"));
-        
+                new PropertyValueFactory<ScreenSaleItem, String>("reviseCheck"));
+        reviseCol.setMinWidth(100);
         TableColumn upcCol = new TableColumn("ProdID");
         upcCol.setMinWidth(100);
         upcCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("upcNumber"));
+                new PropertyValueFactory<ScreenSaleItem, String>("upcNumber"));
         
         TableColumn nameCol = new TableColumn("Name");
        
         nameCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("name"));
-        nameCol.setMinWidth(150);
+                new PropertyValueFactory<ScreenSaleItem, String>("name"));
+        nameCol.setMinWidth(200);
         
         TableColumn priceCol = new TableColumn("Price");
         
         priceCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("price"));
+                new PropertyValueFactory<ScreenSaleItem, String>("price"));
         priceCol.setMinWidth(100);
         
        TableColumn totCol = new TableColumn("Total Price");
         
        totCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("totPrice"));
+                new PropertyValueFactory<ScreenSaleItem, String>("totPrice"));
         totCol.setMinWidth(100);
- 
-        TableColumn quantityCol=new TableColumn("Qty");
+        totCol.setEditable(true);
+        
+        
+       // TableColumn quantityCol=new TableColumn("Qty");
+        TableColumn<ScreenSaleItem, String> quantityCol=new TableColumn<ScreenSaleItem, String>("Qty");
         quantityCol.setCellValueFactory(
-                new PropertyValueFactory<SaleItem, String>("quantity"));
+                new PropertyValueFactory<ScreenSaleItem, String>("quantity"));
+     //Create a cell Editting object
+        Callback<TableColumn<ScreenSaleItem, String>, TableCell<ScreenSaleItem, String>> cellFactory = (
+                TableColumn<ScreenSaleItem, String> p) -> new EditingCell();
+         
+      //bind the EditingCell to the value          
+      quantityCol.setCellFactory(cellFactory);
+      
+      //Setting content commit event ,so when we edit the content, it will refresh with the new value, not the old value
+      quantityCol.setOnEditCommit((CellEditEvent<ScreenSaleItem, String> t) -> {
+          ((ScreenSaleItem) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+              .setQuantity(t.getNewValue());
+         
+          //dynamically set the total value
+          ScreenSaleItem select=(ScreenSaleItem) t.getTableView().getItems().get(
+              t.getTablePosition().getRow());
+          //get value from quantity column
+          
+        int quantityNum=Integer.parseInt(select.getQuantity());
+        //get value from price column
+        float priceNum=Float.parseFloat(select.getPrice());
+        //calculate total price and set it two that column
+        float totalPrice=quantityNum*priceNum;
+        DecimalFormat df = new DecimalFormat("####0.00");
+        totalPrice=Float.parseFloat(df.format(totalPrice));
+          select.setTotPrice(totalPrice+"");
+          
+          
+        });
+
+        quantityCol.setMinWidth(150);
+        
+        
         
         table.getColumns().addAll(reviseCol,upcCol,nameCol,priceCol,totCol,quantityCol);
         table.setItems(data);
         table.setMaxWidth(750);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setStyle("-fx-font-size: 16;");
         
         /**********************************************************************
@@ -207,20 +252,25 @@ this.setStyle("-fx-background-color: #DCDCDC;");
         sumDesVbox.setStyle("-fx-border-color:green;\n"
         		+ "-fx-border-width:2;\n"
         		+ "-fx-border-style:solid;");
-        
-        
-        
-        
+       
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(30, 10, 0, 10));
 	   
         vbox.getChildren().addAll(table,sumDesVbox);
 	    
-	    //create the cancel button
-		Button cancel = new Button("Cancel");
+        
+	    //create the calculate button
+		Button calculate = new Button("Calculate");
 		//set the styling for the button
-		cancel.setStyle("-fx-border-color: B82F33;"
+		calculate.setStyle("-fx-border-color: B82F33;"
+					 + "-fx-font-family: Quicksand;"
+					 + "-fx-font-size: 12pt;");
+       
+	    //create the reset button
+		Button reset = new Button("Reset");
+		//set the styling for the button
+		reset.setStyle("-fx-border-color: B82F33;"
 					 + "-fx-font-family: Quicksand;"
 					 + "-fx-font-size: 12pt;");
 		//create the submit button
@@ -231,10 +281,10 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 					  + "-fx-font-size: 12pt;");
 						
 		 final HBox hbox = new HBox();
-		 hbox.setSpacing(200);
-		 hbox.setPadding(new Insets(60, 0, 100, 300));
+		 hbox.setSpacing(150);
+		 hbox.setPadding(new Insets(60, 0, 100, 80));
 		    
-		 hbox.getChildren().addAll(cancel,submit);
+		 hbox.getChildren().addAll(calculate,reset,submit);
 	    //Set content to GridPane
 		
 	    
@@ -244,31 +294,25 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	  //create the scene
 		
 	    /**********************************************************************
-		 *               Add all Action Here                           *
+		 *               Register all Action Here                           *
 		 ***********************************************************************/  	
 	
-        //**************appleList Initializing**************from database-------
-	    
-	    
-	    
-	    
-	    //add Item	    
+       
+	   //Add new item to sale list in the screen(not in database) 
 	    addItemButton.setOnAction(e->{
-			data.add(new SaleItem(1, "FUJI", "3.0", "18"));
-		   DBConnection dbConnection=DBConnection.getInstance();
-		   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		   Date date = new Date();
-	      String  dateStr =dateFormat.format(date);
-		   System.out.println(dateStr);
-		   
-		  // INSERT INTO sale(sale_id,email,sale_time,tax,total) VALUES(0,1,2018-12-13,'23','123');
+	    	
+	    	  
+			data.add(new ScreenSaleItem(comboApples.getSelectionModel().getSelectedItem().getProd_Id(),
+					comboApples.getSelectionModel().getSelectedItem().getProd_name(),
+					comboApples.getSelectionModel().getSelectedItem().getProd_price(),"0","0"));
+		
 			
 		});
 	    
-	    //Delete Item
+	    //Delete Item from screen(not from database)
 	    
 	    deleteItemButton.setOnAction(e->{
-	    	for(SaleItem saleItem:data) {
+	    	for(ScreenSaleItem saleItem:data) {
 	    		if(saleItem.getReviseCheck().isSelected()) {
 	    			Platform.runLater(() -> {data.remove(saleItem);});
 	    			}
@@ -277,8 +321,8 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    });
 		
 	    //reset
-	   cancel.setOnAction(e->{
-	    	for(SaleItem saleItem:data) {
+	   reset.setOnAction(e->{
+	    	for(ScreenSaleItem saleItem:data) {
 	    		Platform.runLater(() -> {data.remove(saleItem);});
 	    	}
 	    	
@@ -286,12 +330,100 @@ this.setStyle("-fx-background-color: #DCDCDC;");
 	    //submit
 	    submit.setOnAction(e->{
 	    	
+	    	Alert alert = new Alert(AlertType.CONFIRMATION);
+	    	alert.setTitle("Submit The New Transaction");
+	    	alert.setHeaderText("Submit an Save the transaction");
+	    	alert.setContentText("Are you Sure to Submit?");
+
+	    	Optional<ButtonType> result = alert.showAndWait();
+	    	if (result.get() == ButtonType.OK){
+	    	 	
+	    	    //Step 1: insert the new transaction record in screen into 	 Sale table of database
+	    	    	int saleId;
+	    	    	saleId=insertSaleIntoTable();
+	    	    	System.out.println("Sale id is: "+saleId);
+	    	    	
+	    	    //Step 2: Insert all the sale item into Sale Item table of database
+	    	    	insertSaleItemIntoTable(saleId);
+	    	} 
+	    	else {//do nothing
+	    			    	}
+	  
+	    	
 	    });
 	    
-	
-
+	    //calculate the tax and total amount
+	    calculate.setOnAction(e->{
+	    	endTotalAmount=0;
+	    	endTax=0;
+	    	float totalPrice=0;
+	    	//iterate to get the total price
+	    	for (ScreenSaleItem screenSaleItem : data) {
+	    		totalPrice+=Float.parseFloat(screenSaleItem.getTotPrice());
+			    }
+	    	endTax=totalPrice*TAXRATE;
+	    	endTotalAmount+=totalPrice+endTax;
+	    	DecimalFormat df = new DecimalFormat("####0.00");
+	    	endTax=Double.parseDouble(df.format(endTax));
+	        endTotalAmount=Double.parseDouble(df.format(endTotalAmount));
+	    	//set to screen
+	    	taxText.setText(endTax+"");
+	    	totAmountText.setText(endTotalAmount+"");
+	    	
+	    });
 
   }
+	//End of constructor method
+	
+
+	
+
+    /**********************************************************************************************************
+	 *               Add all Methods here including inter_opertation with database     
+	 *                                     *
+	 ***************************************************************************************************************/  	
+	   //**************appleList Initializing**************from database-------
+    
+   	public void initialateProducts() {
+	   productTable=new ProductTable();
+	   products=productTable.getAllProducts();
+	}
+	
+   	//Insert the sale transaction to saleTable in the database
+   	public int insertSaleIntoTable() {
+   	 saleTable=new SaleTable();
+   	 
+     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+	  // dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+	   Date date = new Date();
+     String  dateStr =dateFormat.format(date);
+	   System.out.println(dateStr);
+   	 
+   	 Sale newSale=new Sale();
+   	 newSale.setEmail_id(1);//wait for jonathon's login, i can grab the user's email id
+   	 newSale.setSale_time(dateStr);
+   	 newSale.setTax(endTax);
+   	 newSale.setTotal(endTotalAmount);
+   	 int saleId=saleTable.createSale(newSale);
+   	 
+   		return saleId;
+   	}
+	//Insert the sale item into sale item table of database
+   	public void insertSaleItemIntoTable(int saleId) {
+   		saleItemTable=new SaleItemTable();
+   		
+   		for (ScreenSaleItem screenSaleItem : data) {
+   			SaleItem saleItem=new SaleItem();
+   			saleItem.setSale_Id(saleId);
+   			saleItem.setProd_Id(screenSaleItem.getUpcNumber());
+   			saleItem.setSale_qty(Integer.parseInt(screenSaleItem.getQuantity()));
+		 	saleItemTable.createSaleItem(saleItem);
+		
+   		}
+   		
+   	}
+	
+	
 
 
 }

@@ -19,7 +19,15 @@ public class Sale {
 		this.total = total;
 	}
 	
-	public Sale(int email_id, float tax, float total, String sale_time) {
+	public Sale(int sale_id, int email_id, double tax, double total, String sale_time) {
+		super();
+		this.sale_id = sale_id;
+		this.email_id = email_id;
+		this.tax = tax;
+		this.total = total;
+		this.sale_time = sale_time;
+	}
+	public Sale(int email_id, double tax, double total, String sale_time) {
 		super();
 		this.email_id = email_id;
 		this.tax = tax;
