@@ -7,19 +7,20 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
 
-public  class SaleItem {
+public  class ScreenSaleItem {
 	 
     private  SimpleIntegerProperty upcNumber;
     private  SimpleStringProperty name;
     private  SimpleStringProperty price;
     private  SimpleStringProperty totPrice;
-    private  TextField quantity;
+   // private  TextField quantity;
+    private SimpleStringProperty quantity;
     private  CheckBox reviseCheck;
-    private  Button delButton;
-    public SaleItem(int upcNumber, String name, String price,String totPrice) {
-    	this.quantity=new TextField();
+    
+    public ScreenSaleItem(int upcNumber, String name, String price,String totPrice,String quantity) {
+    	this.quantity=new SimpleStringProperty(quantity);
     	this.reviseCheck=new CheckBox();
-    	this.delButton=new Button("Delete");
+    	
     	//reviseCheck.setId("1");
         this.upcNumber = new SimpleIntegerProperty(upcNumber);
         this.name = new SimpleStringProperty(name);
@@ -62,10 +63,9 @@ public  class SaleItem {
     	this.reviseCheck=reviseCheck;
     }
     public CheckBox getReviseCheck() {return reviseCheck;}
-    public void setDelButton(Button delButton) {this.delButton=delButton;}
-    public Button getDelButton() {return delButton;}
-    public TextField getQuantity() {return quantity;}
-    public void setQuantity(TextField quantity) {this.quantity=quantity;}	
+   
+    public String getQuantity() {return quantity.get();}
+    public void setQuantity(String quantity) {this.quantity.set(quantity);}	
 	
 	
 	

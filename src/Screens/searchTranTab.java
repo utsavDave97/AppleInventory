@@ -2,7 +2,7 @@ package Screens;
 
 import java.time.LocalDate;
 
-import Screens.TableViewItems.SaleItem;
+import Screens.TableViewItems.ScreenSaleItem;
 import Screens.TableViewItems.SaleRecord;
 //import Screens.currentranTab.SaleItem;
 import javafx.application.Platform;
@@ -119,14 +119,14 @@ timeCol.setCellValueFactory(
 TableColumn nameCol = new TableColumn("Clerk");
 
 nameCol.setCellValueFactory(
-        new PropertyValueFactory<SaleItem, String>("name"));
+        new PropertyValueFactory<ScreenSaleItem, String>("name"));
 nameCol.setMinWidth(200);
 
 
 TableColumn taxCol = new TableColumn("Tax");
 
 taxCol.setCellValueFactory(
-        new PropertyValueFactory<SaleItem, String>("tax"));
+        new PropertyValueFactory<ScreenSaleItem, String>("tax"));
 
 taxCol.setMinWidth(150);
 
@@ -135,7 +135,7 @@ TableColumn totCol = new TableColumn("Total Price");
 
 
 totCol.setCellValueFactory(
-        new PropertyValueFactory<SaleItem, String>("total"));
+        new PropertyValueFactory<ScreenSaleItem, String>("total"));
 totCol.setMinWidth(200);
 
 setMinHeight(150);
