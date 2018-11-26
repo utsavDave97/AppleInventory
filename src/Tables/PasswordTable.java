@@ -20,37 +20,34 @@ public class PasswordTable implements PasswordDAO{
 	}
 
 	@Override
-	public Boolean getPassword(String passHash) {
+	public Boolean getPassword(String passHash, int email_id) {
 
 
 		String USER_LOGIN_SCRIPT = "SELECT "+ Const.PASSWORD_COLUMN_PASS +" FROM "
-				+ Const.PASSWORD_COLUMN_PASS +" WHERE " + Const.PASSWORD_COLUMN_PASS +" = "+ "'"+ passHash+"'"+"LIMIT 1 ";
-		boolean matchedpass = false;
-		String matchedPassString = null;
-
+				+ Const.PASSWORD_COLUMN_PASS +" WHERE " + Const.PASSWORD_COLUMN_EMAIL_ID +" = "+ "'"+ email_id+"'"+"LIMIT 1 ";
+		
+		String dbHash = null;
+		
 		try {
-			//System.out.println(passHash);
 			DBConnection db = DBConnection.getInstance();
 			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(USER_LOGIN_SCRIPT);
 			ResultSet pass = preparedStatement.executeQuery();
 			
-			System.out.println(pass != null);
 			if(pass != null) {
 				if(pass.next()) {
+					dbHash = pass.getString("password");
+					System.out.println("Password Linked to email: " +dbHash);
+					System.out.println("Password given in login: "+passHash);
 					
-					System.out.println(passHash);
-					String test = pass.getString("password");
-					System.out.println(test);
+					if(passHash.equals(dbHash)) {
+						return true;
+					}
 
-					return true;
+					
 				}
 				
 			}
-			
-//			System.out.println("PassWord match!");
-//			System.out.println("Logged in!");
-			//System.out.println(db.getDbConnection().createStatement().execute(USER_LOGIN_SCRIPT));
-			
+
 		}catch(SQLException  e) {
 			e.printStackTrace();
 		}
