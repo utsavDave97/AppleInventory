@@ -1,7 +1,7 @@
 package Screens;
 
 
-import Screens.TableViewItems.SaleItem;
+import Screens.TableViewItems.ScreenSaleItem;
 import Screens.TableViewItems.ScreenUser;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
