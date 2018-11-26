@@ -1,6 +1,10 @@
 package Screens;
 
 import Screens.homeScreen;
+import Tables.PasswordTable;
+import Tables.UserTable;
+import Database.Const;
+import JavaBean.Password;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,10 +50,10 @@ public logInScreen() {
 		//create a new 'color' var that will contain a selected color
 		Color red = Color.web("#B82F33");
 		title.setFill(red);
-		//create the textfield for the username
-		TextField userName = new TextField();
+		//create the textfield for the emailField
+		TextField emailField = new TextField();
 		//create the styling for the textfields
-		userName.setStyle("-fx-focus-color: #00FFFFFF");
+		emailField.setStyle("-fx-focus-color: #00FFFFFF");
 		//create the passwordfield
 		PasswordField passWord = new PasswordField();
 		//create the style for the passwordfield
@@ -81,13 +85,13 @@ public logInScreen() {
 		passView.setFitWidth(32.5);
 		passView.setImage(passKey);
 		//create the labels for the gridpane
-		Label name = new Label("Username");
-		name.setStyle("-fx-font-family: Quicksand");
+		Label email = new Label("Email");
+		email.setStyle("-fx-font-family: Quicksand");
 		Label passwordLabel = new Label("Password");
 		passwordLabel.setStyle("-fx-font-family: Quicksand");
 		//add the content to the gridpane
-		gridpane.add(name,1,1);	
-		gridpane.add(userName, 1, 2,2,1);
+		gridpane.add(email,1,1);	
+		gridpane.add(emailField, 1, 2,2,1);
 		gridpane.add(profileView, 0, 2);
 		
 		gridpane.add(passwordLabel, 1, 3);
@@ -101,7 +105,25 @@ public logInScreen() {
 		gridpane.setAlignment(Pos.CENTER);
 		
 		login.setOnAction(e->{
-			new homeScreen();
+			//create an instance of the usertable class
+			UserTable usertable = new UserTable();
+			//create an instance of the password class
+			Password password = new Password();
+			PasswordTable passwordtable = new PasswordTable();
+			String hashedGivenPass = password.hashPassword(passWord.getText());
+			
+			//implement the method to search for the user email
+			
+			if(passwordtable.getPassword(hashedGivenPass)==true && usertable.getUser(emailField.getText())) {
+				System.out.println(passwordtable.getPassword(hashedGivenPass));
+				System.out.println("Correct credentials");
+				new homeScreen();
+			}else {
+				System.out.println("false credentials");
+				new logInScreen();
+			}
+			
+			
 			stage.close();
 		});
 		
@@ -122,5 +144,7 @@ public logInScreen() {
 		stage.show();
 		
 	}
+
+	
 
 }

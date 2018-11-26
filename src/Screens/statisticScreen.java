@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
@@ -84,13 +85,21 @@ public class statisticScreen{
 		final Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		
+		final Pane spacer2 = new Pane();
+		HBox.setHgrow(spacer2, Priority.ALWAYS);
+		
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 				
+		Label heading = new Label("AppleCore INC.");
+		heading.setStyle("-fx-text-fill: #B82F33;"
+				+ "-fx-font-family: Quicksand;"
+				+ "-fx-font-size: 30;");
+		
 		//Creating toolBar and adding navigation button and logout button to it
-		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
+		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2, heading,spacer,logOutButton);
 		
 		Button newTransaction = new Button("New Transaction");
 		Button completedTransaction = new Button("Competed Transaction");
