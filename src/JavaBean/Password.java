@@ -52,8 +52,10 @@ public class Password {
 	public String hashPassword(String password) {
 		String hashedPassword = null;
 		
-		//create function to make a 6 character string
-		
+		/**
+		 * this function bellow will generate a 12 character String and will append it to the password at the end
+		 * 
+		 */
 		
 		try {
 			//follows the same way i did this in php but with different methods of doing so

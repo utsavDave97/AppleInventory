@@ -1,5 +1,7 @@
 package Screens;
 
+import Tables.ProductTable;
+import Tables.SaleItemTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,13 +47,32 @@ public class statisticScreen{
 		//set the size of the title text
 		title.setStyle("-fx-font-Size: 45; -fx-font-family: Quicksand");
 
+		
+		SaleItemTable saleitemtable = new SaleItemTable();
+		ProductTable productTable = new ProductTable();
+		System.out.println(saleitemtable.grabAllSoldProdId());
+		
+		/**
+		 * create a forloop to add data to the piechart from data inside the sale table
+		 */
+		
+		
+
+		
+		
+		
 		//create the piechart data for the piechart
-		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList( 
-					new PieChart.Data("Fuji", 35),
-					new PieChart.Data("Granny-Smith", 55),
-					new PieChart.Data("Gala", 85),
-					new PieChart.Data("HoneyCrip", 25),
-					new PieChart.Data("Pink-lady", 35));
+		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
+				
+				);
+		//create the function to create a new field for each graph
+		for(int i = 1; i <= saleitemtable.grabAllSoldProdId(); i++) {
+			pieData.add(saleitemtable.addPieData(i));
+		}				
+				
+		
+		
+		
 		//create the piechart using the data above
 		PieChart piechart = new PieChart(pieData);
 		//set the start angle of the piechart
