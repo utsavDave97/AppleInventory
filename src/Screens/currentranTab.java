@@ -11,11 +11,13 @@ import Database.DBConnection;
 import JavaBean.Product;
 import JavaBean.Sale;
 import JavaBean.SaleItem;
+import JavaBean.Stock;
 import Screens.TableViewItems.EditingCell;
 import Screens.TableViewItems.ScreenSaleItem;
 import Tables.ProductTable;
 import Tables.SaleItemTable;
 import Tables.SaleTable;
+import Tables.StockTable;
 import Tables.UserTable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -48,6 +50,7 @@ public class currentranTab extends BorderPane{
 	ProductTable productTable;
 	SaleTable saleTable;
 	SaleItemTable saleItemTable;
+	StockTable stockTable;
 	UserTable userTable;
 	//According to HST of year of 2016
 	private final float  TAXRATE=0.13f;
@@ -156,27 +159,7 @@ public class currentranTab extends BorderPane{
       //bind the EditingCell to the value          
       quantityCol.setCellFactory(cellFactory);
       
-      //Setting content commit event ,so when we edit the content, it will refresh with the new value, not the old value
-      quantityCol.setOnEditCommit((CellEditEvent<ScreenSaleItem, String> t) -> {
-          ((ScreenSaleItem) t.getTableView().getItems().get(t.getTablePosition().getRow()))
-              .setQuantity(t.getNewValue());
-         
-          //dynamically set the total value
-          ScreenSaleItem select=(ScreenSaleItem) t.getTableView().getItems().get(
-              t.getTablePosition().getRow());
-          //get value from quantity column
-          
-        int quantityNum=Integer.parseInt(select.getQuantity());
-        //get value from price column
-        float priceNum=Float.parseFloat(select.getPrice());
-        //calculate total price and set it two that column
-        float totalPrice=quantityNum*priceNum;
-        DecimalFormat df = new DecimalFormat("####0.00");
-        totalPrice=Float.parseFloat(df.format(totalPrice));
-          select.setTotPrice(totalPrice+"");
-          
-          
-        });
+    
 
         quantityCol.setMinWidth(150);
         
@@ -293,10 +276,51 @@ public class currentranTab extends BorderPane{
 	    this.setBottom(hbox);
 	  //create the scene
 		
-	    /**********************************************************************
+	    /*****************************************************************************************************
 		 *               Register all Action Here                           *
-		 ***********************************************************************/  	
+		 ******************************************************************************************************/  	
 	
+	    //Setting content commit event ,so when we edit the content, it will refresh with the new value, not the old value
+	    //It also refresh the total price after change the quantity
+	    //It also judge whether user input exceeds the quantity in stock
+	      quantityCol.setOnEditCommit((CellEditEvent<ScreenSaleItem, String> t) -> {
+	         
+	    	  //Grab the row which user is operating now!!!
+	    	  
+	          ScreenSaleItem select=(ScreenSaleItem) t.getTableView().getItems().get(
+	              t.getTablePosition().getRow());
+	          //Grab the product id 
+	          int productId=select.getUpcNumber();
+	          //Grab the max Quantity in stock
+	          int maxQuantityInStock=getQuatityFromStockTable(productId);
+	          //Set  and show the new  value in the cell
+	          ((ScreenSaleItem) t.getTableView().getItems().get(t.getTablePosition().getRow()))
+	          .setQuantity(t.getNewValue());
+	          
+	          int quantityNum=Integer.parseInt(select.getQuantity());
+	          
+	          //Decide whether the user input exceeds the quantity in stock
+	    	  if(quantityNum>maxQuantityInStock) {
+	    		  Alert alert = new Alert(AlertType.ERROR);
+	    		  alert.setTitle("Input Error");
+	    		  alert.setHeaderText("Input Exceed the Quantity in Stock");
+	    		  alert.setContentText("The Quantity for This Product is"+maxQuantityInStock+",Please Input a Samller Value!");
+	    		  alert.showAndWait();
+	    	  }else {
+	    		         
+	          //get value from quantity column          
+	      
+	        float priceNum=Float.parseFloat(select.getPrice());
+	        //calculate total price and set it two that column
+	        float totalPrice=quantityNum*priceNum;
+	        DecimalFormat df = new DecimalFormat("####0.00");
+	        totalPrice=Float.parseFloat(df.format(totalPrice));
+	          select.setTotPrice(totalPrice+""); 
+	    	  }
+	          
+	          
+	        });
+	    
        
 	   //Add new item to sale list in the screen(not in database) 
 	    addItemButton.setOnAction(e->{
@@ -343,11 +367,21 @@ public class currentranTab extends BorderPane{
 	    	    	saleId=insertSaleIntoTable();
 	    	    	System.out.println("Sale id is: "+saleId);
 	    	    	
-	    	    //Step 2: Insert all the sale item into Sale Item table of database
+	    	    
+	    	    	//Step 2: Insert all the sale item into Sale Item table of database
 	    	    	insertSaleItemIntoTable(saleId);
-	    	} 
-	    	else {//do nothing
-	    			    	}
+	    	    
+	    	    	
+	    	    	//Step 3: Update(subtraction) quantity in stock after the transaction submit
+	    	    for (ScreenSaleItem screenSaleItem : data) {
+					int prodcutId=screenSaleItem.getUpcNumber();
+	    	    	int newQuantity=getQuatityFromStockTable(prodcutId)-Integer.parseInt(screenSaleItem.getQuantity());
+	    	    	Stock stock=new Stock(prodcutId,newQuantity);
+	    	    	updateQuantityInStock(stock);
+				}	
+	    	    	
+	    	    	
+	    	}else {} 	    	
 	  
 	    	
 	    });
@@ -379,7 +413,7 @@ public class currentranTab extends BorderPane{
 	
 
     /**********************************************************************************************************
-	 *               Add all Methods here including inter_opertation with database     
+	 *               Add all Methods here which actually inter_opertation with database     
 	 *                                     *
 	 ***************************************************************************************************************/  	
 	   //**************appleList Initializing**************from database-------
@@ -422,7 +456,27 @@ public class currentranTab extends BorderPane{
    		}
    		
    	}
-	
+   //Grab quantity of one specific product in stock from stock table	
+	public int getQuatityFromStockTable(int productId) {
+		//populate stocktable
+		stockTable=new StockTable();
+		int quantity=0;
+		try {
+			quantity=stockTable.getStock(productId).getProd_qty();
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("cannot grab quantity according the product id");
+		}
+		
+		return quantity;
+	}
+	//Update quantity in Stocktable afterthe transaction done!
+	public void updateQuantityInStock(Stock stock) {
+	 	//stockTable=new StockTable();
+		stockTable.updateStock(stock);
+		
+		
+	}
 	
 
 
