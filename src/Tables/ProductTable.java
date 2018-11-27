@@ -96,7 +96,8 @@ public class ProductTable implements ProductDAO
 	{
 		String query = "UPDATE " + Const.TABLE_PRODUCT + " SET " +
 		         Const.PRODUCT_COLUMN_NAME + "='" + product.getProd_name() +  "' ," +
-		         Const.PRODUCT_COLUMN_PRICE + "='" + product.getProd_price() +  "' " +
+		         Const.PRODUCT_COLUMN_PRICE + "='" + product.getProd_price() +  "' , " +
+		         Const.PRODUCT_COLUMN_TASTE + "='" + product.getProd_taste() +  "' " +
 		         " WHERE " + Const.PRODUCT_COLUMN_ID + " = " + product.getProd_Id();
 		try 
 		{
