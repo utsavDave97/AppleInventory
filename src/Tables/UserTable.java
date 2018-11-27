@@ -19,13 +19,16 @@ public class UserTable implements UserDAO{
 	}
 
 	@Override
-	public Boolean getUser(String email) {
-		System.out.println(email);
-		String USER_LOGIN_SCRIPT = "SELECT "+ Const.USER_COLUMN_EMAIL +" FROM "
+	public int getUser(String email) {
+		
+		String USER_LOGIN_SCRIPT = "SELECT "+ Const.USER_COLUMN_EMAIL_ID +" FROM "
 				+ Const.TABLE_USER +" WHERE " + Const.USER_COLUMN_EMAIL +" = "+ "'"+ email+"'"+"LIMIT 1 ";
-		boolean matchedemail = false;
+		
+		
 		String matchedEmailString = null;
 
+		
+		int email_id = 0;
 		try {
 			//System.out.println(passHash);
 			DBConnection db = DBConnection.getInstance();
@@ -36,21 +39,17 @@ public class UserTable implements UserDAO{
 			if(pass != null) {
 				if(pass.next()) {
 					
-					System.out.println(email);
-
-					return true;
+					email_id = pass.getInt("email_id");
+					
+					return email_id;
 				}
 				
 			}
-			
-//			System.out.println("PassWord match!");
-//			System.out.println("Logged in!");
-			//System.out.println(db.getDbConnection().createStatement().execute(USER_LOGIN_SCRIPT));
-			
+
 		}catch(SQLException  e) {
 			e.printStackTrace();
 		}
-		return false;
+		return email_id = 0;
 	}
 
 	@Override

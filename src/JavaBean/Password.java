@@ -5,6 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.xml.bind.DatatypeConverter;
 
+import Database.Const;
+
 /**
  * @description this class is responding to database table:password_table
  * @author wjqcau
@@ -50,6 +52,9 @@ public class Password {
 	public String hashPassword(String password) {
 		String hashedPassword = null;
 		
+		//create function to make a 6 character string
+		
+		
 		try {
 			//follows the same way i did this in php but with different methods of doing so
 			//1.)create the messagedigest so we can set the instance of sha-256 the strongest and most
@@ -70,6 +75,5 @@ public class Password {
 	}
 	
 
-	
 
 }
