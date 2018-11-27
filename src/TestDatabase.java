@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 import Database.DBConnection;
+import JavaBean.Stock;
+import Tables.StockTable;
 
 
 public class TestDatabase {
@@ -16,6 +18,7 @@ public class TestDatabase {
 		
 		dabase= DBConnection.getInstance();
 	
+       		
 		
 	}
 

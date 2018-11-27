@@ -43,7 +43,7 @@ public class StockTable implements StockDAO
 	@Override
 	public Stock getStock(int id) 
 	{
-		String query = "SELECT FROM " + Const.TABLE_STOCK + " WHERE " +
+		String query = "SELECT * FROM " + Const.TABLE_STOCK + " WHERE " +
 				   Const.STOCK_COLUMN_ID + " = " + id;
 		Stock stock = new Stock();
 		try 
