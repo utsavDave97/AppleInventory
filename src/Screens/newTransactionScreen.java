@@ -77,6 +77,11 @@ public class newTransactionScreen {
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 		
+		logOutButton.setOnAction(e->{
+			new logInScreen();
+			transactionStage.close();
+		});
+		
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
 				+ "-fx-font-family: Quicksand;"
@@ -132,8 +137,8 @@ public class newTransactionScreen {
 	    });
 	    
 	    deleteStock.setOnAction(e->{
-	    	
-	    	//transactionStage.close();
+	    	new deleteStockScreen();
+	    	transactionStage.close();
 	    });
 	    
 	    

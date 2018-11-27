@@ -93,6 +93,11 @@ public class statisticScreen{
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 				
+		logOutButton.setOnAction(e->{
+			new logInScreen();
+			stage.close();
+		});
+		
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
 				+ "-fx-font-family: Quicksand;"
@@ -146,7 +151,8 @@ public class statisticScreen{
 	    });
 	    
 	    deleteStock.setOnAction(e->{
-	    	
+	    	new deleteStockScreen();
+	    	stage.close();
 	    });
 	    
 	    logOutButton.setOnAction(e->{

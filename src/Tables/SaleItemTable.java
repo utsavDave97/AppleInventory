@@ -4,9 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
-
 import DAO.SaleItemDAO;
 import Database.Const;
 import Database.DBConnection;

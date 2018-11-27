@@ -136,6 +136,11 @@ public class accountManagementScreen{
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 		
+		logOutButton.setOnAction(e->{
+			new logInScreen();
+			stage.close();
+		});
+		
 		//Creating toolBar and adding navigation button and logout button to it
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
 		
@@ -184,7 +189,8 @@ public class accountManagementScreen{
 	    });
 	    
 	    deleteStock.setOnAction(e->{
-	    	
+	    	new deleteStockScreen();
+	    	stage.close();
 	    });
 	    
 	    logOutButton.setOnAction(e->{
