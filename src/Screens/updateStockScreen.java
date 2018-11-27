@@ -8,6 +8,7 @@ import JavaBean.Stock;
 import Tables.ProductTable;
 import Tables.StockTable;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -93,125 +94,69 @@ public class updateStockScreen
 	    String labelStyle = "-fx-font-family: Quicksand;"
 	    				  + "-fx-font-size: 12pt;";
 	    
-	   //Creating Type DropDown Menu
-		Label typeLabel = new Label("Type:");
-		typeLabel.setStyle("-fx-font-family: Quicksand;"
+	    
+	    Label selectLabel = new Label("Select Item to Update:");
+	    selectLabel.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
-		
-		ComboBox<Product> typeNames = new ComboBox<>();
-		typeNames.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
-		
-		
-		typeNames.setStyle("-fx-font-family: Quicksand;"
+	    
+	    ComboBox<Product> selectProduct = new ComboBox<>();
+	    selectProduct.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
+	    
+	    selectProduct.getSelectionModel().select(0);
+	    
+	    selectProduct.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
-		typeNames.setPrefSize(300, 30);
-		
+	    selectProduct.setPrefSize(300, 30);
+	    
+	    Label stockQuantityLabel = new Label("Quantity:");
+	    stockQuantityLabel.setStyle("-fx-font-family: Quicksand;"
+				 + "-fx-font-size: 12pt;");
+	    
+	    ComboBox<Stock> selectProductQuantity = new ComboBox<>();
+	    selectProductQuantity.setItems(FXCollections.observableArrayList(stockTable.getAllStocks()));
+	    selectProductQuantity.getSelectionModel().select(selectProduct.getSelectionModel().getSelectedIndex());
+	    
+	    selectProductQuantity.setStyle("-fx-font-family: Quicksand;"
+				 + "-fx-font-size: 12pt;");
+	    selectProductQuantity.setPrefSize(300, 30);
 	    
 		//Creating TypeField
-		Label changeTypeLabel = new Label("Do you want to change type's name?");
-		changeTypeLabel.setStyle(labelStyle);
-		
-		ToggleGroup changeTypeGroup = new ToggleGroup();
-		
-		RadioButton changeTypeYes = new RadioButton("Yes");
-		changeTypeYes.setStyle(labelStyle);
-		
-		RadioButton changeTypeNo = new RadioButton("No");
-		changeTypeNo.setStyle(labelStyle);
-		changeTypeNo.setSelected(true);
-		
-		changeTypeYes.setToggleGroup(changeTypeGroup);
-		changeTypeNo.setToggleGroup(changeTypeGroup);
-		
-		Label nameLabel = new Label("Type Name:");
+		Label nameLabel = new Label("Change Name:");
 		nameLabel.setStyle(labelStyle);
 		
 		TextField nameField = new TextField();
 		nameField.setStyle(textFieldStyle);
-		nameField.setEditable(false);
-		
-		changeTypeYes.setOnAction(e->{
-			nameField.setText(typeNames.getSelectionModel().getSelectedItem().getProd_name());
-			nameField.setEditable(true);
-		});
-		
-		changeTypeNo.setOnAction(e->{
-			nameField.setEditable(false);
-		});
+		nameField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_name());
 		
 		//Creating Quantity
-		Label changeQuantityLabel = new Label("Do you want to change quantity?");
-		changeQuantityLabel.setStyle(labelStyle);
-		
-		ToggleGroup changeQuantiyGroup = new ToggleGroup();
-		
-		RadioButton changeQuantityYes = new RadioButton("Yes");
-		changeQuantityYes.setStyle(labelStyle);
-		
-		RadioButton changeQuantityNo = new RadioButton("No");
-		changeQuantityNo.setStyle(labelStyle);
-		changeQuantityNo.setSelected(true);
-		
-		changeQuantityYes.setToggleGroup(changeQuantiyGroup);
-		changeQuantityNo.setToggleGroup(changeQuantiyGroup);
-		
-		Label quantityLabel = new Label("Type Quantity:");
+		Label quantityLabel = new Label("Change Quantity:");
 		quantityLabel.setStyle(labelStyle);
 		
 		TextField quantityField = new TextField();
 		quantityField.setStyle(textFieldStyle);
-		quantityField.setEditable(false);
-		
-		changeQuantityYes.setOnAction(e->
-		{	
-			quantityField.setText(stockTable.getAllStocks().get(typeNames.getSelectionModel().getSelectedIndex()).toString());
-			
-			
-			quantityField.setEditable(true);
-		});
-		
-		changeQuantityNo.setOnAction(e->{
-			quantityField.setEditable(false);
-		});
 				
+		
 		//Creating Price/Kilo
-		Label changePriceLabel = new Label("Do you want to change price/kilo?");
-		changePriceLabel.setStyle(labelStyle);
-		
-		ToggleGroup changePriceGroup = new ToggleGroup();
-		
-		RadioButton changePriceYes = new RadioButton("Yes");
-		changePriceYes.setStyle(labelStyle);
-		
-		RadioButton changePriceNo = new RadioButton("No");
-		changePriceNo.setStyle(labelStyle);
-		changePriceNo.setSelected(true);
-		
-		changePriceYes.setToggleGroup(changePriceGroup);
-		changePriceNo.setToggleGroup(changePriceGroup);
-		
-		Label priceLabel = new Label("Type Price/Kilo:");
+		Label priceLabel = new Label("Change Price/Kilo:");
 		priceLabel.setStyle(labelStyle);
 		
 		TextField priceField = new TextField();
 		priceField.setStyle(textFieldStyle);
-		priceField.setEditable(false);
+		priceField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_price());
 		
-		changePriceYes.setOnAction(e->{
-			priceField.setText(typeNames.getSelectionModel().getSelectedItem().getProd_price());
-			priceField.setEditable(true);
-		});
-		changePriceNo.setOnAction(e->{
-			priceField.setEditable(false);
-		});
+		//Creating Price/Kilo
+		Label tasteLabel = new Label("Change Taste:");
+		tasteLabel.setStyle(labelStyle);
 		
+		ObservableList<String> tasteList = FXCollections.<String>observableArrayList("Less Sweet", 
+				"Medium Sweet", 
+				"More Sweet");
 		
-		//Create Reset Button
-		Button fetch = new Button("Fetch");
-		//set the styling for the button
-		fetch.setStyle("-fx-border-color: B82F33;"
-					 + "-fx-font-family: Quicksand;"
-					 + "-fx-font-size: 12pt;");
+		ComboBox tasteNames = new ComboBox(tasteList);
+		tasteNames.getSelectionModel().selectFirst();
+		tasteNames.setStyle("-fx-font-family: Quicksand;"
+				 + "-fx-font-size: 12pt;");
+		tasteNames.setPrefSize(300, 30);
 		
 		//create the Submit button
 		Button submit = new Button("Submit");
@@ -219,72 +164,65 @@ public class updateStockScreen
 		submit.setStyle("-fx-border-color:B82F33;"
 					  + "-fx-font-family: Quicksand;"
 					  + "-fx-font-size: 12pt;");
-		
-		fetch.setOnAction(e->{
-//	    	nameField.clear();
-//	    	quantityField.clear();
-//	    	priceField.clear();
-			
-			final String typeName = typeNames.getSelectionModel().getSelectedItem().getProd_name();
-			final String price = typeNames.getSelectionModel().getSelectedItem().getProd_price();
-			final int id = typeNames.getSelectionModel().getSelectedItem().getProd_Id();
-			final int quantity = Integer.parseInt(quantityField.getText());
-			
-			System.out.println("Product ID: " + productTable.getProductID(typeName, price));
-			System.out.println("Stock ID: " + stockTable.getStockID(id, quantity));
-			
-			int prodID = productTable.getProductID(typeName, price);
-			int stockID = stockTable.getStockID(id, quantity);
-			
-			product = new Product(prodID,
-								typeNames.getSelectionModel().getSelectedItem().getProd_name(),
-								typeNames.getSelectionModel().getSelectedItem().getProd_price());
-			
-			stock = new Stock(stockID,
-							 Integer.parseInt(quantityField.getText()));
-	    });
 	    
 	    submit.setOnAction(e->
 	    {
-	    	 product.setProd_name(nameField.getText());
-	    	 product.setProd_price(priceField.getText());
+	    	int prodID = selectProduct.getSelectionModel().getSelectedItem().getProd_Id();
 	    	
-	    	stock.setProd_qty(Integer.parseInt(quantityField.getText()));
+	    	System.out.println(prodID);
+	    	
+	    	product = new Product(prodID,
+					nameField.getText(),
+					priceField.getText(),
+					tasteNames.getSelectionModel().getSelectedItem().toString());
+	    	
+	    	if(quantityField.getText().equals(""))
+	    	{
+	    		stock = new Stock(prodID,selectProductQuantity.getSelectionModel().getSelectedItem().getProd_qty());
+	    	}
+	    	else
+	    	{
+	    		stock = new Stock(prodID,
+						 Integer.parseInt(quantityField.getText()));
+	    	}
 	    	
 	    	stockTable.updateStock(stock);
 	    	productTable.updateProduct(product);
 	    	
-//	    	Alert successInsert = new Alert(AlertType.INFORMATION);
-//	    	successInsert.setTitle("Successfully Updated");
-//	    	successInsert.setHeaderText(null);
-//	    	successInsert.setContentText("Record has been updated!");
-//	    	successInsert.showAndWait();
+	    	Alert successInsert = new Alert(AlertType.INFORMATION);
+	    	successInsert.setTitle("Successfully Updated");
+	    	successInsert.setHeaderText(null);
+	    	successInsert.setContentText("Record has been updated!");
+	    	successInsert.showAndWait();
+	    	
+	    	nameField.clear();
+	    	quantityField.clear();
+	    	priceField.clear();
+	    	
+	    	selectProduct.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
+	    	
 	    });
 		
 		//Set content to GridPane
-		gridPane.add(typeLabel, 0, 0);
-		gridPane.add(typeNames, 1, 0, 3, 1);
+		gridPane.add(selectLabel, 0, 0);
+		gridPane.add(selectProduct, 1, 0, 3, 1);
+		
+		gridPane.add(stockQuantityLabel,0 , 2);
+		gridPane.add(selectProductQuantity,1 , 2);
 	    
-		gridPane.add(changeTypeLabel,0,1);
-		gridPane.add(changeTypeYes, 1, 1,3,1);
-		gridPane.add(changeTypeNo, 3, 1,3,1);
-		gridPane.add(nameLabel, 0, 2);
-		gridPane.add(nameField, 1, 2);
+		gridPane.add(nameLabel, 0, 4);
+		gridPane.add(nameField, 1, 4);
 		
-		gridPane.add(changeQuantityLabel,0,3);
-		gridPane.add(changeQuantityYes, 1, 3,3,1);
-		gridPane.add(changeQuantityNo, 3, 3,3,1);
-		gridPane.add(quantityLabel, 0, 4);
-		gridPane.add(quantityField, 1, 4);
+		gridPane.add(quantityLabel, 0, 6);
+		gridPane.add(quantityField, 1, 6);
 		
-		gridPane.add(changePriceLabel,0,5);
-		gridPane.add(changePriceYes, 1, 5,3,1);
-		gridPane.add(changePriceNo, 3, 5,3,1);
-		gridPane.add(priceLabel, 0, 6);
-		gridPane.add(priceField, 1, 6);
+		gridPane.add(priceLabel, 0, 8);
+		gridPane.add(priceField, 1, 8);
 		
-		gridPane.add(fetch, 1, 8);
-		gridPane.add(submit,2, 8);
+		gridPane.add(tasteLabel, 0, 10);
+		gridPane.add(tasteNames, 1, 10);
+		
+		gridPane.add(submit,2, 12);
 		
 		
 	    //Creating onClickListener on navigationButton
