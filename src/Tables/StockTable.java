@@ -105,9 +105,20 @@ public class StockTable implements StockDAO
 	}
 
 	@Override
-	public void deleteStock(Stock stock) {
-		// TODO Auto-generated method stub
-		
+	public void deleteStock(Stock stock) 
+	{	
+		String query  = "DELETE FROM " + Const.CREATE_TABLE_STOCK + " WHERE " +
+				Const.STOCK_COLUMN_ID + " = " + stock.getProd_Id();
+		try 
+		{
+			db.getDbConnection().createStatement().execute(query);
+			System.out.println("Deleted record");
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

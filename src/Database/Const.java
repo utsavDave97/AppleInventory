@@ -97,7 +97,7 @@ public class Const
 	public static final String CREATE_TABLE_PRODUCT = 
 			"CREATE TABLE " + TABLE_PRODUCT + " (" +
 			PRODUCT_COLUMN_ID + " INT NOT NULL PRIMARY KEY AUTO_INCREMENT, " +
-			PRODUCT_COLUMN_NAME + " VARCHAR(20) NOT NULL, " +
+			PRODUCT_COLUMN_NAME + " VARCHAR(20) NOT NULL UNIQUE, " +
 			PRODUCT_COLUMN_PRICE + " VARCHAR(10) NOT NULL, " +
 			PRODUCT_COLUMN_TASTE + " VARCHAR(30) NOT NULL);";
 	
@@ -107,7 +107,7 @@ public class Const
 			STOCK_COLUMN_ID + " INT NOT NULL PRIMARY KEY, " +
 			STOCK_COLUMN_QUANTITY + " INT NOT NULL, " +
 			"FOREIGN KEY (" + STOCK_COLUMN_ID + ") REFERENCES " +
-			TABLE_PRODUCT + "(" + PRODUCT_COLUMN_ID + "));";
+			TABLE_PRODUCT + "(" + PRODUCT_COLUMN_ID + ") ON DELETE CASCADE );";
 	
 	/*---------------Creating Sale Table------------------*/
 	public static final String CREATE_TABLE_SALE =
