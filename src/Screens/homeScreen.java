@@ -97,6 +97,11 @@ public class homeScreen
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 		
+		logOutButton.setOnAction(e->{
+			new logInScreen();
+			homeStage.close();
+		});
+		
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
 				+ "-fx-font-family: Quicksand;"
@@ -160,7 +165,8 @@ public class homeScreen
 	    });
 	    
 	    deleteStock.setOnAction(e->{
-	    	
+	    	new deleteStockScreen();
+	    	homeStage.close();
 	    });
 	    
 	    logOutButton.setOnAction(e->{

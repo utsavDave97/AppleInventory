@@ -9,7 +9,6 @@ import DAO.ProductDAO;
 import Database.Const;
 import Database.DBConnection;
 import JavaBean.Product;
-import javafx.collections.FXCollections;
 
 public class ProductTable implements ProductDAO 
 {
@@ -114,7 +113,18 @@ public class ProductTable implements ProductDAO
 	@Override
 	public void deleteProduct(Product product) 
 	{
-		
+		String query  = "DELETE FROM " + Const.TABLE_PRODUCT + " WHERE " +
+				Const.PRODUCT_COLUMN_ID + " = " + product.getProd_Id();
+		try 
+		{
+			db.getDbConnection().createStatement().execute(query);
+			System.out.println("Deleted record");
+		} 
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

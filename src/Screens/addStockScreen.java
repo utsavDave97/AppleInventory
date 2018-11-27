@@ -3,6 +3,8 @@
  */
 package Screens;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import JavaBean.Product;
 import JavaBean.Stock;
 import Tables.ProductTable;
@@ -37,6 +39,7 @@ import javafx.util.Duration;
 
 public class addStockScreen 
 {
+	Product product;
 	
 	public addStockScreen()
 	{
@@ -80,6 +83,11 @@ public class addStockScreen
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
+		
+		logOutButton.setOnAction(e->{
+			new logInScreen();
+			addStockStage.close();
+		});
 		
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
@@ -158,6 +166,9 @@ public class addStockScreen
 					  + "-fx-font-size: 12pt;");
 	    
 		
+		ComboBox<Product> selectProduct = new ComboBox<>();
+	    selectProduct.setItems(FXCollections.observableArrayList(table.getAllProducts()));
+		
 		//Set contents to GridPane
 		gridPane.add(typeLabel, 0, 0);
 		gridPane.add(typeField, 1, 0, 3, 1);
@@ -222,7 +233,8 @@ public class addStockScreen
 	    });
 	    
 	    deleteStock.setOnAction(e->{
-	    	
+	    	new deleteStockScreen();
+	    	addStockStage.close();
 	    });
 	    
 	    reset.setOnAction(e->{
@@ -231,8 +243,9 @@ public class addStockScreen
 	    	priceField.clear();
 	    });
 	    
-	    submit.setOnAction(e->{
-	    	Product product = new Product(
+	    submit.setOnAction(e->
+	    {
+	    	product = new Product(
 	    			typeField.getText().trim(),
 	    			priceField.getText().trim(),
 	    			tasteNames.getSelectionModel().getSelectedItem().toString()
@@ -250,7 +263,12 @@ public class addStockScreen
 	    	successInsert.setHeaderText(null);
 	    	successInsert.setContentText("Record has been inserted!");
 	    	successInsert.showAndWait();
+	    	
+	    	typeField.clear();
+	    	quantityField.clear();
+	    	priceField.clear();
 	    });
+	    
 	    
 	    root.setTop(navigationToolBar);
 	    root.setCenter(gridPane);

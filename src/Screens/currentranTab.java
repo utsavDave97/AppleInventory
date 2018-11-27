@@ -40,7 +40,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import sun.net.NetworkServer;
+
 public class currentranTab extends BorderPane{
 	//Declare variable for new transaction screen
 	ArrayList <Product> products;
@@ -304,7 +304,7 @@ public class currentranTab extends BorderPane{
 	    		  Alert alert = new Alert(AlertType.ERROR);
 	    		  alert.setTitle("Input Error");
 	    		  alert.setHeaderText("Input Exceed the Quantity in Stock");
-	    		  alert.setContentText("The Quantity for This Product is"+maxQuantityInStock+",Please Input a Samller Value!");
+	    		  alert.setContentText("The Quantity for This Product is "+maxQuantityInStock+",Please Input a Samller Value!");
 	    		  alert.showAndWait();
 	    	  }else {
 	    		         
