@@ -73,7 +73,7 @@ public void setProd_taste(String prod_taste) {
  
 
 public String toString() {
-	return this.prod_name;
+	return this.prod_name + "   | $" + this.prod_price + "   | " + this.prod_taste;
 }
  
 }
