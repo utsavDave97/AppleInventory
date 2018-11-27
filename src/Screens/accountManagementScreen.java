@@ -58,6 +58,9 @@ public class accountManagementScreen{
 		TableView<ScreenUser> table = new TableView<ScreenUser>();
 		ObservableList<ScreenUser> dummyData =
 	            FXCollections.observableArrayList(
+	            		//create functions here to create new ScreenUser's based on information from the database
+	            		
+	            		
 	            new ScreenUser(1, "jonathanstevanka@gmail.com", "jonathan", "stevanka"),
         			new ScreenUser(2, "hannahpunga@gmail.com", "hannah", "punga"),
         			new ScreenUser(3, "daveutsav@gmail.com", "dave", "utsav"),
