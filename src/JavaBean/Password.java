@@ -75,14 +75,5 @@ public class Password {
 	}
 	
 
-	public Boolean validatePassword(int email_id, String passHash) {
-		
-		String USER_LOGIN_SCRIPT = "SELECT "+ Const.PASSWORD_COLUMN_PASS +" FROM "
-				+ Const.PASSWORD_COLUMN_PASS +" WHERE " + Const.PASSWORD_COLUMN_EMAIL_ID +" = "+ "'"+ email_id+"'"+"LIMIT 1 ";
-		
-		//create query to see if passedhash equals this newly pulled passed hash
-		
-		return false;
-	}
 
 }

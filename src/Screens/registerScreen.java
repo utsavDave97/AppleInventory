@@ -13,11 +13,13 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -125,36 +127,62 @@ public registerScreen(){
 				//create a new userole object
 				UserRole userrole = new UserRole();
 				//use the user methods
-				user.setEmail(email.getText());
-				user.setFirstname(fname.getText());
-				user.setLastname(lname.getText());
-				//use the hashing method here to generate the string for the password
 				
-				
-				//use the password methods
-				passwordobj.setUser_password(hashedPass.hashPassword(passWord.getText()));
-				//use the userrole methods
-				if(combo.getSelectionModel().getSelectedItem() == "Clerk") {
-					userrole.setRole_Id(Const.CLERKROLEID);
-				}else if(combo.getSelectionModel().getSelectedItem()=="manager") {
-					userrole.setRole_Id(Const.MANAGERROLEID);
-				}else if(combo.getSelectionModel().getSelectedItem()=="administrator") {
-					userrole.setRole_Id(Const.ADMINISTRATORROLEID);
+				if(user.searchAllEmails(email.getText()) == true){
+					Alert emailTaken = new Alert(AlertType.INFORMATION);
+					emailTaken.setTitle("Email already taken");
+					emailTaken.setHeaderText(null);
+					emailTaken.setContentText("Please select another email as this one is taken!");
+					emailTaken.showAndWait();
+					
+					email.clear();
+					passWord.clear();
+					
+				}else {
+					user.setEmail(email.getText());
+					user.setFirstname(fname.getText());
+					user.setLastname(lname.getText());
+					
+					
+					//use the hashing method here to generate the string for the password
+					
+					
+					//use the password methods
+					passwordobj.setUser_password(hashedPass.hashPassword(passWord.getText()));
+					//use the userrole methods
+					if(combo.getSelectionModel().getSelectedItem() == "Clerk") {
+						userrole.setRole_Id(Const.CLERKROLEID);
+					}else if(combo.getSelectionModel().getSelectedItem()=="manager") {
+						userrole.setRole_Id(Const.MANAGERROLEID);
+					}else if(combo.getSelectionModel().getSelectedItem()=="administrator") {
+						userrole.setRole_Id(Const.ADMINISTRATORROLEID);
+					}
+					
+					
+					
+					//send the information to the database
+					usertable.createUser(user);
+					passwordtable.createPassword(passwordobj);
+					useroletable.createUserRole(userrole);
+					
+					fname.clear();
+					lname.clear();
+					email.clear();
+					passWord.clear();
+					
+					new logInScreen();
+					stage.close();
+					
 				}
 				
 				
-				
-				//send the information to the database
-				usertable.createUser(user);
-				passwordtable.createPassword(passwordobj);
-				useroletable.createUserRole(userrole);
 			});
 			//set an onclick listener for the clear button
 			clearInfo.setOnAction(e->{
-				fname.setText("");
-				lname.setText("");
-				email.setText("");
-				passWord.setText("");
+				fname.clear();
+				lname.clear();
+				email.clear();
+				passWord.clear();
 			});
 			//add to hbox and set to bottom
 			row.getChildren().addAll(back,clearInfo,register);
