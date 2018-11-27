@@ -1,5 +1,6 @@
 package Tables;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -147,5 +148,36 @@ public class ProductTable implements ProductDAO
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String grabProductName(int prod_id) {
+		
+		String USER_LOGIN_SCRIPT = "SELECT "+ Const.PRODUCT_COLUMN_NAME +" FROM "
+				+ Const.TABLE_PRODUCT +" WHERE " + Const.PRODUCT_COLUMN_ID +" = "+ "'"+ prod_id+"'"+" LIMIT 1 ";
+		
+		String productName = null;
+		//System.out.println(USER_LOGIN_SCRIPT);
+
+		try {
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(USER_LOGIN_SCRIPT);
+			ResultSet pass = preparedStatement.executeQuery();
+			
+
+			if(pass != null) {
+				if(pass.next()) {
+					
+					productName = pass.getString("prod_name");
+					//System.out.println(productName);
+					return productName;
+
+				}
+				
+			}
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

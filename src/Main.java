@@ -3,6 +3,7 @@ import Screens.completedTranScreen;
 import Screens.deleteStockScreen;
 import Screens.logInScreen;
 import Screens.newTransactionScreen;
+import Screens.statisticScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

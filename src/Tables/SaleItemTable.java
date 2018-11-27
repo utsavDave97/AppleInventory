@@ -1,5 +1,6 @@
 package Tables;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,8 @@ import Database.Const;
 import Database.DBConnection;
 import JavaBean.Sale;
 import JavaBean.SaleItem;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.PieChart.Data;
 
 public class SaleItemTable implements SaleItemDAO {
 
@@ -115,4 +118,69 @@ public class SaleItemTable implements SaleItemDAO {
 
 	}
 
+	public int grabSalePerItem(int prod_id) {
+		String USER_LOGIN_SCRIPT = "SELECT * FROM "+ Const.TABLE_SALE_ITEM +" WHERE "
+				+ Const.SALE_ITEM_COLUMN_PROD_ID +" = "+ "'"+ prod_id+"'";
+		
+		int quantTot = 0;
+
+		try {
+			//System.out.println(USER_LOGIN_SCRIPT);
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(USER_LOGIN_SCRIPT);
+			ResultSet pass = preparedStatement.executeQuery();
+			
+			//System.out.println(USER_LOGIN_SCRIPT);
+			if(pass != null) {
+				while(pass.next()) {
+					quantTot += pass.getInt("sale_qty");
+				}				
+				
+			}
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+		
+		
+		return quantTot;
+	}
+	
+	public int grabAllSoldProdId() {
+		String USER_LOGIN_SCRIPT = "SELECT DISTINCT "+ Const.SALE_ITEM_COLUMN_PROD_ID +" FROM "
+				+ Const.TABLE_SALE_ITEM;
+		int i = 0;
+
+		//SELECT DISTINCT prod_id FROM sale_item
+		try {
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(USER_LOGIN_SCRIPT);
+			ResultSet pass = preparedStatement.executeQuery();
+			
+			
+			if(pass != null) {
+				while(pass.next()) {
+					i++;
+				}
+				
+			}
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+		
+		
+		return i;
+	}
+	
+	public Data addPieData(int prod_id) {
+		//create two new connections to the requried tables
+		ProductTable productTable = new ProductTable();
+		SaleItemTable saleitemtable = new SaleItemTable();
+		
+		
+		
+		return new PieChart.Data(productTable.grabProductName(prod_id), saleitemtable.grabSalePerItem(prod_id));
+
+	}
 }
