@@ -1,5 +1,7 @@
 package Tables;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,9 +19,37 @@ public class UserTable implements UserDAO{
 	}
 
 	@Override
-	public User getUser(String email) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getUser(String email) {
+		
+		String USER_LOGIN_SCRIPT = "SELECT "+ Const.USER_COLUMN_EMAIL_ID +" FROM "
+				+ Const.TABLE_USER +" WHERE " + Const.USER_COLUMN_EMAIL +" = "+ "'"+ email+"'"+"LIMIT 1 ";
+		
+		
+		String matchedEmailString = null;
+
+		
+		int email_id = 0;
+		try {
+			//System.out.println(passHash);
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(USER_LOGIN_SCRIPT);
+			ResultSet pass = preparedStatement.executeQuery();
+			
+			System.out.println(pass != null);
+			if(pass != null) {
+				if(pass.next()) {
+					
+					email_id = pass.getInt("email_id");
+					
+					return email_id;
+				}
+				
+			}
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+		return email_id = 0;
 	}
 
 	@Override

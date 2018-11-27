@@ -1,14 +1,21 @@
 package Screens;
 
 import Screens.homeScreen;
+import Tables.PasswordTable;
+import Tables.UserTable;
+import Database.Const;
+import JavaBean.Password;
+import JavaBean.User;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -24,9 +31,9 @@ import javafx.stage.Stage;
  */
 
 public class logInScreen{
-	
-public logInScreen() {
-	
+
+	public logInScreen() {
+
 		//create the stage 
 		Stage stage = new Stage();
 		//create the borderPane to store the layout
@@ -46,10 +53,10 @@ public logInScreen() {
 		//create a new 'color' var that will contain a selected color
 		Color red = Color.web("#B82F33");
 		title.setFill(red);
-		//create the textfield for the username
-		TextField userName = new TextField();
+		//create the textfield for the emailField
+		TextField emailField = new TextField();
 		//create the styling for the textfields
-		userName.setStyle("-fx-focus-color: #00FFFFFF");
+		emailField.setStyle("-fx-focus-color: #00FFFFFF");
 		//create the passwordfield
 		PasswordField passWord = new PasswordField();
 		//create the style for the passwordfield
@@ -62,7 +69,7 @@ public logInScreen() {
 		Button register = new Button("Register");
 		//create the register styling
 		register.setStyle("-fx-border-color: B82F33; -fx-font-family: Quicksand;");
-		
+
 		//create the imageviews for the two images		
 		//create the image for the imageview
 		Image profile = new Image("profile.png");
@@ -81,46 +88,68 @@ public logInScreen() {
 		passView.setFitWidth(32.5);
 		passView.setImage(passKey);
 		//create the labels for the gridpane
-		Label name = new Label("Username");
-		name.setStyle("-fx-font-family: Quicksand");
+		Label email = new Label("Email");
+		email.setStyle("-fx-font-family: Quicksand");
 		Label passwordLabel = new Label("Password");
 		passwordLabel.setStyle("-fx-font-family: Quicksand");
 		//add the content to the gridpane
-		gridpane.add(name,1,1);	
-		gridpane.add(userName, 1, 2,2,1);
+		gridpane.add(email,1,1);	
+		gridpane.add(emailField, 1, 2,2,1);
 		gridpane.add(profileView, 0, 2);
-		
+
 		gridpane.add(passwordLabel, 1, 3);
 		gridpane.add(passWord, 1, 4,2,1);
 		gridpane.add(passView, 0, 4);
-		
+
 		gridpane.add(login, 1, 5);
 		gridpane.add(register, 2,5);
-		
+
 		//style the gridpane
 		gridpane.setAlignment(Pos.CENTER);
-		
+
 		login.setOnAction(e->{
-			new homeScreen();
+			//create an instance of the usertable class
+			UserTable usertable = new UserTable();
+			//create an instance of the password class
+			User user = new User();
+			Password password = new Password();
+			PasswordTable passwordtable = new PasswordTable();
+			String hashedGivenPass = password.hashPassword(passWord.getText());
+
+			//implement the method to search for the user email
+			//utilize the getuser field and save it as an int, this will grab the email_id in the database
+			int cursorEmailField = usertable.getUser(emailField.getText());
+
+
+			if(passwordtable.getPassword(hashedGivenPass, cursorEmailField)==true) {
+				System.out.println("Correct credentials");
+				new homeScreen();
+			}else {
+				System.out.println("false credentials");
+				new logInScreen();
+			}
+
 			stage.close();
 		});
-		
+
 		register.setOnAction(e->{
 			new registerScreen();
 			stage.close();
 		});
-		
+
 		pane.setMargin(title, new Insets(40,0,0,0));
 		pane.setTop(title);
 		pane.setAlignment(title, Pos.CENTER);
 		pane.setCenter(gridpane);
 		//create the scene
 		Scene scene = new Scene(pane, 1024, 768);
-		
+
 		//show the stage
 		stage.setScene(scene);
 		stage.show();
-		
+
 	}
+
+
 
 }

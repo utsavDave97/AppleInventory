@@ -2,6 +2,7 @@ package Screens;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -67,12 +69,20 @@ public class newTransactionScreen {
 		final Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		
+		final Pane spacer2 = new Pane();
+		HBox.setHgrow(spacer2, Priority.ALWAYS);
+		
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
 		
-		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer,logOutButton);
+		Label heading = new Label("AppleCore INC.");
+		heading.setStyle("-fx-text-fill: #B82F33;"
+				+ "-fx-font-family: Quicksand;"
+				+ "-fx-font-size: 30;");
+		
+		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
 		
 		Button newTransaction = new Button("New Transaction");
 		Button completedTransaction = new Button("Completed Transaction");
@@ -135,7 +145,16 @@ public class newTransactionScreen {
 
 	    currentranTab newTransactionPane=new currentranTab();
 	    
-	    
+	    newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		{
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				root.setLeft(null);
+			}
+	
+		});
 	    /****************************************************************************************************
 	     * 	   set pane and Add the page to stage 
 	     **************************************************************************************************/	    

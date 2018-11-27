@@ -1,4 +1,12 @@
 package JavaBean;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import javax.xml.bind.DatatypeConverter;
+
+import Database.Const;
+
 /**
  * @description this class is responding to database table:password_table
  * @author wjqcau
@@ -40,6 +48,32 @@ public class Password {
 	public void setUser_password(String password) {
 		this.password = password;
 	}
+	//create the way we will hash the password to enter it into the database
+	public String hashPassword(String password) {
+		String hashedPassword = null;
+		
+		//create function to make a 6 character string
+		
+		
+		try {
+			//follows the same way i did this in php but with different methods of doing so
+			//1.)create the messagedigest so we can set the instance of sha-256 the strongest and most
+			//secure hashing method of 2018.
+			MessageDigest messagedigest = MessageDigest.getInstance("Sha-256");
+			//here we will use sha-256 to convert the password to a hashed long number
+			//we will then grab the the bytes from our specific password
+			messagedigest.update(password.getBytes());
+			//here we take the hashed string and convert it to bytes
+			byte[] hashedByte = messagedigest.digest();
+			//here we use the datatypeconverter and cast the hexedpassed to the string we created locally
+			hashedPassword = DatatypeConverter.printHexBinary(hashedByte);
+		}catch(NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		//return the hashed password
+		return hashedPassword;
+	}
 	
+
 
 }

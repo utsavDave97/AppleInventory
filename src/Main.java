@@ -94,7 +94,7 @@ public class Main extends Application
 		KeyValue keyValue = new KeyValue(pb.progressProperty(),1);
 		
 		//KeyFrame is defined and is given time per frame, and KeyValue is given as a parameter
-		KeyFrame keyFrame = new KeyFrame(new Duration(1000),onFinished,keyValue);
+		KeyFrame keyFrame = new KeyFrame(new Duration(2000),onFinished,keyValue);
 		timeline.getKeyFrames().add(keyFrame);
 		
 		//Animation starts

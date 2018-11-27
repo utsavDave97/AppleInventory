@@ -1,6 +1,7 @@
+import java.util.ArrayList;
+
 import Database.DBConnection;
-import JavaBean.Product;
-import Tables.ProductTable;
+
 
 public class TestDatabase {
 /**
@@ -14,6 +15,8 @@ public class TestDatabase {
 		DBConnection dabase;
 		
 		dabase= DBConnection.getInstance();
+	
+		
 	}
 
 }
