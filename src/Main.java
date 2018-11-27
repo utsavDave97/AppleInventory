@@ -1,5 +1,6 @@
 	import Screens.accountManagementScreen;
 import Screens.completedTranScreen;
+import Screens.deleteStockScreen;
 import Screens.logInScreen;
 import Screens.newTransactionScreen;
 import Screens.statisticScreen;
@@ -83,7 +84,6 @@ public class Main extends Application
 		 */
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
-			
 			new logInScreen();
 			primaryStage.close();
 		};

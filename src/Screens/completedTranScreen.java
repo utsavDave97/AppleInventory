@@ -80,6 +80,11 @@ public class completedTranScreen
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
+		
+		logOutButton.setOnAction(e->{
+			new logInScreen();
+			comtransStage.close();
+		});
 				
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
@@ -134,7 +139,8 @@ public class completedTranScreen
 	    });
 	    
 	    deleteStock.setOnAction(e->{
-	    	
+	    	new deleteStockScreen();
+	    	comtransStage.close();
 	    });
 	    
 	    logOutButton.setOnAction(e->{
