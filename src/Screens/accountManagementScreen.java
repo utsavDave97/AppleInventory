@@ -3,6 +3,8 @@ package Screens;
 
 import java.util.ArrayList;
 
+import JavaBean.User;
+import JavaBean.UserRole;
 import Screens.TableViewItems.EditCellAccountManagement;
 import Screens.TableViewItems.EditingCell;
 import Screens.TableViewItems.ScreenSaleItem;
@@ -129,21 +131,76 @@ public class accountManagementScreen{
 		 * create the onclick listieners for the editcell's
 		 */
 		
+		User proposedChanges = new User();
+		UserRole userrole = new UserRole();
+		
 		emailCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> { 
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
 			
-			String email = cursor.getEmail();
-			System.out.println(email);
+			//print the email before change
+//			String email = cursor.getEmail();
+//			System.out.println(email);
+//			
+			//change the email at the designated spot
 			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
-			email = cursor.getEmail();
-			System.out.println(email);
+			
+			proposedChanges.setEmail_id(cursor.getEmail_id());
+			proposedChanges.setEmail(cursor.getEmail());
+			
+			//print the email after change
+			//email = cursor.getEmail();
+			//System.out.println(email);
 
 		});
 		
 		
+		fnameCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
+			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
+					t.getTablePosition().getRow());
+			
+			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setFname(t.getNewValue());
+			
+			proposedChanges.setEmail_id(cursor.getEmail_id());
+			proposedChanges.setFirstname(cursor.getFname());
+
+			
+		});
 		
+		lnameCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
+			
+			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
+					t.getTablePosition().getRow());
+			
+			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLname(t.getNewValue());
+
+			
+			proposedChanges.setEmail_id(cursor.getEmail_id());
+			proposedChanges.setLastname(cursor.getLname());
+			
+		});
+		
+		
+		comboCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
+			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
+					t.getTablePosition().getRow());
+			
+			
+			
+		});
+		
+		
+		saveChanges.setOnAction(e->{
+			
+			System.out.println(proposedChanges.getEmail());
+			System.out.println(proposedChanges.getEmail_id());
+			System.out.println(proposedChanges.getFirstname());
+			System.out.println(proposedChanges.getLastname());
+
+			usertable.updateUser(proposedChanges);
+			
+		});
 		
 		
 		

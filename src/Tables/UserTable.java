@@ -75,7 +75,24 @@ public class UserTable implements UserDAO{
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
+
+		String query = "UPDATE " + Const.TABLE_USER + " SET " +
+		        Const.USER_COLUMN_EMAIL + "='" + user.getEmail() +  "' ," +
+				Const.USER_COLUMN_FNAME + "='" + user.getFirstname() + "' ,"+
+		        Const.USER_COLUMN_LNAME + "='" + user.getLastname() + "'" +
+		         " WHERE " + Const.USER_COLUMN_EMAIL_ID + " = " + user.getEmail_id()+";";
+		
+		try {
+			//System.out.println(passHash);
+			System.out.println(query);
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(query);
+			preparedStatement.execute();
+
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
 		
 	}
 

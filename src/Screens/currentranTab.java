@@ -330,7 +330,7 @@ public class currentranTab extends BorderPane{
 							comboApples.getSelectionModel().getSelectedItem().getProd_name(),
 							comboApples.getSelectionModel().getSelectedItem().getProd_price(),"0","0"));
 
-					
+
 				});
 
 				//Delete Item from screen(not from database)
