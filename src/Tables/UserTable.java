@@ -8,14 +8,35 @@ import java.util.ArrayList;
 import DAO.UserDAO;
 import Database.Const;
 import Database.DBConnection;
+import JavaBean.Product;
 import JavaBean.User;
+import Screens.TableViewItems.ScreenUser;
 
 public class UserTable implements UserDAO{
 
 	@Override
 	public ArrayList<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<User> users;
+		users = new ArrayList<User>();
+		String query = "SELECT * FROM " + Const.TABLE_USER;
+		try {
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(query);
+			ResultSet pass = preparedStatement.executeQuery();
+			
+			if(pass != null) {
+				if(pass.next()) {
+					users.add(new User(pass.getInt(Const.USER_COLUMN_EMAIL_ID),pass.getString(Const.USER_COLUMN_EMAIL), pass.getString(Const.USER_COLUMN_FNAME), pass.getString(Const.USER_COLUMN_LNAME)));
+				}
+				
+			}
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+			
+		
+		return users;
 	}
 
 	@Override
@@ -76,6 +97,33 @@ public class UserTable implements UserDAO{
 		}catch(SQLException  e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<ScreenUser> getAllUsersForTableView() {
+		ArrayList<ScreenUser> users;
+		users = new ArrayList<ScreenUser>();
+		String query = "SELECT * FROM " + Const.TABLE_USER;
+		try {
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(query);
+			ResultSet pass = preparedStatement.executeQuery();
+			
+			
+			
+			if(pass != null) {
+				while(pass.next()) {
+					System.out.println("test");
+					users.add(new ScreenUser(pass.getInt(Const.USER_COLUMN_EMAIL_ID),pass.getString(Const.USER_COLUMN_EMAIL), pass.getString(Const.USER_COLUMN_FNAME), pass.getString(Const.USER_COLUMN_LNAME)));
+				}
+				
+			}
+
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+			
+		
+		return users;
 	}
 
 }

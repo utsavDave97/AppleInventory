@@ -1,8 +1,11 @@
 package Screens;
 
 
+import java.util.ArrayList;
+
 import Screens.TableViewItems.ScreenSaleItem;
 import Screens.TableViewItems.ScreenUser;
+import Tables.UserTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,15 +59,15 @@ public class accountManagementScreen{
 		 * Create the contents for the account management screen
 		 *********************************************************/
 		TableView<ScreenUser> table = new TableView<ScreenUser>();
-		ObservableList<ScreenUser> dummyData =
-	            FXCollections.observableArrayList(
-	            		//create functions here to create new ScreenUser's based on information from the database
-	            		
-	            		
-	            new ScreenUser(1, "jonathanstevanka@gmail.com", "jonathan", "stevanka"),
-        			new ScreenUser(2, "hannahpunga@gmail.com", "hannah", "punga"),
-        			new ScreenUser(3, "daveutsav@gmail.com", "dave", "utsav"),
-        			new ScreenUser(4, "jonnybauer@gmail.com", "jonny", "bauer"));
+		ObservableList<ScreenUser> userData = FXCollections.observableArrayList();
+		UserTable usertable = new UserTable();
+	    //create functions here to create new ScreenUser's based on information from the database
+		ArrayList<ScreenUser> list = new ArrayList<ScreenUser>();
+		list = usertable.getAllUsersForTableView();
+	    for(int i=0; i< list.size(); i++ ) {
+	    		userData.add(list.get(i));
+	    }
+		
 
 		table.setEditable(true);
 		
@@ -99,7 +102,7 @@ public class accountManagementScreen{
 		
 		
 		table.getColumns().addAll(idCol, emailCol, fnameCol, lnameCol, comboCol);
-		table.setItems(dummyData);
+		table.setItems(userData);
 		table.setMaxWidth(1000);
 		table.setColumnResizePolicy(table.CONSTRAINED_RESIZE_POLICY);
 		//table.setMinWidth(300);
