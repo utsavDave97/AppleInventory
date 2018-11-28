@@ -86,19 +86,19 @@ public class accountManagementScreen{
 				TableColumn<ScreenUser, String> p) -> new EditCellAccountManagement();
 		
 		
-		TableColumn emailCol = new TableColumn("Email:");
+		TableColumn<ScreenUser, String> emailCol = new TableColumn("Email:");
 		emailCol.setEditable(true);
 		emailCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, String>("email"));
 		emailCol.setMinWidth(245);
 		emailCol.setCellFactory(cellFactory);
 		
-		TableColumn fnameCol = new TableColumn("First name:");
+		TableColumn<ScreenUser, String> fnameCol = new TableColumn("First name:");
 		fnameCol.setEditable(true);
 		fnameCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, String>("fname"));
 		fnameCol.setMinWidth(150);
 		fnameCol.setCellFactory(cellFactory);
 		
-		TableColumn lnameCol = new TableColumn("Last name:");
+		TableColumn<ScreenUser, String> lnameCol = new TableColumn("Last name:");
 		lnameCol.setEditable(true);
 		lnameCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, String>("lname"));
 		lnameCol.setMinWidth(150);
@@ -109,7 +109,7 @@ public class accountManagementScreen{
 		roles.add("manager");
 		roles.add("administrator");
 		
-		TableColumn comboCol = new TableColumn("Role:");
+		TableColumn<ScreenUser, String> comboCol = new TableColumn("Role:");
 		comboCol.setVisible(true);
 		comboCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 		comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
@@ -131,9 +131,15 @@ public class accountManagementScreen{
 		
 		emailCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> { 
 			
-			ScreenUser select=(ScreenUser) t.getTableView().getItems().get(
+			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
 			
+			String email = cursor.getEmail();
+			System.out.println(email);
+			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
+			email = cursor.getEmail();
+			System.out.println(email);
+
 		});
 		
 		
