@@ -3,6 +3,8 @@ package Screens;
 
 import java.util.ArrayList;
 
+import Screens.TableViewItems.EditCellAccountManagement;
+import Screens.TableViewItems.EditingCell;
 import Screens.TableViewItems.ScreenSaleItem;
 import Screens.TableViewItems.ScreenUser;
 import Tables.UserTable;
@@ -14,11 +16,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -29,6 +33,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 
 public class accountManagementScreen{
@@ -59,6 +64,7 @@ public class accountManagementScreen{
 		 * Create the contents for the account management screen
 		 *********************************************************/
 		TableView<ScreenUser> table = new TableView<ScreenUser>();
+		table.setEditable(true);
 		ObservableList<ScreenUser> userData = FXCollections.observableArrayList();
 		UserTable usertable = new UserTable();
 	    //create functions here to create new ScreenUser's based on information from the database
@@ -69,24 +75,34 @@ public class accountManagementScreen{
 	    }
 		
 
-		table.setEditable(true);
 		
 		TableColumn idCol = new TableColumn("UserID:");
+		idCol.setEditable(false);
 		idCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, Integer>("email_id"));
 		idCol.setMinWidth(65);
 		idCol.setMaxWidth(150);
 		
+		Callback<TableColumn<ScreenUser, String>, TableCell<ScreenUser, String>> cellFactory = (
+				TableColumn<ScreenUser, String> p) -> new EditCellAccountManagement();
+		
+		
 		TableColumn emailCol = new TableColumn("Email:");
+		emailCol.setEditable(true);
 		emailCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, String>("email"));
 		emailCol.setMinWidth(245);
+		emailCol.setCellFactory(cellFactory);
 		
 		TableColumn fnameCol = new TableColumn("First name:");
+		fnameCol.setEditable(true);
 		fnameCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, String>("fname"));
 		fnameCol.setMinWidth(150);
+		fnameCol.setCellFactory(cellFactory);
 		
 		TableColumn lnameCol = new TableColumn("Last name:");
+		lnameCol.setEditable(true);
 		lnameCol.setCellValueFactory(new PropertyValueFactory<ScreenUser, String>("lname"));
 		lnameCol.setMinWidth(150);
+		lnameCol.setCellFactory(cellFactory);
 		
 		ObservableList<String> roles = FXCollections.observableArrayList(); 
 		roles.add("clerk");
@@ -94,11 +110,10 @@ public class accountManagementScreen{
 		roles.add("administrator");
 		
 		TableColumn comboCol = new TableColumn("Role:");
+		comboCol.setVisible(true);
 		comboCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 		comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
 		comboCol.setMinWidth(230);
-		
-		
 		
 		
 		table.getColumns().addAll(idCol, emailCol, fnameCol, lnameCol, comboCol);
@@ -109,9 +124,31 @@ public class accountManagementScreen{
 		table.setMaxHeight(500);
 		table.setStyle("-fx-font-size: 16;");
 		
+		
+		/**
+		 * create the onclick listieners for the editcell's
+		 */
+		
+		emailCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> { 
+			
+			ScreenUser select=(ScreenUser) t.getTableView().getItems().get(
+					t.getTablePosition().getRow());
+			
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		pane.setCenter(table);
 		
 		Scene scene = new Scene(pane, 1064, 762);
+		
+		
 		
 		
 		
