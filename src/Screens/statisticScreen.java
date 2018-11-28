@@ -62,9 +62,7 @@ public class statisticScreen{
 		
 		
 		//create the piechart data for the piechart
-		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList(
-				
-				);
+		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
 		//create the function to create a new field for each graph
 		for(int i = 1; i <= saleitemtable.grabAllSoldProdId(); i++) {
 			pieData.add(saleitemtable.addPieData(i));
