@@ -3,7 +3,7 @@ package JavaBean;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-//import javax.xml.bind.DatatypeConverter;
+import javax.xml.bind.DatatypeConverter;
 
 import Database.Const;
 
@@ -66,7 +66,7 @@ public class Password {
 			//here we take the hashed string and convert it to bytes
 			byte[] hashedByte = messagedigest.digest();
 			//here we use the datatypeconverter and cast the hexedpassed to the string we created locally
-			//hashedPassword = DatatypeConverter.printHexBinary(hashedByte);
+			hashedPassword = DatatypeConverter.printHexBinary(hashedByte);
 		}catch(NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
