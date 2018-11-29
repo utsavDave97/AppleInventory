@@ -1,5 +1,6 @@
 package Screens;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import JavaBean.Product;
@@ -87,12 +88,15 @@ public class searchDetailPopup {
 			Product product=productTable.getProduct(saleItem.getProd_Id());
 			String productName=product.getProd_name();
 			String price=product.getProd_price();
-			
-             SaleTable saleTable=new SaleTable();
-            String totPrice= saleTable.getSale(saleId).getTotal()+"";
+			Float totalprice=Float.parseFloat(product.getProd_price())*saleItem.getSale_qty();
+			 DecimalFormat df = new DecimalFormat("####0.00");
+		String	totprice=df.format(totalprice);
+//             SaleTable saleTable=new SaleTable();
+             
+          
             
             
-			data.add(new ScreenSaleItem(saleItem.getProd_Id(), productName, price, totPrice, saleItem.getSale_qty()+""));
+			data.add(new ScreenSaleItem(saleItem.getProd_Id(), productName, price, totprice, saleItem.getSale_qty()+""));
 			 //public ScreenSaleItem(int upcNumber, String name, String price,String totPrice,String quantity)
 		}
 		
