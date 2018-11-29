@@ -97,11 +97,16 @@ public User getUser(int email_id) {
 	@Override
 	public void updateUser(User user) {
 
-		String query = "UPDATE " + Const.TABLE_USER + " SET " +
-		        Const.USER_COLUMN_EMAIL + "='" + user.getEmail() +  "' ," +
-				Const.USER_COLUMN_FNAME + "='" + user.getFirstname() + "' ,"+
-		        Const.USER_COLUMN_LNAME + "='" + user.getLastname() + "'" +
-		         " WHERE " + Const.USER_COLUMN_EMAIL_ID + " = " + user.getEmail_id()+";";
+		String query = null;
+		
+		if(user.getEmail() != null && user.getFirstname() != null && user.getLastname() != null) {
+			query = "UPDATE " + Const.TABLE_USER + " SET " +
+			        Const.USER_COLUMN_EMAIL + "='" + user.getEmail() +  "' ," +
+					Const.USER_COLUMN_FNAME + "='" + user.getFirstname() + "' ,"+
+			        Const.USER_COLUMN_LNAME + "='" + user.getLastname() + "'" +
+			         " WHERE " + Const.USER_COLUMN_EMAIL_ID + " = " + user.getEmail_id()+";";	
+		}
+		
 		
 		try {
 			//System.out.println(passHash);
