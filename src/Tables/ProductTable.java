@@ -47,7 +47,7 @@ public class ProductTable implements ProductDAO
 	@Override
 	public Product getProduct(int prod_Id) 
 	{
-		String query = "SELECT FROM " + Const.TABLE_PRODUCT + " WHERE " +
+		String query = "SELECT * FROM " + Const.TABLE_PRODUCT + " WHERE " +
 				   Const.PRODUCT_COLUMN_ID + " = " + prod_Id;
 		Product product = new Product();
 		try 

@@ -1,5 +1,8 @@
 package Screens.TableViewItems;
 
+import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
+
+import javafx.scene.control.CheckBox;
 
 public  class SaleRecord {
 
@@ -7,13 +10,16 @@ private  String saleTime;
 private  String name;
 private  String tax;
 private  String total;
-
-public SaleRecord(String saleTime, String name, String tax, String total) {
+private  int saleId;
+private CheckBox checkDetail;
+public SaleRecord(String saleTime, String name, String tax, String total,int saleId) {
 	super();
 	this.saleTime = saleTime;
 	this.name = name;
 	this.tax = tax;
 	this.total = total;
+	checkDetail=new CheckBox();
+	this.saleId=saleId;
 }
 public String getSaleTime() {
 	return saleTime;
@@ -39,6 +45,17 @@ public String getTotal() {
 public void setTotal(String total) {
 	this.total = total;
 }
+public int getSaleId() {
+	return this.saleId;
+}
+public void setSaleId(int saleId) {
+	this.saleId=saleId;
+}
 
+public CheckBox getCheckDetail() {
+	return checkDetail;
+}
+public void setCheckDetail(CheckBox checkDetail) {
+	this.checkDetail = checkDetail;
 		
-	}
+	}}
