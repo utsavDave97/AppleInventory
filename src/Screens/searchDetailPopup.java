@@ -87,9 +87,10 @@ public class searchDetailPopup {
 			Product product=productTable.getProduct(saleItem.getProd_Id());
 			String productName=product.getProd_name();
 			String price=product.getProd_price();
-			
-             SaleTable saleTable=new SaleTable();
-            String totPrice= saleTable.getSale(saleId).getTotal()+"";
+			Float totalprice=Float.parseFloat(product.getProd_price())*saleItem.getSale_qty();
+//             SaleTable saleTable=new SaleTable();
+             
+            String totPrice=totalprice.toString();
             
             
 			data.add(new ScreenSaleItem(saleItem.getProd_Id(), productName, price, totPrice, saleItem.getSale_qty()+""));

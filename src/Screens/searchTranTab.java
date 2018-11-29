@@ -246,7 +246,8 @@ this.setBottom(hbox);
 	  {
 		  double doubleMaxTotalAmount=Double.parseDouble(maxTotalAmount.getText());
 		  double doubleMinTotalAmount=Double.parseDouble(minTotalAmount.getText());
-		 if((doubleMaxTotalAmount<doubleMinTotalAmount)||
+		 //Decide whether user set the time
+		  if((doubleMaxTotalAmount<doubleMinTotalAmount)||
 				 (endDateStr.isEmpty())||
 				 (startDateStr.isEmpty())) {
 			 

@@ -183,4 +183,24 @@ public class SaleItemTable implements SaleItemDAO {
 		return new PieChart.Data(productTable.grabProductName(prod_id), saleitemtable.grabSalePerItem(prod_id));
 
 	}
+	
+	public void deleteSomeSaleItems(int saleId) {
+		
+		String query="DELETE FROM "+Const.TABLE_SALE_ITEM+
+		" WHERE "+ Const.SALE_ITEM_COLUMN_SALE_ID+" = "+saleId;
+		
+		try
+		{
+			Statement getSaleItems = db.getDbConnection().createStatement();
+			 getSaleItems.executeUpdate(query);
+			
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	
+	}
+	
 }

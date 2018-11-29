@@ -9,13 +9,15 @@ public class SaleHisItem{
 	 private StringProperty operater;
 	 private StringProperty tax;
 	 private StringProperty totAmount;
-	 private CheckBox checkDel;		
-	 public SaleHisItem(String saletime,String operaterName,String taxNum,String totalAmount) {
+	 private CheckBox checkDel;
+	 private int saleId;
+	 public SaleHisItem(String saletime,String operaterName,String taxNum,String totalAmount,int saleId) {
 		 this.saleTime=new SimpleStringProperty(saletime);
 		 this.operater=new SimpleStringProperty(operaterName);
 		 this.tax=new SimpleStringProperty(taxNum);
 		 this.totAmount=new SimpleStringProperty(totalAmount);
 		 checkDel=new CheckBox();
+		 this.saleId=saleId;
 
 	 }
 	public String getSaleTime() {
@@ -47,6 +49,12 @@ public class SaleHisItem{
 	}
 	public void setCheckDel(CheckBox checkDel) {
 		this.checkDel = checkDel;
+	}
+	public int getSaleId() {
+		return saleId;
+	}
+	public void setSaleId(int saleId) {
+		this.saleId = saleId;
 	}
 	 
 	 
