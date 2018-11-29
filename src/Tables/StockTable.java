@@ -107,8 +107,9 @@ public class StockTable implements StockDAO
 	@Override
 	public void deleteStock(Stock stock) 
 	{	
-		String query  = "DELETE FROM " + Const.CREATE_TABLE_STOCK + " WHERE " +
-				Const.STOCK_COLUMN_ID + " = " + stock.getProd_Id();
+		String query  = "UPDATE " + Const.TABLE_STOCK + " SET " +
+				Const.STOCK_COLUMN_QUANTITY + " = 0" + " WHERE " + Const.STOCK_COLUMN_ID +
+				" = " + stock.getProd_Id();
 		try 
 		{
 			db.getDbConnection().createStatement().execute(query);
