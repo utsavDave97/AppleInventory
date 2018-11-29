@@ -3,6 +3,7 @@ package Tables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import DAO.UserDAO;
@@ -72,6 +73,26 @@ public class UserTable implements UserDAO{
 		}
 		return email_id = 0;
 	}
+	
+public User getUser(int email_id) {		
+		String query = "SELECT *"+" FROM "
+				+ Const.TABLE_USER +" WHERE " + Const.USER_COLUMN_EMAIL_ID +" = "+email_id+" LIMIT 1 ";
+			User user = null;
+ 		try {
+			
+			DBConnection db = DBConnection.getInstance();
+			Statement uerStatement = db.getDbConnection().createStatement();
+			ResultSet userRS =uerStatement.executeQuery(query);
+			userRS.next();
+			user=new User(userRS.getInt(Const.USER_COLUMN_EMAIL_ID),userRS.getString(Const.USER_COLUMN_EMAIL),
+					userRS.getString(Const.USER_COLUMN_FNAME),userRS.getString(Const.USER_COLUMN_LNAME));
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	
 
 	@Override
 	public void updateUser(User user) {
