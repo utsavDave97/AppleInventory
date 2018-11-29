@@ -116,17 +116,14 @@ public class deleteStockScreen
   			
   			int prodID = selectProduct.getSelectionModel().getSelectedItem().getProd_Id();
   			
-  			Product product = selectProduct.getSelectionModel().getSelectedItem();
+  			Stock stock = new Stock(prodID,0);
   			
-  			Stock stock = new Stock(prodID);
-  			
-  			productTable.deleteProduct(product);
   			stockTable.deleteStock(stock);
   			
   			Alert successInsert = new Alert(AlertType.INFORMATION);
 	    	successInsert.setTitle("Successfully Deleted");
 	    	successInsert.setHeaderText(null);
-	    	successInsert.setContentText("Record has been deleted!");
+	    	successInsert.setContentText("Quantity has been set to 0.");
 	    	successInsert.showAndWait();
   			
   			selectProduct.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
