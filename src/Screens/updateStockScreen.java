@@ -186,10 +186,21 @@ public class updateStockScreen
 	    	
 	    	System.out.println(prodID);
 	    	
-	    	product = new Product(prodID,
-					nameField.getText(),
-					priceField.getText(),
-					tasteNames.getSelectionModel().getSelectedItem().toString());
+	    	if(nameField.getText().equals(""))
+	    	{
+	    		product = new Product(prodID,
+						selectProduct.getSelectionModel().getSelectedItem().getProd_name(),
+						priceField.getText(),
+						tasteNames.getSelectionModel().getSelectedItem().toString());
+	    	}
+	    	
+	    	if(priceField.getText().equals(""))
+	    	{
+	    		product = new Product(prodID,
+						nameField.getText(),
+						selectProduct.getSelectionModel().getSelectedItem().getProd_price(),
+						tasteNames.getSelectionModel().getSelectedItem().toString());
+	    	}
 	    	
 	    	if(quantityField.getText().equals(""))
 	    	{

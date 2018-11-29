@@ -17,9 +17,9 @@ public Stock(int prod_id, int prod_qty) {
 }
 
 
-public Stock(int prod_qty) {
+public Stock(int prod_id) {
 	super();
-	this.prod_qty = prod_qty;
+	this.prod_qty = prod_id;
 }
  //getter and setter
 

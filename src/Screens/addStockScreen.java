@@ -252,6 +252,7 @@ public class addStockScreen
 	    			);
 	    	
 	    	Stock stock = new Stock(
+	    			product.getProd_Id(),
 	    			Integer.parseInt(quantityField.getText())
 	    			);
 	    	
