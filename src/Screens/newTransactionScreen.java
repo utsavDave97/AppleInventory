@@ -44,20 +44,7 @@ public class newTransactionScreen {
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #DCDCDC;");
 		root.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
-		
-		//Create a gridpane layout to store content
-//		GridPane trGridpane = new GridPane();
-//		
-//		trGridpane.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
-//		
-//		//Create the horizontal gap between the elements in gridpane
-//		trGridpane.setHgap(15);
-//		//create the vertical gap between the elements in gridpane
-//		trGridpane.setVgap(25);
-//		//create the style for the gridpane background
-//		trGridpane.setStyle("-fx-background-color:DCDCDC");	
-//		trGridpane.setAlignment(Pos.CENTER);
-		
+			
 		/************************************************************************************
 		 *                  Navigation Bar
 		 *************************************************************************************/
