@@ -116,7 +116,7 @@ public class accountManagementScreen{
 		comboCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 		comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
 		comboCol.setMinWidth(230);
-		
+		//ComboBoxTableCell.forTableColumn(new DefaultStringConverter().roles)).
 		
 		table.getColumns().addAll(idCol, emailCol, fnameCol, lnameCol, comboCol);
 		table.setItems(userData);
@@ -130,28 +130,34 @@ public class accountManagementScreen{
 		/**
 		 * create the onclick listieners for the editcell's
 		 */
-		
 		User proposedChanges = new User();
 		UserRole userrole = new UserRole();
+
+		User savedUser = new User();
+		
 		
 		emailCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> { 
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
 			
-			//print the email before change
-//			String email = cursor.getEmail();
-//			System.out.println(email);
-//			
+			savedUser.setEmail_id(cursor.getEmail_id());
+			savedUser.setEmail(cursor.getEmail());
+			savedUser.setFirstname(cursor.getFname());
+			savedUser.setLastname(cursor.getLname());
+			
 			//change the email at the designated spot
 			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
 			
-			proposedChanges.setEmail_id(cursor.getEmail_id());
-			proposedChanges.setEmail(cursor.getEmail());
+			savedUser.setEmail_id(cursor.getEmail_id());
+			savedUser.setEmail(cursor.getEmail());
 			
-			//print the email after change
-			//email = cursor.getEmail();
-			//System.out.println(email);
+//			proposedChanges.setEmail_id(cursor.getEmail_id());
+//			proposedChanges.setEmail(cursor.getEmail());
+			
+			
+			
+	
 
 		});
 		
@@ -160,7 +166,14 @@ public class accountManagementScreen{
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
 			
+			savedUser.setEmail_id(cursor.getEmail_id());
+			savedUser.setEmail(cursor.getEmail());
+			savedUser.setFirstname(cursor.getFname());
+			savedUser.setLastname(cursor.getLname());
+			
 			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setFname(t.getNewValue());
+			
+			savedUser.setFirstname(cursor.getFname());
 			
 			proposedChanges.setEmail_id(cursor.getEmail_id());
 			proposedChanges.setFirstname(cursor.getFname());
@@ -173,8 +186,14 @@ public class accountManagementScreen{
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
 			
+			savedUser.setEmail_id(cursor.getEmail_id());
+			savedUser.setEmail(cursor.getEmail());
+			savedUser.setFirstname(cursor.getFname());
+			savedUser.setLastname(cursor.getLname());
+			
 			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setLname(t.getNewValue());
 
+			savedUser.setLastname(cursor.getLname());
 			
 			proposedChanges.setEmail_id(cursor.getEmail_id());
 			proposedChanges.setLastname(cursor.getLname());
@@ -193,13 +212,20 @@ public class accountManagementScreen{
 		
 		saveChanges.setOnAction(e->{
 			
-			System.out.println(proposedChanges.getEmail());
-			System.out.println(proposedChanges.getEmail_id());
-			System.out.println(proposedChanges.getFirstname());
-			System.out.println(proposedChanges.getLastname());
+			System.out.println(savedUser.getEmail());
+			System.out.println(savedUser.getEmail_id());
+			System.out.println(savedUser.getFirstname());
+			System.out.println(savedUser.getLastname());
 
-			usertable.updateUser(proposedChanges);
+			usertable.updateUser(savedUser);
+			 
+//			proposedChanges.setEmail(null);
+//			proposedChanges.setFirstname(null);
+//			proposedChanges.setLastname(null);
+//			proposedChanges.setEmail_id(0);
 			
+			new accountManagementScreen();
+			stage.close();
 		});
 		
 		

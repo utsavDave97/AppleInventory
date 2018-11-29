@@ -9,6 +9,11 @@ public class ScreenUser {
 	private SimpleStringProperty fname;
 	private SimpleStringProperty lname;
 	
+	public ScreenUser() {
+		super();
+	}
+	
+	
 	public ScreenUser(String email, String fname,
 			String lname) {
 		super();
