@@ -69,7 +69,7 @@ public class Const
 			PASSWORD_COLUMN_EMAIL_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
 			PASSWORD_COLUMN_PASS + " VARCHAR(90) NOT NULL, " +
 			"FOREIGN KEY (" + PASSWORD_COLUMN_EMAIL_ID + ") REFERENCES " + 
-			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + ") ON DELETE CASCADE );";
 	
 	/*---------------Creating Role Table------------------*/
 	
@@ -89,7 +89,7 @@ public class Const
 			USER_ROLE_COLUMN_ID + " INT NOT NULL, " +
 			"PRIMARY KEY (" + USER_ROLE_COLUMN_EMAIL_ID + "," + USER_ROLE_COLUMN_ID + ")," +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_EMAIL_ID + ") REFERENCES " + 
-			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "), " +
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + ") ON DELETE CASCADE, " +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_ID + ") REFERENCES " + 
 			TABLE_ROLE + "(" + ROLE_COLUMN_ID + "));";
 	
@@ -118,7 +118,7 @@ public class Const
 			SALE_COLUMN_TOTAL + " FLOAT NOT NULL, " +
 			SALE_COLUMN_TIME  +" VARCHAR(30) NOT NULL, " +
 			"FOREIGN KEY (" + SALE_COLUMN_EMAIL_ID + ") REFERENCES " +
-			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + ") ON DELETE CASCADE );";
 			
 	/*---------------Creating Sale Item Table------------------*/
 	public static final String CREATE_TABLE_SALE_ITEM =
