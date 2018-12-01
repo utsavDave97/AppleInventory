@@ -17,6 +17,7 @@ public class Const
 	public static final String TABLE_PASSWORD = "password";
 	public static final String PASSWORD_COLUMN_EMAIL_ID = "email_id";
 	public static final String PASSWORD_COLUMN_PASS = "password";
+	public static final String PASSWORD_COLUMN_SALT = "salt";
 	
 	/*---------------Creating Constants for Role Table------------------*/
 	public static final String TABLE_ROLE = "role";
@@ -68,6 +69,7 @@ public class Const
 			"CREATE TABLE " + TABLE_PASSWORD + " (" +
 			PASSWORD_COLUMN_EMAIL_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
 			PASSWORD_COLUMN_PASS + " VARCHAR(90) NOT NULL, " +
+			PASSWORD_COLUMN_SALT + " VARCHAR(20) NOT NULL, " +
 			"FOREIGN KEY (" + PASSWORD_COLUMN_EMAIL_ID + ") REFERENCES " + 
 			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
 	

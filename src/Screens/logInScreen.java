@@ -114,20 +114,20 @@ public class logInScreen{
 			User user = new User();
 			Password password = new Password();
 			PasswordTable passwordtable = new PasswordTable();
-			String hashedGivenPass = password.hashPassword(passWord.getText());
+			//String hashedGivenPass = password.hashPassword(passWord.getText());
 
 			//implement the method to search for the user email
 			//utilize the getuser field and save it as an int, this will grab the email_id in the database
 			int cursorEmailField = usertable.getUser(emailField.getText());
 
 
-			if(passwordtable.getPassword(hashedGivenPass, cursorEmailField)==true) {
-				System.out.println("Correct credentials");
-				new homeScreen();
-			}else {
-				System.out.println("false credentials");
-				new logInScreen();
-			}
+//			if(passwordtable.getPassword(hashedGivenPass, cursorEmailField)==true) {
+//				System.out.println("Correct credentials");
+//				new homeScreen();
+//			}else {
+//				System.out.println("false credentials");
+//				new logInScreen();
+//			}
 
 			stage.close();
 		});

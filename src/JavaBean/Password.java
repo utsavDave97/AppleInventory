@@ -1,7 +1,10 @@
 package JavaBean;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -49,8 +52,10 @@ public class Password {
 		this.password = password;
 	}
 	//create the way we will hash the password to enter it into the database
-	public String hashPassword(String password) {
+	public String hashPassword(String password,String salt) {
 		String hashedPassword = null;
+		
+		password += salt;
 		
 		/**
 		 * this function bellow will generate a 12 character String and will append it to the password at the end
@@ -76,6 +81,15 @@ public class Password {
 		return hashedPassword;
 	}
 	
+	public BigInteger saltGen() {
+		String salt = null;
+		SecureRandom rand = new SecureRandom();
+//		byte[] genSalt = new byte[64];
+//		rand.nextBytes(genSalt);
+		BigInteger bigI = new BigInteger(32,rand);		
 
+		
+		return bigI;
+	}
 
 }
