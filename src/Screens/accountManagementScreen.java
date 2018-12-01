@@ -13,6 +13,7 @@ import Tables.UserTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -285,6 +287,14 @@ public class accountManagementScreen{
 		Button statisticScreen = new Button("Statistic Screen");
 
 		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+		
+		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			
+			@Override
+			public void handle(MouseEvent event) {
+				pane.setLeft(null);
+			}
+		});
 		
 	    navigationButton.setOnAction(e->{
 	    	pane.setLeft(menu);

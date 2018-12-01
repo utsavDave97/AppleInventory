@@ -1,10 +1,12 @@
 package Screens;
 
+import JavaBean.User;
 import Tables.ProductTable;
 import Tables.SaleItemTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -13,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -25,8 +28,7 @@ public class statisticScreen{
 	
 	public statisticScreen() {
 
-		
-		
+		User loggedInuser =  logInScreen.getUserInstance();
 		/**
 		 * create the content for statistic screen 
 		 */
@@ -134,6 +136,16 @@ public class statisticScreen{
 		Button statisticScreen = new Button("Statistic Screen");
 
 		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+		
+		
+		borderpane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			
+			@Override
+			public void handle(MouseEvent event) {
+				borderpane.setLeft(null);
+			}
+		});
+		
 		
 	    navigationButton.setOnAction(e->{
 	    	borderpane.setLeft(menu);
