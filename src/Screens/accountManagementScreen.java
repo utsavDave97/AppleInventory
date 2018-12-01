@@ -41,6 +41,7 @@ import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 
 public class accountManagementScreen{
+	int position=0;
 
 	public accountManagementScreen() {
 		
@@ -127,14 +128,11 @@ public class accountManagementScreen{
 		//table.setMinWidth(300);
 		table.setMaxHeight(500);
 		table.setStyle("-fx-font-size: 16;");
-		
-		
 		/**
 		 * create the onclick listieners for the editcell's
 		 */
 		User proposedChanges = new User();
 		UserRole userrole = new UserRole();
-
 		User savedUser = new User();
 		
 		
@@ -142,6 +140,8 @@ public class accountManagementScreen{
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
+			position = cursor.getEmail_id();
+
 			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
@@ -151,6 +151,7 @@ public class accountManagementScreen{
 			//change the email at the designated spot
 			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
 			
+
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
 			
@@ -167,6 +168,9 @@ public class accountManagementScreen{
 		fnameCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
+			
+			position = cursor.getEmail_id();
+
 			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
@@ -187,6 +191,9 @@ public class accountManagementScreen{
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
+			
+			position = cursor.getEmail_id();
+
 			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
@@ -231,7 +238,11 @@ public class accountManagementScreen{
 		});
 		
 		
-		
+		remove.setOnAction(e->{
+			usertable.deleteUser(position);
+			new accountManagementScreen();
+			stage.close();
+		});
 		
 		
 		
