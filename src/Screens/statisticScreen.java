@@ -1,5 +1,6 @@
 package Screens;
 
+import JavaBean.User;
 import Tables.ProductTable;
 import Tables.SaleItemTable;
 import javafx.application.Application;
@@ -25,8 +26,7 @@ public class statisticScreen{
 	
 	public statisticScreen() {
 
-		
-		
+		User loggedInuser =  logInScreen.getUserInstance();
 		/**
 		 * create the content for statistic screen 
 		 */

@@ -15,6 +15,8 @@ import Screens.TableViewItems.ScreenUser;
 
 public class UserTable implements UserDAO{
 
+	
+	
 	@Override
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> users;
