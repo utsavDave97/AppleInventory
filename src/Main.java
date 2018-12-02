@@ -1,8 +1,10 @@
 	import Screens.accountManagementScreen;
 import Screens.completedTranScreen;
 import Screens.deleteStockScreen;
+import Screens.homeScreen;
 import Screens.logInScreen;
 import Screens.newTransactionScreen;
+import Screens.registerScreen;
 import Screens.statisticScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -85,7 +87,6 @@ public class Main extends Application
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
 			new logInScreen();
-			//new accountManagementScreen();
 			primaryStage.close();
 		};
 		

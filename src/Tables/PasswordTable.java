@@ -68,12 +68,15 @@ public class PasswordTable implements PasswordDAO{
 	}
 
 	@Override
-	public void createPassword(Password password) {
+	public void createPassword(Password password, String salt) {
 
-		String query = "INSERT INTO " + Const.TABLE_PASSWORD + "(" + Const.PASSWORD_COLUMN_PASS +") VALUES ('"+
-				password.getUser_password()+"')";
+		String query = "INSERT INTO " + Const.TABLE_PASSWORD + "(" + Const.PASSWORD_COLUMN_PASS + "," +
+				   Const.PASSWORD_COLUMN_SALT + ") VALUES ('"+
+				password.getUser_password() + "','" + salt +"');";
 
 		try {
+			
+			System.out.println(query);
 			DBConnection db = DBConnection.getInstance();
 			db.getDbConnection().createStatement().execute(query);
 			System.out.println("Inserted record!");
