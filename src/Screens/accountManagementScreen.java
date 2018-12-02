@@ -13,6 +13,7 @@ import Tables.UserTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -39,6 +41,7 @@ import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 
 public class accountManagementScreen{
+	int position=0;
 
 	public accountManagementScreen() {
 		
@@ -125,14 +128,11 @@ public class accountManagementScreen{
 		//table.setMinWidth(300);
 		table.setMaxHeight(500);
 		table.setStyle("-fx-font-size: 16;");
-		
-		
 		/**
 		 * create the onclick listieners for the editcell's
 		 */
 		User proposedChanges = new User();
 		UserRole userrole = new UserRole();
-
 		User savedUser = new User();
 		
 		
@@ -140,6 +140,8 @@ public class accountManagementScreen{
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
+			position = cursor.getEmail_id();
+
 			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
@@ -149,6 +151,7 @@ public class accountManagementScreen{
 			//change the email at the designated spot
 			((ScreenUser) t.getTableView().getItems().get(t.getTablePosition().getRow())).setEmail(t.getNewValue());
 			
+
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
 			
@@ -165,6 +168,9 @@ public class accountManagementScreen{
 		fnameCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
+			
+			position = cursor.getEmail_id();
+
 			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
@@ -185,6 +191,9 @@ public class accountManagementScreen{
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
+			
+			position = cursor.getEmail_id();
+
 			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
@@ -229,7 +238,11 @@ public class accountManagementScreen{
 		});
 		
 		
-		
+		remove.setOnAction(e->{
+			usertable.deleteUser(position);
+			new accountManagementScreen();
+			stage.close();
+		});
 		
 		
 		
@@ -284,7 +297,15 @@ public class accountManagementScreen{
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
 
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
+		
+		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			
+			@Override
+			public void handle(MouseEvent event) {
+				pane.setLeft(null);
+			}
+		});
 		
 	    navigationButton.setOnAction(e->{
 	    	pane.setLeft(menu);

@@ -5,8 +5,12 @@ package Screens;
 
 import JavaBean.Product;
 import JavaBean.Stock;
+import JavaBean.User;
 import Tables.ProductTable;
 import Tables.StockTable;
+import Tables.UserRoleTable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -99,9 +103,16 @@ public class updateStockScreen
 		Button deleteStock = new Button("Delete Stock");
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
-
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
-		
+		//If the user is clerk role, who cann't visit accountManager functionality
+				logInScreen login=new logInScreen();
+				User loginUser=login.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					accountManagement.setVisible(false);
+				}
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
+				
 	    //Creating default textField style
 	    String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 				+ "-fx-font-size:15pt;"
@@ -130,7 +141,7 @@ public class updateStockScreen
 	    
 	    ComboBox<Stock> selectProductQuantity = new ComboBox<>();
 	    selectProductQuantity.setItems(FXCollections.observableArrayList(stockTable.getAllStocks()));
-	    selectProductQuantity.getSelectionModel().select(selectProduct.getSelectionModel().getSelectedIndex());
+	    selectProductQuantity.getSelectionModel().select(selectProduct.getSelectionModel().getSelectedItem().getProd_Id());
 	    
 	    selectProductQuantity.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
@@ -158,9 +169,9 @@ public class updateStockScreen
 		
 		TextField priceField = new TextField();
 		priceField.setStyle(textFieldStyle);
-		priceField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_price());
+		//priceField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_price());
 		
-		//Creating Price/Kilo
+		//Creating Taste
 		Label tasteLabel = new Label("Change Taste:");
 		tasteLabel.setStyle(labelStyle);
 		
@@ -180,38 +191,34 @@ public class updateStockScreen
 		submit.setStyle("-fx-border-color:B82F33;"
 					  + "-fx-font-family: Quicksand;"
 					  + "-fx-font-size: 12pt;");
+		
+		
+		selectProduct.valueProperty().addListener(new ChangeListener<Product>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Product> observable, Product oldValue, Product newValue) {
+				// TODO Auto-generated method stub
+				nameField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_name());
+				quantityField.setText(String.valueOf(stockTable.getStock(selectProduct.getSelectionModel().getSelectedItem().getProd_Id())));
+				priceField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_price());
+				tasteNames.setValue(selectProduct.getSelectionModel().getSelectedItem().getProd_taste());
+			}
+		});
+		
 	    submit.setOnAction(e->
 	    {
 	    	int prodID = selectProduct.getSelectionModel().getSelectedItem().getProd_Id();
 	    	
 	    	System.out.println(prodID);
 	    	
-	    	if(nameField.getText().equals(""))
-	    	{
-	    		product = new Product(prodID,
-						selectProduct.getSelectionModel().getSelectedItem().getProd_name(),
-						priceField.getText(),
-						tasteNames.getSelectionModel().getSelectedItem().toString());
-	    	}
+	    	product = new Product(prodID,
+					nameField.getText(),
+					priceField.getText(),
+					tasteNames.getSelectionModel().getSelectedItem().toString());
 	    	
-	    	if(priceField.getText().equals(""))
-	    	{
-	    		product = new Product(prodID,
-						nameField.getText(),
-						selectProduct.getSelectionModel().getSelectedItem().getProd_price(),
-						tasteNames.getSelectionModel().getSelectedItem().toString());
-	    	}
-	    	
-	    	if(quantityField.getText().equals(""))
-	    	{
-	    		stock = new Stock(prodID,selectProductQuantity.getSelectionModel().getSelectedItem().getProd_qty());
-	    	}
-	    	else
-	    	{
-	    		stock = new Stock(prodID,
-						 Integer.parseInt(quantityField.getText()));
-	    	}
-	    	
+    		stock = new Stock(prodID,
+					 Integer.parseInt(quantityField.getText()));
+	    		
 	    	stockTable.updateStock(stock);
 	    	productTable.updateProduct(product);
 	    	
@@ -232,23 +239,20 @@ public class updateStockScreen
 		//Set content to GridPane
 		gridPane.add(selectLabel, 0, 0);
 		gridPane.add(selectProduct, 1, 0, 3, 1);
-		
-		gridPane.add(stockQuantityLabel,0 , 2);
-		gridPane.add(selectProductQuantity,1 , 2);
 	    
-		gridPane.add(nameLabel, 0, 4);
-		gridPane.add(nameField, 1, 4);
+		gridPane.add(nameLabel, 0, 2);
+		gridPane.add(nameField, 1, 2);
 		
-		gridPane.add(quantityLabel, 0, 6);
-		gridPane.add(quantityField, 1, 6);
+		gridPane.add(quantityLabel, 0, 4);
+		gridPane.add(quantityField, 1, 4);
 		
-		gridPane.add(priceLabel, 0, 8);
-		gridPane.add(priceField, 1, 8);
+		gridPane.add(priceLabel, 0, 6);
+		gridPane.add(priceField, 1, 6);
 		
-		gridPane.add(tasteLabel, 0, 10);
-		gridPane.add(tasteNames, 1, 10);
+		gridPane.add(tasteLabel, 0, 8);
+		gridPane.add(tasteNames, 1, 8);
 		
-		gridPane.add(submit,2, 12);
+		gridPane.add(submit,2, 10);
 		
 		
 	    //Creating onClickListener on navigationButton

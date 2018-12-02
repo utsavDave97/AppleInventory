@@ -167,6 +167,13 @@ public registerScreen(){
 					passwordtable.createPassword(passwordobj, salt);
 					useroletable.createUserRole(userrole);
 					
+					Alert successInsert = new Alert(AlertType.INFORMATION);
+					successInsert.setTitle("Successful Insert");
+			    		successInsert.setHeaderText(null);
+			    		successInsert.setContentText("Account has been created!");
+			    		successInsert.showAndWait();
+					
+					
 					fname.clear();
 					lname.clear();
 					email.clear();

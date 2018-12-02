@@ -31,9 +31,13 @@ import javafx.stage.Stage;
  */
 
 public class logInScreen{
+	//create the method to connect a public instance singleton method
+		static User currentlyLoggedIn = new User();
 
 	public logInScreen() {
 
+		
+		
 		//create the stage 
 		Stage stage = new Stage();
 		//create the borderPane to store the layout
@@ -111,7 +115,7 @@ public class logInScreen{
 			//create an instance of the usertable class
 			UserTable usertable = new UserTable();
 			//create an instance of the password class
-			User user = new User();
+			
 			Password password = new Password();
 			PasswordTable passwordtable = new PasswordTable();
 			//implement the method to search for the user email
@@ -126,6 +130,14 @@ public class logInScreen{
 			
 
 			if(passwordtable.getPassword(hashedGivenPass, cursorEmailField)==true) {
+				User user = usertable.getUser(cursorEmailField);
+				//set the global instance of the currently logged users propertys.
+				currentlyLoggedIn.setEmail(emailField.getText());
+				currentlyLoggedIn.setEmail_id(user.getEmail_id());
+				currentlyLoggedIn.setFirstname(user.getFirstname());
+				currentlyLoggedIn.setLastname(user.getLastname());
+				//grab the instance of the user with the email inside the database				
+				
 				System.out.println("Correct credentials");
 				new homeScreen();
 			}else {
@@ -154,6 +166,10 @@ public class logInScreen{
 
 	}
 
+	public static User getUserInstance() {
+		return currentlyLoggedIn;
+	}
 
+	
 
 }

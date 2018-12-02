@@ -15,6 +15,8 @@ import Screens.TableViewItems.ScreenUser;
 
 public class UserTable implements UserDAO{
 
+	
+	
 	@Override
 	public ArrayList<User> getAllUsers() {
 		ArrayList<User> users;
@@ -123,9 +125,18 @@ public User getUser(int email_id) {
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
+	public void deleteUser(int position) {
+		String query = "DELETE FROM " +"`"+Const.TABLE_USER+"`"+" WHERE '"+Const.USER_COLUMN_EMAIL_ID+"' = "+position+";";
 		
+		try {
+			System.out.println(query);
+			DBConnection db = DBConnection.getInstance();
+			PreparedStatement preparedStatement = db.getDbConnection().prepareStatement(query);
+			preparedStatement.execute();
+			
+		}catch(SQLException  e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
