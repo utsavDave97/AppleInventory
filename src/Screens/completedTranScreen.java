@@ -103,6 +103,7 @@ public class completedTranScreen
 		Button deleteStock = new Button("Delete Stock");
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
+
 		//If the user is clerk role, who cann't visit accountManager functionality
 				logInScreen login=new logInScreen();
 				User loginUser=login.getUserInstance();
