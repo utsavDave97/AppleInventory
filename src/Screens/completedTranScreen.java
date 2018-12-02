@@ -4,6 +4,8 @@ package Screens;
 
 
 
+import JavaBean.User;
+import Tables.UserRoleTable;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -101,7 +103,6 @@ public class completedTranScreen
 		Button deleteStock = new Button("Delete Stock");
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
-
 		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
 		
 	    navigationButton.setOnAction(e->{
