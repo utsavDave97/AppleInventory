@@ -7,8 +7,10 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import JavaBean.Product;
 import JavaBean.Stock;
+import JavaBean.User;
 import Tables.ProductTable;
 import Tables.StockTable;
+import Tables.UserRoleTable;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -104,8 +106,17 @@ public class addStockScreen
 		Button deleteStock = new Button("Delete Stock");
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
-
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+       //If the user is clerk role, who cann't visit accountManager functionality
+		logInScreen login=new logInScreen();
+		User loginUser=login.getUserInstance();
+		UserRoleTable userRoleTable=new UserRoleTable();
+		
+		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+			accountManagement.setVisible(false);
+		}
+		
+		
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
 		
 	    String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 							+ "-fx-font-size:15pt;"

@@ -297,7 +297,7 @@ public class accountManagementScreen{
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
 
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
 		
 		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			
