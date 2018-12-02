@@ -140,6 +140,7 @@ public class logInScreen{
 				
 				System.out.println("Correct credentials");
 				new homeScreen();
+				stage.close();
 			}else {
 				System.out.println("false credentials");
 				new logInScreen();

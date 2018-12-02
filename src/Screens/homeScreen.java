@@ -120,8 +120,7 @@ public class homeScreen
 		Button statisticScreen = new Button("Statistic Screen");
 
 		//If the user is clerk role, who cann't visit accountManager functionality
-		logInScreen login=new logInScreen();
-		User loginUser=login.getUserInstance();
+		User loginUser=logInScreen.getUserInstance();
 		UserRoleTable userRoleTable=new UserRoleTable();
 		
 		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {

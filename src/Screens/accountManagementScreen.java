@@ -68,7 +68,7 @@ public class accountManagementScreen{
 		/*********************************************************
 		 * Create the contents for the account management screen
 		 *********************************************************/
-		TableView<ScreenUser> table = new TableView<ScreenUser>();
+		TableView<ScreenUser> table = new TableView<>();
 		table.setEditable(true);
 		ObservableList<ScreenUser> userData = FXCollections.observableArrayList();
 		UserTable usertable = new UserTable();
@@ -135,6 +135,7 @@ public class accountManagementScreen{
 		UserRole userrole = new UserRole();
 		User savedUser = new User();
 		
+
 		
 		emailCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> { 
 			
@@ -238,7 +239,10 @@ public class accountManagementScreen{
 		});
 		
 		
+		//position = selectedRow.getEmail_id();
 		remove.setOnAction(e->{
+			ScreenUser selectedRow = table.getSelectionModel().getSelectedItem();
+			position = selectedRow.getEmail_id();
 			usertable.deleteUser(position);
 			new accountManagementScreen();
 			stage.close();
