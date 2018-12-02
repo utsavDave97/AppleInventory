@@ -27,70 +27,93 @@ import javafx.stage.Stage;
 
 public class registerScreen{
 
-public registerScreen(){
-	
-	
+public registerScreen()
+{	
 			//create the stage to hold the content
 			Stage stage = new Stage();
+			
 			//create an instance of the password for the password hash
 			Password hashedPass = new Password();
+			
 			//create the borderPane to hold the information
 			BorderPane borderpane = new BorderPane();
+			
 			//set the style of the borderpane
 			borderpane.setStyle("-fx-background-color: DCDCDC");
+			
 			//import the google stylesheet for the quicksand font
 			borderpane.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
+			
 			//create the gridpane to hold the information
 			GridPane pane = new GridPane();
+			
 			//set the alignment for the gridpane
 			pane.setAlignment(Pos.CENTER);
+			
 			//set the hgap for the gripdane
 			pane.setHgap(5);
+			
 			//set the vgap for the gridpane
 			pane.setVgap(5);
+			
 			//set alignment for the gridpane
 			pane.setAlignment(Pos.CENTER);
+			
 			//create an hbox to store the back,clear,register buttons
 			HBox row = new HBox();
+			
 			//create the content for the gridpane
 			//create the list for the combo box
 			String[] comboContent = {"Clerk","Manager","Store-Owner"};
+			
 			//create the label for the first name
 			Label fnameLabel = new Label("First Name:");
 			fnameLabel.setStyle("-fx-font-family: Quicksand");
+			
 			//create the textfield for the first name
 			TextField fname = new TextField();
+			
 			//create a label for the lastname
 			Label lnameLabel = new Label("Last Name:");
 			lnameLabel.setStyle("-fx-font-family: Quicksand");
+			
 			//create a textfield for the last name
 			TextField lname = new TextField();
+			
 			//create a label for the email
 			Label emailLabel = new Label("Email:");
 			emailLabel.setStyle("-fx-font-family: Quicksand");
+			
 			//create a textfied for the email
 			TextField email = new TextField();
+			
 			//create a label for the position
 			Label positionLabel = new Label("Position:");
 			positionLabel.setStyle("-fx-font-family: Quicksand");
+			
 			//create a combo box to store the position's
 			ComboBox combo = new ComboBox();
 			combo.setStyle("-fx-font-family: Quicksand");
 			combo.getItems().addAll("Clerk");
 			combo.getSelectionModel().select(0);
+			
 			//create a label for the password
 			Label passwordLabel = new Label("Password:");
 			passwordLabel.setStyle("-fx-font-family: Quicksand");
+			
 			//create a passwordfield for the password
 			PasswordField passWord = new PasswordField();
+			
 			//create a button to traverse back to the login page
 			Button back = new Button("Back");
 			back.setStyle("-fx-border-color: B82F33; -fx-font-family: Quicksand; -fx-font-size: 12pt");
+			
 			//create a button to reigster the user
 			Button register = new Button("Register");
 			register.setStyle("-fx-border-color: B82F33; -fx-font-family: Quicksand; -fx-font-size: 12pt");
 			Button clearInfo = new Button("Clear");
 			clearInfo.setStyle("-fx-border-color: B82F33; -fx-font-family: Quicksand;-fx-font-size: 12pt");
+			
 			//add the content to the gridpane
 			pane.add(fnameLabel, 0, 0);
 			pane.add(fname, 1, 0,3,1);
@@ -112,24 +135,29 @@ public registerScreen(){
 				new logInScreen();
 				stage.close();
 			});
+			
 			//set an onclick listener for the register button
 			System.out.println(hashedPass.saltGen());
 			register.setOnAction(e->{
 				//create a new usertable object
 				UserTable usertable = new UserTable();
+				
 				//create a new passwordtable object
 				PasswordTable passwordtable = new PasswordTable();
+				
 				//create a new userrole object
 				UserRoleTable useroletable = new UserRoleTable();
+				
 				//create new user object
 				User user = new User();
+				
 				//create a new password object
 				Password passwordobj = new Password();
+				
 				//create a new userole object
 				UserRole userrole = new UserRole();
-				//use the user methods
 				
-
+				//use the user methods
 				if(user.searchAllEmails(email.getText()) == true){
 					Alert emailTaken = new Alert(AlertType.INFORMATION);
 					emailTaken.setTitle("Email already taken");
@@ -160,8 +188,6 @@ public registerScreen(){
 						userrole.setRole_Id(Const.ADMINISTRATORROLEID);
 					}
 					
-					
-					
 					//send the information to the database
 					usertable.createUser(user);
 					passwordtable.createPassword(passwordobj, salt);
@@ -186,6 +212,7 @@ public registerScreen(){
 				
 				
 			});
+			
 			//set an onclick listener for the clear button
 			clearInfo.setOnAction(e->{
 				fname.clear();
@@ -193,6 +220,7 @@ public registerScreen(){
 				email.clear();
 				passWord.clear();
 			});
+			
 			//add to hbox and set to bottom
 			row.getChildren().addAll(back,clearInfo,register);
 			row.setSpacing(30);
@@ -204,7 +232,4 @@ public registerScreen(){
 			stage.setScene(scene);
 			stage.show();
 	}
-
-	
-
 }

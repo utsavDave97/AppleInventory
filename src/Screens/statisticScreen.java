@@ -25,9 +25,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class statisticScreen{
+public class statisticScreen
+{
 
-	public statisticScreen() {
+	public statisticScreen() 
+	{
 
 		User loggedInuser =  logInScreen.getUserInstance();
 		/**
@@ -36,17 +38,22 @@ public class statisticScreen{
 
 		//create a stage to hold the content
 		Stage stage = new Stage();
+		
 		//create the borderPane to store the information we want to store
 		BorderPane borderpane = new BorderPane();
+		
 		//set the style for the borderpane
 		borderpane.setStyle("-fx-background-color: DCDCDC");
+		
 		borderpane.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
 
 		//create the vbox to hold the piechart and the dropdown box of currently available products
 		VBox vbox = new VBox();
 		vbox.setAlignment(Pos.CENTER);
+		
 		//create the content be inside the vbox
 		Text title = new Text("Apples in your Inventory");
+		
 		//set the size of the title text
 		title.setStyle("-fx-font-Size: 45; -fx-font-family: Quicksand");
 
@@ -58,12 +65,7 @@ public class statisticScreen{
 		/**
 		 * create a forloop to add data to the piechart from data inside the sale table
 		 */
-
-
-
-
-
-
+		
 		//create the piechart data for the piechart
 		ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
 		//create the function to create a new field for each graph
@@ -71,19 +73,21 @@ public class statisticScreen{
 			pieData.add(saleitemtable.addPieData(i));
 		}				
 
-
-
-
 		//create the piechart using the data above
 		PieChart piechart = new PieChart(pieData);
+		
 		//set the start angle of the piechart
 		piechart.setStartAngle(90);
+		
 		//set the line length of the line's
 		piechart.setLabelLineLength(25);
+		
 		//set the visibilty of the lines for the piechart
 		piechart.setLabelsVisible(true);
+		
 		//set the direction of the piechart
 		piechart.setClockwise(true);
+		
 		//add the content to the hbox
 		vbox.getChildren().add(title);
 		vbox.getChildren().add(piechart);
@@ -91,13 +95,9 @@ public class statisticScreen{
 		borderpane.setCenter(vbox);
 		Scene scene = new Scene(borderpane,1064,762);
 
-
-
-
 		/**
 		 * create the content for the navigation bar
 		 */
-
 
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
@@ -135,6 +135,7 @@ public class statisticScreen{
 		Button deleteStock = new Button("Delete Stock");
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
+		
 		//If the user is clerk role, who cann't visit accountManager functionality
 		User loginUser=logInScreen.getUserInstance();
 		UserRoleTable userRoleTable=new UserRoleTable();
@@ -142,6 +143,7 @@ public class statisticScreen{
 		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
 			accountManagement.setVisible(false);
 		}
+		
 		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
 
 		borderpane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -151,7 +153,6 @@ public class statisticScreen{
 				borderpane.setLeft(null);
 			}
 		});
-
 
 		navigationButton.setOnAction(e->{
 			borderpane.setLeft(menu);
@@ -200,9 +201,6 @@ public class statisticScreen{
 		borderpane.setTop(navigationToolBar);
 		stage.setScene(scene);
 		stage.show();
-
-
-
 	}
 
 }

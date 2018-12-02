@@ -30,7 +30,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class searchTranTab extends BorderPane{
+public class searchTranTab extends BorderPane
+{
 	//Declare variables
 	 LocalDate startDate,endDate;
 	 String startDateStr="",endDateStr="";
@@ -38,11 +39,13 @@ public class searchTranTab extends BorderPane{
 	 UserTable userTable;
 	 User user;
 	 ArrayList<Sale> sales;
-	 final ObservableList<SaleRecord> data =
-		        FXCollections.observableArrayList();
+	 
+	 final ObservableList<SaleRecord> data = FXCollections.observableArrayList();
 	 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public searchTranTab() {
+	
+	public searchTranTab() 
+	{
 		
 		this.setStyle("-fx-background-color: #DCDCDC;");
 				
@@ -60,7 +63,8 @@ public class searchTranTab extends BorderPane{
 	     datePickerTo.setMaxWidth(230);
 	     
 			//set event for date picker
-	     datePickerTo.setOnAction(new EventHandler() {
+	     datePickerTo.setOnAction(new EventHandler() 
+	     {
 		    @Override
 			public void handle(Event event) {
 		    	startDate = datePickerTo.getValue();
@@ -68,8 +72,10 @@ public class searchTranTab extends BorderPane{
 		       
 			}
 		 });
+	     
 	   //declare a label
-	     Label tiemFromLabel=new Label("Date:    ");
+	   Label tiemFromLabel=new Label("Date:    ");
+	   
 	     //set the name font
 	     tiemFromLabel.setStyle("-fx-font-family: Quicksand;"
 	 				  + "-fx-font-size: 12pt;");
@@ -117,20 +123,26 @@ public class searchTranTab extends BorderPane{
 	      //if user tickle this checkbox, total amount will be as conditions for 
 	      CheckBox checkBox=new CheckBox();
 	      checkBox.setSelected(false);
+	      
 	      //declare textfield for user to input
 	      TextField minTotalAmount=new TextField("0");
 	      minTotalAmount.setMinHeight(40);
 	      minTotalAmount.setStyle("-fx-font-size:18");
+	      
 	      //declare a label
-		     Label amountFromLabel=new Label("Amount:");
-		     //set the name font
-		     amountFromLabel.setStyle("-fx-font-family: Quicksand;"
+		  Label amountFromLabel=new Label("Amount:");
+		  
+		  //set the name font
+		  amountFromLabel.setStyle("-fx-font-family: Quicksand;"
 		 				  + "-fx-font-size: 12pt;");
+		  
 	      //declare a label
-		     Label amountToLabel=new Label("To:");
-		     //set the name font
-		     amountToLabel.setStyle("-fx-font-family: Quicksand;"
+		  Label amountToLabel=new Label("To:");
+		  
+		  //set the name font
+		  amountToLabel.setStyle("-fx-font-family: Quicksand;"
 		 				  + "-fx-font-size: 12pt;");
+		  
 	      TextField maxTotalAmount=new TextField("0");
 	      maxTotalAmount.setMinHeight(40);
 	      maxTotalAmount.setStyle("-fx-font-size:18");
@@ -142,101 +154,103 @@ public class searchTranTab extends BorderPane{
 	      amountChoiceHbox.setStyle("-fx-border-color:gray;\n"
 		        		+ "-fx-border-width:0 0 1 0;\n"
 		        		+ "-fx-border-style:solid;");
+	      
 	      VBox searchConditionsVbox=new VBox(10);
 	      searchConditionsVbox.getChildren().addAll(addItemBox,amountChoiceHbox);
           searchConditionsVbox.setAlignment(Pos.BOTTOM_LEFT);
-/**********************************************************************
- *                Table List Content                                  *
- ***********************************************************************/    
-TableView<SaleRecord> table = new TableView<SaleRecord>();
-
-      
-
-TableColumn timeCol = new TableColumn("Sold Time");
-timeCol.setMinWidth(200);
-timeCol.setCellValueFactory(
-        new PropertyValueFactory<SaleRecord, String>("saleTime"));
-
-TableColumn nameCol = new TableColumn("Clerk");
-
-nameCol.setCellValueFactory(
-        new PropertyValueFactory<SaleRecord, String>("name"));
-nameCol.setMinWidth(150);
-
-
-TableColumn taxCol = new TableColumn("Tax");
-
-taxCol.setCellValueFactory(
-        new PropertyValueFactory<SaleRecord, String>("tax"));
-
-taxCol.setMinWidth(100);
-
-
-TableColumn totCol = new TableColumn("Total Price");
-
-
-totCol.setCellValueFactory(
-        new PropertyValueFactory<SaleRecord, String>("total"));
-totCol.setMinWidth(100);
-
-setMinHeight(150);
- 
-TableColumn checkCol = new TableColumn("Detail");
-
-
-checkCol.setCellValueFactory(
-        new PropertyValueFactory<SaleRecord, String>("checkDetail"));
-checkCol.setMinWidth(80);
-
-setMinHeight(150);
-table.getColumns().addAll(checkCol,timeCol,nameCol,taxCol,totCol);
-table.setItems(data);
-table.setMaxWidth(750);
-table.setStyle("-fx-font-size: 16;");
-table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-/**********************************************************************
- *                Bottom tax and totalAmount                           *
- ***********************************************************************/  
-
-
-final VBox vbox = new VBox();
-vbox.setSpacing(5);
-vbox.setPadding(new Insets(30, 10, 0, 10));
-
-vbox.getChildren().addAll(table);
-
-//create the submit button
-Button clear = new Button("Clear");
-//create the register styling
-clear.setStyle("-fx-border-color:B82F33;"
-			  + "-fx-font-family: Quicksand;"
-			  + "-fx-font-size: 12pt;");
-//create the submit button
-Button detailButton = new Button("Detail");
-//create the register styling
-detailButton.setStyle("-fx-border-color:B82F33;"
-			  + "-fx-font-family: Quicksand;"
-			  + "-fx-font-size: 12pt;");				
- final HBox hbox = new HBox(200);
-
- hbox.setPadding(new Insets(10, 0, 80, 200));
-    
- hbox.getChildren().addAll(detailButton,clear);
-//Set content to GridPane
-
-
-this.setTop(searchConditionsVbox);
-this.setCenter(vbox);
-this.setBottom(hbox);
-//create the scene
+          
+		/**********************************************************************
+		 *                Table List Content                                  *
+		 ***********************************************************************/  
+          
+		TableView<SaleRecord> table = new TableView<SaleRecord>();
+		
+		      
+		
+		TableColumn timeCol = new TableColumn("Sold Time");
+		timeCol.setMinWidth(200);
+		timeCol.setCellValueFactory(
+		        new PropertyValueFactory<SaleRecord, String>("saleTime"));
+		
+		TableColumn nameCol = new TableColumn("Clerk");
+		
+		nameCol.setCellValueFactory(
+		        new PropertyValueFactory<SaleRecord, String>("name"));
+		nameCol.setMinWidth(150);
+		
+		
+		TableColumn taxCol = new TableColumn("Tax");
+		
+		taxCol.setCellValueFactory(
+		        new PropertyValueFactory<SaleRecord, String>("tax"));
+		
+		taxCol.setMinWidth(100);
+		
+		
+		TableColumn totCol = new TableColumn("Total Price");
+		
+		
+		totCol.setCellValueFactory(
+		        new PropertyValueFactory<SaleRecord, String>("total"));
+		totCol.setMinWidth(100);
+		
+		setMinHeight(150);
+		 
+		TableColumn checkCol = new TableColumn("Detail");
+		
+		
+		checkCol.setCellValueFactory(
+		        new PropertyValueFactory<SaleRecord, String>("checkDetail"));
+		checkCol.setMinWidth(80);
+		
+		setMinHeight(150);
+		table.getColumns().addAll(checkCol,timeCol,nameCol,taxCol,totCol);
+		table.setItems(data);
+		table.setMaxWidth(750);
+		table.setStyle("-fx-font-size: 16;");
+		table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		/**********************************************************************
+		 *                Bottom tax and totalAmount                           *
+		 ***********************************************************************/  
+		
+		
+		final VBox vbox = new VBox();
+		vbox.setSpacing(5);
+		vbox.setPadding(new Insets(30, 10, 0, 10));
+		
+		vbox.getChildren().addAll(table);
+		
+		//create the submit button
+		Button clear = new Button("Clear");
+		//create the register styling
+		clear.setStyle("-fx-border-color:B82F33;"
+					  + "-fx-font-family: Quicksand;"
+					  + "-fx-font-size: 12pt;");
+		//create the submit button
+		Button detailButton = new Button("Detail");
+		//create the register styling
+		detailButton.setStyle("-fx-border-color:B82F33;"
+					  + "-fx-font-family: Quicksand;"
+					  + "-fx-font-size: 12pt;");				
+		 final HBox hbox = new HBox(200);
+		
+		 hbox.setPadding(new Insets(10, 0, 80, 200));
+		    
+		 hbox.getChildren().addAll(detailButton,clear);
+		//Set content to GridPane
+		
+		
+		this.setTop(searchConditionsVbox);
+		this.setCenter(vbox);
+		this.setBottom(hbox);
+		//create the scene
 
 
 /**************************************************************************************
 *       Register Button event here  
 *************************************************************************************/
 
-//add search button action
-
+	//add search button action
   searchButton.setOnAction(e->{
 	 //if checkBox is selected
 	  //Step 1:Decide total amount arrange input by user is valid
@@ -356,8 +370,5 @@ private String getUsername(int email_id) {
 			}
 			
 		}
- 
  }
-	
-
 }

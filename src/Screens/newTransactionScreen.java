@@ -37,9 +37,10 @@ import javafx.util.Duration;
  */
 
 
-public class newTransactionScreen {
-	
-	public newTransactionScreen() {
+public class newTransactionScreen 
+{	
+	public newTransactionScreen() 
+	{
         //create the stage 
 		 Stage transactionStage= new Stage();
 		
