@@ -31,7 +31,7 @@ public class DBConnection
 				Class.forName("com.mysql.jdbc.Driver");
 				dbConnection = 
 				DriverManager//192.168.64.2
-				.getConnection("jdbc:mysql://127.0.0.1/"+
+				.getConnection("jdbc:mysql://192.168.64.2/"+
 				 Const_Credential.DB_NAME + "?useSSL=false",
 				 Const_Credential.DB_USER, Const_Credential.DB_PASS);
 				System.out.println("Successfully Created Connection");
