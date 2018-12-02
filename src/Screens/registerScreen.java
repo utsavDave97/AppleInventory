@@ -113,6 +113,7 @@ public registerScreen(){
 				stage.close();
 			});
 			//set an onclick listener for the register button
+			System.out.println(hashedPass.saltGen());
 			register.setOnAction(e->{
 				//create a new usertable object
 				UserTable usertable = new UserTable();
@@ -128,6 +129,7 @@ public registerScreen(){
 				UserRole userrole = new UserRole();
 				//use the user methods
 				
+
 				if(user.searchAllEmails(email.getText()) == true){
 					Alert emailTaken = new Alert(AlertType.INFORMATION);
 					emailTaken.setTitle("Email already taken");
@@ -146,9 +148,9 @@ public registerScreen(){
 					
 					//use the hashing method here to generate the string for the password
 					
-					
+					String salt = passwordobj.saltGen().toString();
 					//use the password methods
-					passwordobj.setUser_password(hashedPass.hashPassword(passWord.getText()));
+					passwordobj.setUser_password(hashedPass.hashPassword(passWord.getText(), salt));
 					//use the userrole methods
 					if(combo.getSelectionModel().getSelectedItem() == "Clerk") {
 						userrole.setRole_Id(Const.CLERKROLEID);
@@ -162,7 +164,7 @@ public registerScreen(){
 					
 					//send the information to the database
 					usertable.createUser(user);
-					passwordtable.createPassword(passwordobj);
+					passwordtable.createPassword(passwordobj, salt);
 					useroletable.createUserRole(userrole);
 					
 					Alert successInsert = new Alert(AlertType.INFORMATION);

@@ -11,5 +11,5 @@ public interface PasswordDAO
 	public Boolean getPassword(String passHash, int email_id);
 	public void updatePassword(Password password);
 	public void deletePassword(Password password);
-	public void createPassword(Password password);
+	void createPassword(Password password, String salt);
 }

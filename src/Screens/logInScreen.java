@@ -118,12 +118,16 @@ public class logInScreen{
 			
 			Password password = new Password();
 			PasswordTable passwordtable = new PasswordTable();
-			String hashedGivenPass = password.hashPassword(passWord.getText());
-
 			//implement the method to search for the user email
 			//utilize the getuser field and save it as an int, this will grab the email_id in the database
 			int cursorEmailField = usertable.getUser(emailField.getText());
 
+			//create a string object representing the salt in the passwordfield next to email id. then append it onto the end of the users given password and see if matches the salted password in the database
+			//pass the given salt to the end of the password field
+			
+			String dbConnectedSalt = password.grabSaltFromEmail(cursorEmailField);
+			String hashedGivenPass = password.hashPassword(passWord.getText(), dbConnectedSalt);
+			
 
 			if(passwordtable.getPassword(hashedGivenPass, cursorEmailField)==true) {
 				User user = usertable.getUser(cursorEmailField);
