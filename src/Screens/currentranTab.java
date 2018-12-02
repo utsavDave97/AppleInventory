@@ -12,6 +12,7 @@ import JavaBean.Product;
 import JavaBean.Sale;
 import JavaBean.SaleItem;
 import JavaBean.Stock;
+import JavaBean.User;
 import Screens.TableViewItems.EditingCell;
 import Screens.TableViewItems.ScreenSaleItem;
 import Tables.ProductTable;
@@ -56,7 +57,7 @@ public class currentranTab extends BorderPane{
 	private final float  TAXRATE=0.13f;
 	private double endTotalAmount=0;
 	private double endTax=0;
-
+    private User loginUser;
 	final ObservableList<ScreenSaleItem> data =
 			FXCollections.observableArrayList();
 
@@ -367,10 +368,8 @@ public class currentranTab extends BorderPane{
 						saleId=insertSaleIntoTable();
 						System.out.println("Sale id is: "+saleId);
 
-
 						//Step 2: Insert all the sale item into Sale Item table of database
 						insertSaleItemIntoTable(saleId);
-
 
 						//Step 3: Update(subtraction) quantity in stock after the transaction submit
 						for (ScreenSaleItem screenSaleItem : data) {
@@ -434,7 +433,9 @@ public class currentranTab extends BorderPane{
 		System.out.println(dateStr);
 
 		Sale newSale=new Sale();
-		newSale.setEmail_id(1);//wait for jonathon's login, i can grab the user's email id
+		logInScreen login=new logInScreen();
+		loginUser=login.getUserInstance();
+		newSale.setEmail_id(loginUser.getEmail_id());//wait for jonathon's login, i can grab the user's email id
 		newSale.setSale_time(dateStr);
 		newSale.setTax(endTax);
 		newSale.setTotal(endTotalAmount);

@@ -2,8 +2,10 @@ package Screens;
 
 import JavaBean.Product;
 import JavaBean.Stock;
+import JavaBean.User;
 import Tables.ProductTable;
 import Tables.StockTable;
+import Tables.UserRoleTable;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -90,8 +92,18 @@ public class deleteStockScreen
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
 
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
-		
+		//If the user is clerk role, who cann't visit accountManager functionality
+				logInScreen login=new logInScreen();
+				User loginUser=login.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+						
 		Label selectLabel = new Label("Select Item to Delete:");
 	    selectLabel.setStyle("-fx-font-family: Quicksand;"
 				 + "-fx-font-size: 12pt;");
