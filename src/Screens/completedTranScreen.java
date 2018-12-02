@@ -4,6 +4,8 @@ package Screens;
 
 
 
+import JavaBean.User;
+import Tables.UserRoleTable;
 import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -101,8 +103,16 @@ public class completedTranScreen
 		Button deleteStock = new Button("Delete Stock");
 		Button accountManagement = new Button("Account Management");
 		Button statisticScreen = new Button("Statistic Screen");
-
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+		//If the user is clerk role, who cann't visit accountManager functionality
+				logInScreen login=new logInScreen();
+				User loginUser=login.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					accountManagement.setVisible(false);
+				}
+				
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
 		
 	    navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);

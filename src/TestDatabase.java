@@ -4,6 +4,7 @@ import Database.DBConnection;
 import JavaBean.Stock;
 import JavaBean.User;
 import Tables.StockTable;
+import Tables.UserRoleTable;
 import Tables.UserTable;
 
 
