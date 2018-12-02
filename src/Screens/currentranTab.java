@@ -433,8 +433,7 @@ public class currentranTab extends BorderPane{
 		System.out.println(dateStr);
 
 		Sale newSale=new Sale();
-		logInScreen login=new logInScreen();
-		loginUser=login.getUserInstance();
+		loginUser=logInScreen.getUserInstance();
 		newSale.setEmail_id(loginUser.getEmail_id());//wait for jonathon's login, i can grab the user's email id
 		newSale.setSale_time(dateStr);
 		newSale.setTax(endTax);
