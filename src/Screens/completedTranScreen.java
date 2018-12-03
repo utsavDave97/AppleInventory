@@ -198,9 +198,6 @@ public class completedTranScreen
 		comtransStage.setScene(scene);
 		comtransStage.show();
 
-
 	}
-
-
 
 }

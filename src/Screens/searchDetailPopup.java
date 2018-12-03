@@ -20,8 +20,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class searchDetailPopup {
-	public searchDetailPopup(int saleId) {
+public class searchDetailPopup 
+{
+	public searchDetailPopup(int saleId) 
+	{
 		/**********************************************************************
 		 *                Basic Stage,Pane Definition                          *
 		 ***********************************************************************/
@@ -30,6 +32,7 @@ public class searchDetailPopup {
 		
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #DCDCDC;");
+		
 		/**********************************************************************
 		 *               table View                       *
 		 ***********************************************************************/	
@@ -70,8 +73,6 @@ public class searchDetailPopup {
 	                new PropertyValueFactory<ScreenSaleItem, String>("quantity"));
 	        table.getColumns().addAll(producIdCol,productNameCol,priceCol,totalPriceCol,quantityCol);
 
-		  
-		  
 		SaleItemTable saleItemTable=new SaleItemTable();
 		ProductTable productTable=new ProductTable();
 		ArrayList<SaleItem> saleItems=saleItemTable.getAllSaleItems();
@@ -84,7 +85,8 @@ public class searchDetailPopup {
 			
 		}
 		
-		for (SaleItem saleItem : filterSaleItems) {
+		for (SaleItem saleItem : filterSaleItems) 
+		{
 			Product product=productTable.getProduct(saleItem.getProd_Id());
 			String productName=product.getProd_name();
 			String price=product.getProd_price();
@@ -92,21 +94,16 @@ public class searchDetailPopup {
 			 DecimalFormat df = new DecimalFormat("####0.00");
 		String	totprice=df.format(totalprice);
 //             SaleTable saleTable=new SaleTable();
-             
           
-            
-            
 			data.add(new ScreenSaleItem(saleItem.getProd_Id(), productName, price, totprice, saleItem.getSale_qty()+""));
 			 //public ScreenSaleItem(int upcNumber, String name, String price,String totPrice,String quantity)
 		}
-		
 		
 		root.setPadding(new Insets(20,20,20,20));
 	    root.setCenter(table);
 	    table.setItems(data);
 	    table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		Scene scene = new Scene(root, 600, 400);
-		
 		
 		//show the stage
 		popUpStage.setScene(scene);

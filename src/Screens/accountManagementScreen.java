@@ -40,28 +40,32 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.converter.DefaultStringConverter;
 
-public class accountManagementScreen{
+public class accountManagementScreen
+{
 	int position=0;
 
-	public accountManagementScreen() {
-		
-		
+	public accountManagementScreen() 
+	{
 		
 		//create a stage to hold the content
 		Stage stage = new Stage();
-		
-		
+				
 		BorderPane pane = new BorderPane();
+		
 		//create an hbox for the remove and save changes button
 		HBox hbox = new HBox();
+		
 		//create the two button for the hbox.
 		hbox.setSpacing(20);
 		Button remove = new Button("Remove");
 		Button saveChanges = new Button("Save Changes");
+		
 		//add the buttons to the hbox
 		hbox.getChildren().addAll(remove, saveChanges);
+		
 		//set the alignment of the hbox
 		hbox.setAlignment(Pos.BOTTOM_CENTER);
+		
 		//create padding for the hbox
 		hbox.setPadding(new Insets(0, 0, 20, 0));
 		
@@ -72,14 +76,13 @@ public class accountManagementScreen{
 		table.setEditable(true);
 		ObservableList<ScreenUser> userData = FXCollections.observableArrayList();
 		UserTable usertable = new UserTable();
+		
 	    //create functions here to create new ScreenUser's based on information from the database
 		ArrayList<ScreenUser> list = new ArrayList<ScreenUser>();
 		list = usertable.getAllUsersForTableView();
 	    for(int i=0; i< list.size(); i++ ) {
 	    		userData.add(list.get(i));
 	    }
-		
-
 		
 		TableColumn idCol = new TableColumn("UserID:");
 		idCol.setEditable(false);
@@ -134,9 +137,7 @@ public class accountManagementScreen{
 		User proposedChanges = new User();
 		UserRole userrole = new UserRole();
 		User savedUser = new User();
-		
-
-		
+	
 		emailCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> { 
 			
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
@@ -158,11 +159,6 @@ public class accountManagementScreen{
 			
 //			proposedChanges.setEmail_id(cursor.getEmail_id());
 //			proposedChanges.setEmail(cursor.getEmail());
-			
-			
-			
-	
-
 		});
 		
 		
@@ -185,7 +181,6 @@ public class accountManagementScreen{
 			proposedChanges.setEmail_id(cursor.getEmail_id());
 			proposedChanges.setFirstname(cursor.getFname());
 
-			
 		});
 		
 		lnameCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
@@ -195,7 +190,6 @@ public class accountManagementScreen{
 			
 			position = cursor.getEmail_id();
 
-			
 			savedUser.setEmail_id(cursor.getEmail_id());
 			savedUser.setEmail(cursor.getEmail());
 			savedUser.setFirstname(cursor.getFname());
@@ -210,7 +204,6 @@ public class accountManagementScreen{
 			
 		});
 		
-		
 		comboCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
 			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
 					t.getTablePosition().getRow());
@@ -218,7 +211,6 @@ public class accountManagementScreen{
 			
 			
 		});
-		
 		
 		saveChanges.setOnAction(e->{
 			
@@ -247,22 +239,14 @@ public class accountManagementScreen{
 			new accountManagementScreen();
 			stage.close();
 		});
-		
-		
-		
+
 		pane.setCenter(table);
 		
 		Scene scene = new Scene(pane, 1064, 762);
 		
-		
-		
-		
-		
-		
 		/**
 		 * create the content for the navigation bar
 		 */
-		
 
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
@@ -358,13 +342,6 @@ public class accountManagementScreen{
 		pane.setTop(navigationToolBar);
 		pane.setBottom(hbox);
 		stage.setScene(scene);
-		stage.show();
-		
-		
-		
-		
-		
-		
+		stage.show();	
 	}
-
 }

@@ -42,7 +42,8 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
-public class currentranTab extends BorderPane{
+public class currentranTab extends BorderPane
+{
 	//Declare variable for new transaction screen
 	ArrayList <Product> products;
 	ArrayList<Sale> sales;
@@ -63,7 +64,8 @@ public class currentranTab extends BorderPane{
 
 	//Constructor 
 	@SuppressWarnings("unchecked")
-	public currentranTab() {
+	public currentranTab() 
+	{
 
 		this.setStyle("-fx-background-color: #DCDCDC;");
 
@@ -91,26 +93,27 @@ public class currentranTab extends BorderPane{
 
 		//Give the first default selection item
 		comboApples.getSelectionModel().selectFirst();
+		
 		//Set List Style Font
 		comboApples.setStyle(" -fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
+		
 		// Set the Size of the ComoBox
 		comboApples.setPrefSize(200, 30);
+		
 		//add a button to add more apple items
 		Button addItemButton=new Button("Add Item");
 		addItemButton.setStyle("-fx-border-color: B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
+		
 		//add deleteItem
 		Button deleteItemButton=new Button("Delete Item");
 		deleteItemButton.setStyle("-fx-border-color: B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
 
-
 		addItemBox.getChildren().addAll(comboApples,addItemButton,deleteItemButton);
-
-
 
 		/**********************************************************************
 		 *                Table List Content                                  *
@@ -160,11 +163,7 @@ public class currentranTab extends BorderPane{
 				//bind the EditingCell to the value          
 				quantityCol.setCellFactory(cellFactory);
 
-
-
 				quantityCol.setMinWidth(150);
-
-
 
 				table.getColumns().addAll(reviseCol,upcCol,nameCol,priceCol,totCol,quantityCol);
 				table.setItems(data);
@@ -184,7 +183,6 @@ public class currentranTab extends BorderPane{
 				taxLable.setStyle("-fx-font-family: Quicksand;"
 						+ "-fx-font-size: 15pt;");
 
-
 				Text taxText=new Text("0");
 				taxText.setStyle(textStyle);
 				HBox taxTextBox=new HBox();
@@ -199,7 +197,6 @@ public class currentranTab extends BorderPane{
 				HBox taxHbox=new HBox();
 				taxHbox.setSpacing(155);
 				taxHbox.getChildren().addAll(taxLable,taxTextBox);
-
 
 				Label totAmountLable=new Label("Total Amount:");
 				totAmountLable.setStyle("-fx-font-family: Quicksand;"
@@ -218,8 +215,6 @@ public class currentranTab extends BorderPane{
 						+ "-fx-background-color:white");
 				amountTextBox.setMinWidth(465);
 
-
-
 				HBox totAmountHbox=new HBox();
 				totAmountHbox.setSpacing(150);
 				totAmountHbox.getChildren().addAll(totAmountLable,amountTextBox);
@@ -227,7 +222,6 @@ public class currentranTab extends BorderPane{
 						+ "-fx-border-width:2 0 0 0;\n"
 						+ "-fx-border-style:solid;\n"
 						+ "-fx-padding:0 0 0 0");
-
 
 				VBox sumDesVbox=new VBox();      
 				sumDesVbox.getChildren().addAll(taxHbox,totAmountHbox);
@@ -335,7 +329,6 @@ public class currentranTab extends BorderPane{
 				});
 
 				//Delete Item from screen(not from database)
-
 				deleteItemButton.setOnAction(e->{
 					for(ScreenSaleItem saleItem:data) {
 						if(saleItem.getReviseCheck().isSelected()) {
@@ -352,6 +345,7 @@ public class currentranTab extends BorderPane{
 					}
 
 				});
+				
 				//submit
 				submit.setOnAction(e->{
 
@@ -407,8 +401,6 @@ public class currentranTab extends BorderPane{
 
 	}
 	//End of constructor method
-
-
 
 
 	/**********************************************************************************************************
@@ -474,10 +466,6 @@ public class currentranTab extends BorderPane{
 	public void updateQuantityInStock(Stock stock) {
 		//stockTable=new StockTable();
 		stockTable.updateStock(stock);
-
-
 	}
-
-
-
+	
 }
