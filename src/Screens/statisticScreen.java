@@ -52,7 +52,7 @@ public class statisticScreen
 		vbox.setAlignment(Pos.CENTER);
 
 		//create the content be inside the vbox
-		Text title = new Text("Apples in your Inventory");
+		Text title = new Text("Sales Total to date");
 
 		//set the size of the title text
 		title.setStyle("-fx-font-Size: 45; -fx-font-family: Quicksand");
