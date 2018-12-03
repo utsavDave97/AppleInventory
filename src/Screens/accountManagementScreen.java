@@ -49,7 +49,8 @@ public class accountManagementScreen
 	int position=0;
 
 	UserRoleTable userRoleTable;
-
+	User loginUser=logInScreen.getUserInstance();
+	
 	public accountManagementScreen() 
 	{
 		
@@ -98,6 +99,7 @@ public class accountManagementScreen
 		//create a forloop to add this data to the observable list
 	    for(int i=0; i< list.size(); i++ ) {
 	    		//add it to the list
+	    	if(list.get(i).getEmail_id()!=loginUser.getEmail_id())
 	    		userData.add(list.get(i));
 	    }
 
@@ -408,7 +410,7 @@ public class accountManagementScreen
 		Button statisticScreen = new Button("Statistic Screen");
 
 		//If the user is clerk role, who cann't visit accountManager functionality
-				User loginUser=logInScreen.getUserInstance();
+				
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
 				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
