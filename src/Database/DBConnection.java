@@ -13,9 +13,11 @@ import java.sql.Statement;
  */
 public class DBConnection 
 {
+	//create a DBconnection instance and set its value to null
 	private static DBConnection instance = null;
+	//create a Connection instance and set its value to null
 	private static Connection dbConnection=null;
-	
+
 	/**
 	 * Description: Using ReadCredential class to read database credential file, 
 	 *             then Initialize database connection
@@ -24,24 +26,27 @@ public class DBConnection
 	 */
 	private DBConnection() 
 	{
-		
+		//check to see if dbconnection is null(no current connection to DB)
 		if(dbConnection == null) {
 			//Try and make a connection
 			try {
+				//set the className for the mysql connector
 				Class.forName("com.mysql.jdbc.Driver");
+				//initiate the DBconnection and create a connection to the database
 				dbConnection = 
-				DriverManager//macbook xamp:  192.168.64.2 ::::::::::: jonathansPC: 127.0.0.1
-				.getConnection("jdbc:mysql://192.168.64.2/"+
-				 Const_Credential.DB_NAME + "?useSSL=false",
-				 Const_Credential.DB_USER, Const_Credential.DB_PASS);
+						DriverManager//macbook xamp:  192.168.64.2 ::::::::::: jonathansPC: 127.0.0.1
+						.getConnection("jdbc:mysql://192.168.64.2/"+
+								Const_Credential.DB_NAME + "?useSSL=false",
+								Const_Credential.DB_USER, Const_Credential.DB_PASS);
 				System.out.println("Successfully Created Connection");
 			}
 			catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
+			//if there is a connection create the tables using the queries inside the Const file
 			createTable(Const.TABLE_USER, 
 					Const.CREATE_TABLE_USER, dbConnection);
 			createTable(Const.TABLE_PASSWORD, 
@@ -62,28 +67,33 @@ public class DBConnection
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Create a getInstance method
 	public static DBConnection getInstance()
 	{
+		//check to see if the instance of instance is null
 		if(instance == null) 
 		{
+			//if it is null then create a new dbconnection
 			instance = new DBConnection();
 		}
+		//return the connection
 		return instance;
 	}
 
 	//getter method :Access db connection
 	public Connection getDbConnection() 
 	{
+		//return the Database connection
 		return dbConnection;
 	}
-		
-		
+
+	//create the method for creating the tables
 	public void createTable(String tableName, 
 			String tableQuery,
 			Connection connection) throws SQLException 
 	{
+		//set an instance of the statement class
 		Statement sqlStatement;
 		//Grab the database meta data
 		DatabaseMetaData md = connection.getMetaData();
@@ -96,10 +106,11 @@ public class DBConnection
 		}
 		else 
 		{
+			//create the table's
 			sqlStatement = connection.createStatement();
 			sqlStatement.execute(tableQuery);
 			System.out.println("The " + tableName + " table has been inserted");
 		}
 	}
-	
+
 }

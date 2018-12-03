@@ -4,6 +4,13 @@ package Database;
 
 public class Const 
 {
+	
+	
+	/**
+	 * 
+	 * @description this class is for table names, and columns and create table queries. this is for our database setup
+	 */
+	
 	//create a constant for each of the table and column names
 	
 	/*---------------Creating Constants for User Table------------------*/

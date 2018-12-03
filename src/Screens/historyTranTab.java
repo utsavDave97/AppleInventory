@@ -41,14 +41,18 @@ public class historyTranTab extends BorderPane
 {
 	//Declare variables and objects
 	SaleTable saleTable;
+	//create an saleItemTable so we can reference this later
 	SaleItemTable saleItemTable;
-	 LocalDate choiceDate;
-	 String choiceDateStr="";
-	 UserTable userTable;
-	 User user;
-	 ArrayList<Sale> sales;
-	 ArrayList<SaleItem> saleItems;
-	 final ObservableList<SaleHisItem> dataHis =FXCollections.observableArrayList();
+	//create an choiceDate so we can reference this later
+	LocalDate choiceDate;
+	//create an choiceDateStr so we can reference this later
+	String choiceDateStr="";
+	//create an choiceDateStr so we can reference this later
+	UserTable userTable;
+	User user;
+	ArrayList<Sale> sales;
+	ArrayList<SaleItem> saleItems;
+	final ObservableList<SaleHisItem> dataHis =FXCollections.observableArrayList();
 	//Declare formatter
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	

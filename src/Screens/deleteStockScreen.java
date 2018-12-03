@@ -32,9 +32,11 @@ public class deleteStockScreen
 
 	public deleteStockScreen()
 	{
+		//create an productTable so we can reference this later
 		ProductTable productTable = new ProductTable();
+		//create an stockTable so we can reference this later
 		StockTable stockTable = new StockTable();
-
+		//create an deleteStage so we can reference this later
 		Stage deleteStage = new Stage();
 
 		//Create the root pane and give it styling
@@ -84,12 +86,19 @@ public class deleteStockScreen
 		//Creating toolBar and adding navigation button and logout button to it
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
 
+		//create a button for a newtransaction inside the nav
 		Button newTransaction = new Button("New Transaction");
+		//create a button for a new completed transaction inside the nav
 		Button completedTransaction = new Button("Completed Transaction");
+		//create a addStock for a newtransaction inside the nav
 		Button addStock = new Button("Add Stock");
+		//create a updateStock for a newtransaction inside the nav
 		Button updateStock = new Button("Update Stock");
+		//create a deleteStock for a newtransaction inside the nav
 		Button deleteStock = new Button("Delete Stock");
+		//create a accountManagement for a newtransaction inside the nav
 		Button accountManagement = new Button("Account Management");
+		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
 
 		//If the user is clerk role, who cann't visit accountManager functionality
@@ -100,13 +109,14 @@ public class deleteStockScreen
 			accountManagement.setVisible(false);
 		}
 
-
+		//create the vbox for the menu
 		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
-
+		//create the label for selectLabel
 		Label selectLabel = new Label("Select Item to Delete:");
+		//set the style of the selectLabel
 		selectLabel.setStyle("-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
-
+		
 		ComboBox<Product> selectProduct = new ComboBox<>();
 		selectProduct.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
 

@@ -45,20 +45,35 @@ import javafx.util.Duration;
 public class currentranTab extends BorderPane
 {
 	//Declare variable for new transaction screen
+	//create an products so we can reference this later
 	ArrayList <Product> products;
+	//create an sales so we can reference this later
 	ArrayList<Sale> sales;
+	//create an saleItems so we can reference this later
 	ArrayList<SaleItem> saleItems;
+	//create an saleItemId so we can reference this later
 	ArrayList<Integer> saleItemId;
+	//create an productTable so we can reference this later
 	ProductTable productTable;
+	//create an saleTable so we can reference this later
 	SaleTable saleTable;
+	//create an saleItemTable so we can reference this later
 	SaleItemTable saleItemTable;
+	//create an stockTable so we can reference this later
 	StockTable stockTable;
+	//create an userTable so we can reference this later
 	UserTable userTable;
 	//According to HST of year of 2016
+	
+	//create an TAXRATE so we can reference this later
 	private final float  TAXRATE=0.13f;
+	//create an endTotalAmount so we can reference this later
 	private double endTotalAmount=0;
+	//create an endTax so we can reference this later
 	private double endTax=0;
+	//create an loginUser so we can reference this later
     private User loginUser;
+	//create an data so we can reference this later
 	final ObservableList<ScreenSaleItem> data =
 			FXCollections.observableArrayList();
 

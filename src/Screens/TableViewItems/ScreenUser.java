@@ -5,9 +5,13 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class ScreenUser 
 {
+	//create an SimpleIntegerProperty email_id so we can reference this later
 	private SimpleIntegerProperty email_id;
+	//create an SimpleIntegerProperty email so we can reference this later
 	private SimpleStringProperty email;
+	//create an SimpleIntegerProperty fname so we can reference this later
 	private SimpleStringProperty fname;
+	//create an SimpleIntegerProperty lname so we can reference this later
 	private SimpleStringProperty lname;
 	
 	public ScreenUser() 
