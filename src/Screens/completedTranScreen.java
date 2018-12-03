@@ -111,15 +111,16 @@ public class completedTranScreen
 		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
 		//If the user is clerk role, who cann't visit accountManager functionality
-		User loginUser=logInScreen.getUserInstance();
-		UserRoleTable userRoleTable=new UserRoleTable();
-
-		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
-			accountManagement.setVisible(false);
-		}
-
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
-
+				User loginUser=logInScreen.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+				
 		navigationButton.setOnAction(e->{
 			root.setLeft(menu);
 		});

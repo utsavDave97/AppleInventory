@@ -128,7 +128,7 @@ public class addStockScreen
 		User loginUser=logInScreen.getUserInstance();
 		UserRoleTable userRoleTable=new UserRoleTable();
 		
-		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+		if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
 			accountManagement.setVisible(false);
 		}
 		
