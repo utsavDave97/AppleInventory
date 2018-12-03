@@ -24,6 +24,10 @@ public static final String DB_USER = "yourUserNameDatabase";
 
 ## Screen shots & its explanation
 
+* Database Design
+![Database](
+
+https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/DatabaseDesign.png)
  
 * When the application launches the Log-In Screen appears. Here the existing user can log in with proper credentials. For new user, Register option is to clicked.
 ![Log_In](https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/LogIn.png)
@@ -55,3 +59,11 @@ public static final String DB_USER = "yourUserNameDatabase";
 
 * This is the Account Management Screen. This screen is only accessible to Administrator. The accounts of clerk and manager can be updated/deleted here.
 ![AccountManagement](https://github.com/utsavDave97/AppleInventory/blob/DAObranch/ScreenShots/AccountManagement.png)
+
+## Credits
+
+* [Apple Icon](https://www.flaticon.com/authors/smashicons)
+* [User Icon](https://www.flaticon.com/authors/freepik)
+* [Key Icon](https://www.flaticon.com/authors/yannick)
+* [Navigation Icon](https://www.flaticon.com/authors/smashicons)
+* [Log Out Icon](https://www.flaticon.com/authors/freepik)
