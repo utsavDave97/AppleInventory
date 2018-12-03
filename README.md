@@ -25,9 +25,7 @@ public static final String DB_USER = "yourUserNameDatabase";
 ## Screen shots & its explanation
 
 * Database Design
-![Database](
-
-https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/DatabaseDesign.png)
+![Database](https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/DatabaseDesign.png)
  
 * When the application launches the Log-In Screen appears. Here the existing user can log in with proper credentials. For new user, Register option is to clicked.
 ![Log_In](https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/LogIn.png)
