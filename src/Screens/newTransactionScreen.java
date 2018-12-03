@@ -1,4 +1,6 @@
 package Screens;
+import JavaBean.User;
+import Tables.UserRoleTable;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,122 +37,126 @@ import javafx.util.Duration;
  */
 
 
-public class newTransactionScreen {
-	
-	public newTransactionScreen() {
-        //create the stage 
-		 Stage transactionStage= new Stage();
-		
+public class newTransactionScreen 
+{	
+	public newTransactionScreen() 
+	{
+		//create the stage 
+		Stage transactionStage= new Stage();
+
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #DCDCDC;");
 		root.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
-		
-		//Create a gridpane layout to store content
-//		GridPane trGridpane = new GridPane();
-//		
-//		trGridpane.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
-//		
-//		//Create the horizontal gap between the elements in gridpane
-//		trGridpane.setHgap(15);
-//		//create the vertical gap between the elements in gridpane
-//		trGridpane.setVgap(25);
-//		//create the style for the gridpane background
-//		trGridpane.setStyle("-fx-background-color:DCDCDC");	
-//		trGridpane.setAlignment(Pos.CENTER);
-		
+
 		/************************************************************************************
 		 *                  Navigation Bar
 		 *************************************************************************************/
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
-		
+
 		//Creating space between navigation button and log out button
 		final Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-		
+
 		final Pane spacer2 = new Pane();
 		HBox.setHgrow(spacer2, Priority.ALWAYS);
-		
+
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
-		
+
 		logOutButton.setOnAction(e->{
 			new logInScreen();
 			transactionStage.close();
 		});
-		
+
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 30;");
-		
+
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
-		
+
+		//create a button for a newtransaction inside the nav
 		Button newTransaction = new Button("New Transaction");
+		//create a button for a new completed transaction inside the nav
 		Button completedTransaction = new Button("Completed Transaction");
+		//create a addStock for a newtransaction inside the nav
 		Button addStock = new Button("Add Stock");
+		//create a updateStock for a newtransaction inside the nav
 		Button updateStock = new Button("Update Stock");
+		//create a deleteStock for a newtransaction inside the nav
 		Button deleteStock = new Button("Delete Stock");
+		//create a accountManagement for a newtransaction inside the nav
 		Button accountManagement = new Button("Account Management");
+		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
 
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
-		
-	    navigationButton.setOnAction(e->{
-	    	root.setLeft(menu);
-	    });
-	    
-	    newTransaction.setOnAction(e->{
-	    	new newTransactionScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    completedTransaction.setOnAction(e->{
+		//If the user is clerk role, who cann't visit accountManager functionality
+				User loginUser=logInScreen.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+				
+		navigationButton.setOnAction(e->{
+			root.setLeft(menu);
+		});
 
-	   new completedTranScreen();
-	    transactionStage.close();
+		newTransaction.setOnAction(e->{
+			new newTransactionScreen();
+			transactionStage.close();
+		});
 
+		completedTransaction.setOnAction(e->{
 
-	    });
-	    
-	    addStock.setOnAction(e->{
-	    	new addStockScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    updateStock.setOnAction(e->{
-	    	new updateStockScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    accountManagement.setOnAction(e->{
-	    	new accountManagementScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    statisticScreen.setOnAction(e->{
-	    	new statisticScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    deleteStock.setOnAction(e->{
-	    	new deleteStockScreen();
-	    	transactionStage.close();
-	    });
-	    
-	    
-	    /****************************************************************************************************
-	     * 	   Navigation Item 
-	     **************************************************************************************************/
-	    
+			new completedTranScreen();
+			transactionStage.close();
 
 
-	    currentranTab newTransactionPane=new currentranTab();
-	    
-	    newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		});
+
+		addStock.setOnAction(e->{
+			new addStockScreen();
+			transactionStage.close();
+		});
+
+		updateStock.setOnAction(e->{
+			new updateStockScreen();
+			transactionStage.close();
+		});
+
+		accountManagement.setOnAction(e->{
+			new accountManagementScreen();
+			transactionStage.close();
+		});
+
+		statisticScreen.setOnAction(e->{
+			new statisticScreen();
+			transactionStage.close();
+		});
+
+		deleteStock.setOnAction(e->{
+			new deleteStockScreen();
+			transactionStage.close();
+		});
+
+
+		/****************************************************************************************************
+		 * 	   Navigation Item 
+		 **************************************************************************************************/
+
+
+
+		currentranTab newTransactionPane=new currentranTab();
+
+		newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 
 			@Override
@@ -158,24 +164,24 @@ public class newTransactionScreen {
 				// TODO Auto-generated method stub
 				root.setLeft(null);
 			}
-	
+
 		});
-	    /****************************************************************************************************
-	     * 	   set pane and Add the page to stage 
-	     **************************************************************************************************/	    
-	    
-	    
-	    root.setTop(navigationToolBar);
-	    root.setCenter(newTransactionPane);
-	  //create the scene
+		/****************************************************************************************************
+		 * 	   set pane and Add the page to stage 
+		 **************************************************************************************************/	    
+
+
+		root.setTop(navigationToolBar);
+		root.setCenter(newTransactionPane);
+		//create the scene
 		Scene scene = new Scene(root, 1024, 768);
-		
-		
+
+
 		//show the stage
 		transactionStage.setScene(scene);
 		transactionStage.show();
 
 
-  }
+	}
 
 }

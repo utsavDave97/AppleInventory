@@ -12,6 +12,7 @@ import JavaBean.Product;
 import JavaBean.Sale;
 import JavaBean.SaleItem;
 import JavaBean.Stock;
+import JavaBean.User;
 import Screens.TableViewItems.EditingCell;
 import Screens.TableViewItems.ScreenSaleItem;
 import Tables.ProductTable;
@@ -41,28 +42,45 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.Duration;
 
-public class currentranTab extends BorderPane{
+public class currentranTab extends BorderPane
+{
 	//Declare variable for new transaction screen
+	//create an products so we can reference this later
 	ArrayList <Product> products;
+	//create an sales so we can reference this later
 	ArrayList<Sale> sales;
+	//create an saleItems so we can reference this later
 	ArrayList<SaleItem> saleItems;
+	//create an saleItemId so we can reference this later
 	ArrayList<Integer> saleItemId;
+	//create an productTable so we can reference this later
 	ProductTable productTable;
+	//create an saleTable so we can reference this later
 	SaleTable saleTable;
+	//create an saleItemTable so we can reference this later
 	SaleItemTable saleItemTable;
+	//create an stockTable so we can reference this later
 	StockTable stockTable;
+	//create an userTable so we can reference this later
 	UserTable userTable;
 	//According to HST of year of 2016
+	
+	//create an TAXRATE so we can reference this later
 	private final float  TAXRATE=0.13f;
+	//create an endTotalAmount so we can reference this later
 	private double endTotalAmount=0;
+	//create an endTax so we can reference this later
 	private double endTax=0;
-
+	//create an loginUser so we can reference this later
+    private User loginUser;
+	//create an data so we can reference this later
 	final ObservableList<ScreenSaleItem> data =
 			FXCollections.observableArrayList();
 
 	//Constructor 
 	@SuppressWarnings("unchecked")
-	public currentranTab() {
+	public currentranTab() 
+	{
 
 		this.setStyle("-fx-background-color: #DCDCDC;");
 
@@ -90,26 +108,27 @@ public class currentranTab extends BorderPane{
 
 		//Give the first default selection item
 		comboApples.getSelectionModel().selectFirst();
+		
 		//Set List Style Font
 		comboApples.setStyle(" -fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
+		
 		// Set the Size of the ComoBox
 		comboApples.setPrefSize(200, 30);
+		
 		//add a button to add more apple items
 		Button addItemButton=new Button("Add Item");
 		addItemButton.setStyle("-fx-border-color: B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
+		
 		//add deleteItem
 		Button deleteItemButton=new Button("Delete Item");
 		deleteItemButton.setStyle("-fx-border-color: B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
 
-
 		addItemBox.getChildren().addAll(comboApples,addItemButton,deleteItemButton);
-
-
 
 		/**********************************************************************
 		 *                Table List Content                                  *
@@ -159,11 +178,7 @@ public class currentranTab extends BorderPane{
 				//bind the EditingCell to the value          
 				quantityCol.setCellFactory(cellFactory);
 
-
-
 				quantityCol.setMinWidth(150);
-
-
 
 				table.getColumns().addAll(reviseCol,upcCol,nameCol,priceCol,totCol,quantityCol);
 				table.setItems(data);
@@ -183,7 +198,6 @@ public class currentranTab extends BorderPane{
 				taxLable.setStyle("-fx-font-family: Quicksand;"
 						+ "-fx-font-size: 15pt;");
 
-
 				Text taxText=new Text("0");
 				taxText.setStyle(textStyle);
 				HBox taxTextBox=new HBox();
@@ -198,7 +212,6 @@ public class currentranTab extends BorderPane{
 				HBox taxHbox=new HBox();
 				taxHbox.setSpacing(155);
 				taxHbox.getChildren().addAll(taxLable,taxTextBox);
-
 
 				Label totAmountLable=new Label("Total Amount:");
 				totAmountLable.setStyle("-fx-font-family: Quicksand;"
@@ -217,8 +230,6 @@ public class currentranTab extends BorderPane{
 						+ "-fx-background-color:white");
 				amountTextBox.setMinWidth(465);
 
-
-
 				HBox totAmountHbox=new HBox();
 				totAmountHbox.setSpacing(150);
 				totAmountHbox.getChildren().addAll(totAmountLable,amountTextBox);
@@ -226,7 +237,6 @@ public class currentranTab extends BorderPane{
 						+ "-fx-border-width:2 0 0 0;\n"
 						+ "-fx-border-style:solid;\n"
 						+ "-fx-padding:0 0 0 0");
-
 
 				VBox sumDesVbox=new VBox();      
 				sumDesVbox.getChildren().addAll(taxHbox,totAmountHbox);
@@ -334,7 +344,6 @@ public class currentranTab extends BorderPane{
 				});
 
 				//Delete Item from screen(not from database)
-
 				deleteItemButton.setOnAction(e->{
 					for(ScreenSaleItem saleItem:data) {
 						if(saleItem.getReviseCheck().isSelected()) {
@@ -351,6 +360,7 @@ public class currentranTab extends BorderPane{
 					}
 
 				});
+				
 				//submit
 				submit.setOnAction(e->{
 
@@ -367,10 +377,8 @@ public class currentranTab extends BorderPane{
 						saleId=insertSaleIntoTable();
 						System.out.println("Sale id is: "+saleId);
 
-
 						//Step 2: Insert all the sale item into Sale Item table of database
 						insertSaleItemIntoTable(saleId);
-
 
 						//Step 3: Update(subtraction) quantity in stock after the transaction submit
 						for (ScreenSaleItem screenSaleItem : data) {
@@ -410,8 +418,6 @@ public class currentranTab extends BorderPane{
 	//End of constructor method
 
 
-
-
 	/**********************************************************************************************************
 	 *               Add all Methods here which actually inter_opertation with database     
 	 *                                     *
@@ -434,7 +440,8 @@ public class currentranTab extends BorderPane{
 		System.out.println(dateStr);
 
 		Sale newSale=new Sale();
-		newSale.setEmail_id(1);//wait for jonathon's login, i can grab the user's email id
+		loginUser=logInScreen.getUserInstance();
+		newSale.setEmail_id(loginUser.getEmail_id());//wait for jonathon's login, i can grab the user's email id
 		newSale.setSale_time(dateStr);
 		newSale.setTax(endTax);
 		newSale.setTotal(endTotalAmount);
@@ -474,10 +481,6 @@ public class currentranTab extends BorderPane{
 	public void updateQuantityInStock(Stock stock) {
 		//stockTable=new StockTable();
 		stockTable.updateStock(stock);
-
-
 	}
-
-
-
+	
 }

@@ -30,68 +30,93 @@ import javafx.stage.Stage;
  * @description This class will be launched right after the launchscreen class is launched.
  */
 
-public class logInScreen{
+public class logInScreen
+{
+	//create the method to connect a public instance singleton method
+	static User currentlyLoggedIn = new User();
 
-	public logInScreen() {
+	public logInScreen() 
+	{
 
 		//create the stage 
 		Stage stage = new Stage();
+
 		//create the borderPane to store the layout
 		BorderPane pane = new BorderPane();
 		pane.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
 		pane.setStyle("-fx-background-color: DCDCDC");
+
 		//Create a gridpane layout to store content
 		GridPane gridpane = new GridPane();
+
 		//Create the horizontal gap between the elements in gridpane
 		gridpane.setHgap(5);
+
 		//create the vertical gap between the elements in gridpane
 		gridpane.setVgap(5);
+
 		//create the style for the gridpane background
 		//create the content for the gridpane & create the styling
 		Text title = new Text("AppleCore INC.");
 		title.setStyle("-fx-font-size: 63; -fx-font-family: Quicksand;");
+
 		//create a new 'color' var that will contain a selected color
 		Color red = Color.web("#B82F33");
 		title.setFill(red);
+
 		//create the textfield for the emailField
 		TextField emailField = new TextField();
+
 		//create the styling for the textfields
 		emailField.setStyle("-fx-focus-color: #00FFFFFF");
+
 		//create the passwordfield
 		PasswordField passWord = new PasswordField();
+
 		//create the style for the passwordfield
 		passWord.setStyle("-fx-focus-color: #00FFFFFF");
+
 		//create the login button
 		Button login = new Button("Login");
+
 		//set the styling for the button
 		login.setStyle("-fx-border-color: B82F33; -fx-font-family: Quicksand;");
+
 		//create the register button
 		Button register = new Button("Register");
+
 		//create the register styling
 		register.setStyle("-fx-border-color: B82F33; -fx-font-family: Quicksand;");
 
 		//create the imageviews for the two images		
 		//create the image for the imageview
 		Image profile = new Image("profile.png");
+
 		//create the imageview
 		ImageView profileView = new ImageView();
+
 		//set the width and height of the imageview
 		profileView.setFitHeight(32.5);
 		profileView.setFitWidth(32.5);
 		profileView.setImage(profile);
+
 		//create the image
 		Image passKey = new Image("key.png");
+
 		//create the imageview
 		ImageView passView = new ImageView();
+
 		//set the styling for the imageview
 		passView.setFitHeight(32.5);
 		passView.setFitWidth(32.5);
 		passView.setImage(passKey);
+
 		//create the labels for the gridpane
 		Label email = new Label("Email");
 		email.setStyle("-fx-font-family: Quicksand");
 		Label passwordLabel = new Label("Password");
 		passwordLabel.setStyle("-fx-font-family: Quicksand");
+
 		//add the content to the gridpane
 		gridpane.add(email,1,1);	
 		gridpane.add(emailField, 1, 2,2,1);
@@ -110,20 +135,34 @@ public class logInScreen{
 		login.setOnAction(e->{
 			//create an instance of the usertable class
 			UserTable usertable = new UserTable();
+
 			//create an instance of the password class
-			User user = new User();
 			Password password = new Password();
 			PasswordTable passwordtable = new PasswordTable();
-			String hashedGivenPass = password.hashPassword(passWord.getText());
 
 			//implement the method to search for the user email
 			//utilize the getuser field and save it as an int, this will grab the email_id in the database
 			int cursorEmailField = usertable.getUser(emailField.getText());
 
+			//create a string object representing the salt in the passwordfield next to email id. then append it onto the end of the users given password and see if matches the salted password in the database
+			//pass the given salt to the end of the password field
+
+			String dbConnectedSalt = password.grabSaltFromEmail(cursorEmailField);
+			String hashedGivenPass = password.hashPassword(passWord.getText(), dbConnectedSalt);
+
 
 			if(passwordtable.getPassword(hashedGivenPass, cursorEmailField)==true) {
+				User user = usertable.getUser(cursorEmailField);
+				//set the global instance of the currently logged users propertys.
+				currentlyLoggedIn.setEmail(emailField.getText());
+				currentlyLoggedIn.setEmail_id(user.getEmail_id());
+				currentlyLoggedIn.setFirstname(user.getFirstname());
+				currentlyLoggedIn.setLastname(user.getLastname());
+				//grab the instance of the user with the email inside the database				
+
 				System.out.println("Correct credentials");
 				new homeScreen();
+				stage.close();
 			}else {
 				System.out.println("false credentials");
 				new logInScreen();
@@ -150,6 +189,9 @@ public class logInScreen{
 
 	}
 
-
+	public static User getUserInstance() 
+	{
+		return currentlyLoggedIn;
+	}
 
 }

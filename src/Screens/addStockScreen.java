@@ -7,8 +7,10 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import JavaBean.Product;
 import JavaBean.Stock;
+import JavaBean.User;
 import Tables.ProductTable;
 import Tables.StockTable;
+import Tables.UserRoleTable;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,11 +41,14 @@ import javafx.util.Duration;
 
 public class addStockScreen 
 {
+	//create a new product object
 	Product product;
 	
 	public addStockScreen()
 	{
+		//create a new table object
 		ProductTable table = new ProductTable();
+		//create a new stocktable
 		StockTable stockTable = new StockTable();
 		
 		
@@ -69,21 +74,29 @@ public class addStockScreen
 		
 		//Creating navigationButton and setting its image
 		ToggleButton navigationButton = new ToggleButton();
+		//set the menuimage to the desired picture
 		ImageView menuImage = new ImageView("menu.png");
+		//set the graphic to the menuimage
 		navigationButton.setGraphic(menuImage);
 		
 		//Creating space between navigation button and log out button
 		final Pane spacer = new Pane();
+		//set the hgrow
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 		
+		//create a new pane
 		final Pane spacer2 = new Pane();
+		//set the hgrow
 		HBox.setHgrow(spacer2, Priority.ALWAYS);
 		
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
+		//create a new togglebutton so we can log the user out
 		ToggleButton logOutButton = new ToggleButton("Log Out");
+		//set the graphic to the image
 		logOutButton.setGraphic(logOutImage);
 		
+		//create the logoutbutton action button
 		logOutButton.setOnAction(e->{
 			new logInScreen();
 			addStockStage.close();
@@ -97,15 +110,30 @@ public class addStockScreen
 		//Creating toolBar and adding navigation button and logout button to it
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
 		
+		//create a button for a newtransaction inside the nav
 		Button newTransaction = new Button("New Transaction");
+		//create a button for a new completed transaction inside the nav
 		Button completedTransaction = new Button("Completed Transaction");
+		//create a addStock for a newtransaction inside the nav
 		Button addStock = new Button("Add Stock");
+		//create a updateStock for a newtransaction inside the nav
 		Button updateStock = new Button("Update Stock");
+		//create a deleteStock for a newtransaction inside the nav
 		Button deleteStock = new Button("Delete Stock");
+		//create a accountManagement for a newtransaction inside the nav
 		Button accountManagement = new Button("Account Management");
+		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
-
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, accountManagement, statisticScreen, deleteStock);
+       //If the user is clerk role, who cann't visit accountManager functionality
+		User loginUser=logInScreen.getUserInstance();
+		UserRoleTable userRoleTable=new UserRoleTable();
+		
+		if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+			accountManagement.setVisible(false);
+		}
+		
+		
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
 		
 	    String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 							+ "-fx-font-size:15pt;"
@@ -252,6 +280,7 @@ public class addStockScreen
 	    			);
 	    	
 	    	Stock stock = new Stock(
+	    			product.getProd_Id(),
 	    			Integer.parseInt(quantityField.getText())
 	    			);
 	    	

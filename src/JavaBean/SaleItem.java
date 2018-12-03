@@ -5,8 +5,11 @@ package JavaBean;
  *
  */
 public class SaleItem {
+ //create an prod_id so we can reference this for each user
  private int prod_id;
+ //create an sale_id so we can reference this for each user
  private int sale_id;
+ //create an sale_qty so we can reference this for each user
  private int sale_qty;
  
  

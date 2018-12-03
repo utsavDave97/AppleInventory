@@ -4,6 +4,13 @@ package Database;
 
 public class Const 
 {
+	
+	
+	/**
+	 * 
+	 * @description this class is for table names, and columns and create table queries. this is for our database setup
+	 */
+	
 	//create a constant for each of the table and column names
 	
 	/*---------------Creating Constants for User Table------------------*/
@@ -17,6 +24,7 @@ public class Const
 	public static final String TABLE_PASSWORD = "password";
 	public static final String PASSWORD_COLUMN_EMAIL_ID = "email_id";
 	public static final String PASSWORD_COLUMN_PASS = "password";
+	public static final String PASSWORD_COLUMN_SALT = "salt";
 	
 	/*---------------Creating Constants for Role Table------------------*/
 	public static final String TABLE_ROLE = "role";
@@ -68,8 +76,9 @@ public class Const
 			"CREATE TABLE " + TABLE_PASSWORD + " (" +
 			PASSWORD_COLUMN_EMAIL_ID + " INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
 			PASSWORD_COLUMN_PASS + " VARCHAR(90) NOT NULL, " +
+			PASSWORD_COLUMN_SALT + " VARCHAR(20) NOT NULL, " +
 			"FOREIGN KEY (" + PASSWORD_COLUMN_EMAIL_ID + ") REFERENCES " + 
-			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + ") ON DELETE CASCADE );";
 	
 	/*---------------Creating Role Table------------------*/
 	
@@ -89,7 +98,7 @@ public class Const
 			USER_ROLE_COLUMN_ID + " INT NOT NULL, " +
 			"PRIMARY KEY (" + USER_ROLE_COLUMN_EMAIL_ID + "," + USER_ROLE_COLUMN_ID + ")," +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_EMAIL_ID + ") REFERENCES " + 
-			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "), " +
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + ") ON DELETE CASCADE , " +
 			"FOREIGN KEY (" + USER_ROLE_COLUMN_ID + ") REFERENCES " + 
 			TABLE_ROLE + "(" + ROLE_COLUMN_ID + "));";
 	
@@ -118,7 +127,7 @@ public class Const
 			SALE_COLUMN_TOTAL + " FLOAT NOT NULL, " +
 			SALE_COLUMN_TIME  +" VARCHAR(30) NOT NULL, " +
 			"FOREIGN KEY (" + SALE_COLUMN_EMAIL_ID + ") REFERENCES " +
-			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + "));";
+			TABLE_USER + "(" + USER_COLUMN_EMAIL_ID + ") ON DELETE CASCADE );";
 			
 	/*---------------Creating Sale Item Table------------------*/
 	public static final String CREATE_TABLE_SALE_ITEM =
@@ -130,7 +139,7 @@ public class Const
 			"FOREIGN KEY (" + SALE_ITEM_COLUMN_PROD_ID + ") REFERENCES " +
 			TABLE_PRODUCT + "(" + PRODUCT_COLUMN_ID + "), " +
 			"FOREIGN KEY (" + SALE_ITEM_COLUMN_SALE_ID + ") REFERENCES " +
-			TABLE_SALE + "(" + SALE_COLUMN_ID + "));";
+			TABLE_SALE + "(" + SALE_COLUMN_ID + ") ON DELETE CASCADE);";
 	
 	
 }
