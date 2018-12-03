@@ -7,8 +7,10 @@ import JavaBean.User;
 import JavaBean.UserRole;
 import Screens.TableViewItems.EditCellAccountManagement;
 import Screens.TableViewItems.EditingCell;
+import Screens.TableViewItems.Position;
 import Screens.TableViewItems.ScreenSaleItem;
 import Screens.TableViewItems.ScreenUser;
+import Tables.UserRoleTable;
 import Tables.UserTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -18,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -45,10 +48,15 @@ public class accountManagementScreen
 	//create a public position integer so the onEditCommits can make use of this later on for the remove button
 	int position=0;
 
+	UserRoleTable userRoleTable;
+
 	public accountManagementScreen() 
 	{
 		
-		//create a stage to hold the borderpane
+
+		
+		//create a stage to hold the content
+
 		Stage stage = new Stage();
 				
 		//create the borderpane to hold the content
@@ -92,8 +100,14 @@ public class accountManagementScreen
 	    		//add it to the list
 	    		userData.add(list.get(i));
 	    }
+
+
+		for (ScreenUser screenUser : list) {
+			screenUser.getComboBox().getSelectionModel().selectFirst();
+		}
+        
 		
-	    //create the id column for the table
+
 		TableColumn idCol = new TableColumn("UserID:");
 		//set the editable property to false
 		idCol.setEditable(false);
@@ -141,24 +155,38 @@ public class accountManagementScreen
 		//set the cellfactory to the created one
 		lnameCol.setCellFactory(cellFactory);
 		
-		//create the observableList for the desired roles the project has requested
-		ObservableList<String> roles = FXCollections.observableArrayList(); 
-		//add the clerk to the roles
-		roles.add("clerk");
-		//add manager to the roles
-		roles.add("manager");
-		//add administrator to the roles
-		roles.add("administrator");
+
+//		ObservableList<String> roles = FXCollections.observableArrayList(); 
+//		roles.add("clerk");
+//		roles.add("manager");
+//		roles.add("administrator");
 		
-		//create the comboColumn for changing usernames
-		TableColumn<ScreenUser, String> comboCol = new TableColumn("Role:");
-		//set the visibility to true
+		//TableColumn<ScreenUser, String> comboCol = new TableColumn("Role:");
+		TableColumn<ScreenUser, ComboBox<Position>> comboCol = new TableColumn("Role:");
+
 		comboCol.setVisible(true);
-		//set the cellfactory to the role for screenUser
-		comboCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+		comboCol.setCellValueFactory(new PropertyValueFactory<ScreenUser,ComboBox<Position>>("comboBox"));
+		//comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
+
+		//create the observableList for the desired roles the project has requested
+//		ObservableList<String> roles = FXCollections.observableArrayList(); 
+//		//add the clerk to the roles
+//		roles.add("clerk");
+//		//add manager to the roles
+//		roles.add("manager");
+//		//add administrator to the roles
+//		roles.add("administrator");
+		
+//		//create the comboColumn for changing usernames
+//		TableColumn<ScreenUser, String> comboCol = new TableColumn("Role:");
+//		//set the visibility to true
+//		comboCol.setVisible(true);
+//		//set the cellfactory to the role for screenUser
+//		comboCol.setCellValueFactory(new PropertyValueFactory<>("role"));
 		//set the cellfactory observableList we created for the roles
-		comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
+		//comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
 		//set the minimum width for the minimum width
+
 		comboCol.setMinWidth(230);
 		//ComboBoxTableCell.forTableColumn(new DefaultStringConverter().roles)).
 		
@@ -252,18 +280,47 @@ public class accountManagementScreen
 			proposedChanges.setLastname(cursor.getLname());
 			
 		});
-		
-		comboCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
-			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
-					t.getTablePosition().getRow());
+
+//		
+//		comboCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
+//			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
+//					t.getTablePosition().getRow());
+//
+//		}
+		userRoleTable=new UserRoleTable();
+		 
+		table.setOnMouseClicked(e->{
 			
-			
+
+			for(int i=0;i<userData.size();i++) {
+				String positonStr=userData.get(i).getComboBox().getSelectionModel().getSelectedItem().getPosition();
+				if(positonStr.equals("clerk")){
+					userRoleTable.updateRole(1,userData.get(i).getEmail_id());
+				} else if(positonStr.equals("manager")) {
+						userRoleTable.updateRole(2,userData.get(i).getEmail_id());
+					}
+//					else if(positonStr.equals("administrator")) {
+//						userRoleTable.updateRole(3,userData.get(i).getEmail_id());
+//					}
+			  
+			}
 			
 		});
+		
+
+//		});
 		
 		
 		//create the action button to save the information tot he database
 		saveChanges.setOnAction(e->{
+
+//			
+//			System.out.println(savedUser.getEmail());
+//			System.out.println(savedUser.getEmail_id());
+//			System.out.println(savedUser.getFirstname());
+//			System.out.println(savedUser.getLastname());
+          
+
 			
 			
 			//System.out.println(savedUser.getEmail());
@@ -271,7 +328,11 @@ public class accountManagementScreen
 			//System.out.println(savedUser.getFirstname());
 			//System.out.println(savedUser.getLastname());
 
+
 			usertable.updateUser(savedUser);
+
+		
+			
 			 
 //			proposedChanges.setEmail(null);
 //			proposedChanges.setFirstname(null);
@@ -346,8 +407,17 @@ public class accountManagementScreen
 		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
 
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
-		
+		//If the user is clerk role, who cann't visit accountManager functionality
+				User loginUser=logInScreen.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+						
 		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			
 			@Override

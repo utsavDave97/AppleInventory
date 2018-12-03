@@ -115,14 +115,16 @@ public class updateStockScreen
 		Button statisticScreen = new Button("Statistic Screen");
 
 		//If the user is clerk role, who cann't visit accountManager functionality
-		User loginUser=logInScreen.getUserInstance();
-		UserRoleTable userRoleTable=new UserRoleTable();
-
-		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
-			accountManagement.setVisible(false);
-		}
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
-
+				User loginUser=logInScreen.getUserInstance();
+				UserRoleTable userRoleTable=new UserRoleTable();
+				
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+					accountManagement.setVisible(false);
+				}
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+				
 		//Creating default textField style
 		String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 				+ "-fx-font-size:15pt;"
