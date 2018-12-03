@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import Database.DBConnection;
+import Database.ReadCredential;
 import JavaBean.Stock;
 import JavaBean.User;
 import Tables.StockTable;
@@ -17,11 +18,16 @@ public class TestDatabase {
  */
 	public static void main(String[] args) 
 	{
-		DBConnection dabase;
+//		DBConnection dabase;
+//		
+//		dabase= DBConnection.getInstance();
+	ReadCredential readCredential=new ReadCredential();
+	System.out.println(readCredential.getDbName());
+	System.out.println(readCredential.getDbPassword());
+	System.out.println(readCredential.getWantInitialize());
 		
-		dabase= DBConnection.getInstance();
+	readCredential.WriteCredential("pma", "pma", "AppleInventory", "yes","192.168.64.2");
 	
-		
 	}
 
 }

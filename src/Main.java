@@ -1,4 +1,6 @@
-	import Screens.accountManagementScreen;
+	import Database.ReadCredential;
+import Screens.InitalSoftwareScreen;
+import Screens.accountManagementScreen;
 import Screens.completedTranScreen;
 import Screens.deleteStockScreen;
 import Screens.homeScreen;
@@ -94,7 +96,15 @@ public class Main extends Application
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
 			//launch a new loginscreen when the progressbar is finished
-			new logInScreen();
+			//new logInScreen();
+			ReadCredential readCredential=new ReadCredential();
+			if(readCredential.getWantInitialize().equals("yes")) 
+			{
+			new InitalSoftwareScreen();
+			}else {
+				new logInScreen();
+			}
+			
 			primaryStage.close();
 		};
 		

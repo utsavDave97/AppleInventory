@@ -30,14 +30,15 @@ public class DBConnection
 		if(dbConnection == null) {
 			//Try and make a connection
 			try {
+				ReadCredential credential=new ReadCredential();
 				//set the className for the mysql connector
 				Class.forName("com.mysql.jdbc.Driver");
 				//initiate the DBconnection and create a connection to the database
 				dbConnection = 
-						DriverManager//macbook xamp:  192.168.64.2 ::::::::::: jonathansPC: 127.0.0.1
-						.getConnection("jdbc:mysql://phpmyadmin.scweb.ca/"+
-								Const_Credential.DB_NAME + "?useSSL=false",
-								Const_Credential.DB_USER, Const_Credential.DB_PASS);
+						DriverManager//macbook xamp:  192.168.64.2 ::::::::::: jonathansPC: 127.0.0.1//phpmyadmin.scweb.ca
+						.getConnection("jdbc:mysql://"+credential.getServerAddress()+"/"+
+								credential.getDbName() + "?useSSL=false",
+								credential.getDbUserName(), credential.getDbPassword());
 				System.out.println("Successfully Created Connection");
 			}
 			catch(Exception e) {
