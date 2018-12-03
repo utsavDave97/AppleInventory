@@ -1,13 +1,21 @@
 package Screens.TableViewItems;
 
+import java.util.ArrayList;
+
+import Screens.newTransactionScreen;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
 
 public class ScreenUser {
 	private SimpleIntegerProperty email_id;
 	private SimpleStringProperty email;
 	private SimpleStringProperty fname;
 	private SimpleStringProperty lname;
+	
+	ComboBox<Position> comboBox=new ComboBox<>();
 	
 	public ScreenUser() {
 		super();
@@ -29,7 +37,25 @@ public class ScreenUser {
 		this.email =new SimpleStringProperty(email);
 		this.fname =new SimpleStringProperty( fname);
 		this.lname =new SimpleStringProperty(lname);
+		ArrayList<Position> positions=new ArrayList<>();
+		
+		positions.add(new Position("clerk"));
+		positions.add(new Position("manager"));
+		//positions.add(new Position("administrator"));
+
+	
+		comboBox.setItems(FXCollections.observableArrayList(positions));
 	}
+	public ComboBox<Position> getComboBox() {
+		return comboBox;
+	}
+
+
+	public void setComboBox(ComboBox<Position> comboBox) {
+		this.comboBox = comboBox;
+	}
+
+
 	public int getEmail_id() {
 		return email_id.get();
 	}
@@ -55,5 +81,5 @@ public class ScreenUser {
 		this.lname.set(lname);
 	}
 	 
-
+   
 }

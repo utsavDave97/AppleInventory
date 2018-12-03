@@ -7,6 +7,7 @@ import DAO.UserRoleDAO;
 import Database.Const;
 import Database.DBConnection;
 import JavaBean.UserRole;
+import Screens.updateStockScreen;
 
 public class UserRoleTable implements UserRoleDAO{
 
@@ -45,6 +46,20 @@ public class UserRoleTable implements UserRoleDAO{
 		}catch(SQLException  e) {
 			e.printStackTrace();
 		}		
+	}
+public void updateRole(int roleId,int emailId) {
+	String query = "UPDATE " + Const.TABLE_USER_ROLE + " SET " + Const.USER_ROLE_COLUMN_ID +"="+roleId+
+			" WHERE "+Const.USER_ROLE_COLUMN_EMAIL_ID+"="+emailId;
+	
+	try {
+		DBConnection db = DBConnection.getInstance();
+		db.getDbConnection().createStatement().executeUpdate(query);
+		System.out.println("Inserted record!");
+	}catch(SQLException  e) {
+		e.printStackTrace();
+	}		
+	
+	
 	}
 
 }

@@ -7,8 +7,10 @@ import JavaBean.User;
 import JavaBean.UserRole;
 import Screens.TableViewItems.EditCellAccountManagement;
 import Screens.TableViewItems.EditingCell;
+import Screens.TableViewItems.Position;
 import Screens.TableViewItems.ScreenSaleItem;
 import Screens.TableViewItems.ScreenUser;
+import Tables.UserRoleTable;
 import Tables.UserTable;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -42,7 +45,7 @@ public class accountManagementScreen{
 
 	public accountManagementScreen() {
 		
-		
+		UserRoleTable userRoleTable;
 		
 		//create a stage to hold the content
 		Stage stage = new Stage();
@@ -75,8 +78,10 @@ public class accountManagementScreen{
 	    for(int i=0; i< list.size(); i++ ) {
 	    		userData.add(list.get(i));
 	    }
-		
-
+		for (ScreenUser screenUser : list) {
+			screenUser.getComboBox().getSelectionModel().selectFirst();
+		}
+        
 		
 		TableColumn idCol = new TableColumn("UserID:");
 		idCol.setEditable(false);
@@ -106,15 +111,17 @@ public class accountManagementScreen{
 		lnameCol.setMinWidth(150);
 		lnameCol.setCellFactory(cellFactory);
 		
-		ObservableList<String> roles = FXCollections.observableArrayList(); 
-		roles.add("clerk");
-		roles.add("manager");
-		roles.add("administrator");
+//		ObservableList<String> roles = FXCollections.observableArrayList(); 
+//		roles.add("clerk");
+//		roles.add("manager");
+//		roles.add("administrator");
 		
-		TableColumn<ScreenUser, String> comboCol = new TableColumn("Role:");
+		//TableColumn<ScreenUser, String> comboCol = new TableColumn("Role:");
+		TableColumn<ScreenUser, ComboBox<Position>> comboCol = new TableColumn("Role:");
+
 		comboCol.setVisible(true);
-		comboCol.setCellValueFactory(new PropertyValueFactory<>("role"));
-		comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
+		comboCol.setCellValueFactory(new PropertyValueFactory<ScreenUser,ComboBox<Position>>("comboBox"));
+		//comboCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(),roles));
 		comboCol.setMinWidth(230);
 		//ComboBoxTableCell.forTableColumn(new DefaultStringConverter().roles)).
 		
@@ -199,25 +206,54 @@ public class accountManagementScreen{
 			proposedChanges.setLastname(cursor.getLname());
 			
 		});
-		
-		
-		comboCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser, String> t) -> {
-			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
-					t.getTablePosition().getRow());
+		 userRoleTable=new UserRoleTable();
+		//save old value
+		 ArrayList<String> oldValue=new ArrayList<>();
+		 for (ScreenUser screenUser : list) {
+			 oldValue.add(screenUser.getComboBox().getSelectionModel().getSelectedItem().getPosition());
 			
+		}
+		 
+		table.setOnMouseClicked(e->{
 			
+
+			for(int i=0;i<userData.size();i++) {
+				String positonStr=userData.get(i).getComboBox().getSelectionModel().getSelectedItem().getPosition();
+				if(positonStr.equals("clerk")){
+					userRoleTable.updateRole(1,userData.get(i).getEmail_id());
+				} else if(positonStr.equals("manager")) {
+						userRoleTable.updateRole(2,userData.get(i).getEmail_id());
+					}
+//					else if(positonStr.equals("administrator")) {
+//						userRoleTable.updateRole(3,userData.get(i).getEmail_id());
+//					}
+			  
+			}
 			
 		});
 		
+//		comboCol.setOnEditCommit((TableColumn.CellEditEvent<ScreenUser,ComboBox<Position>> t) -> {
+//			ScreenUser cursor=(ScreenUser) t.getTableView().getItems().get(
+//					t.getTablePosition().getRow());
+//			
+//			System.out.println("Test:"+cursor.getEmail());
+//			
+//			
+//			
+//		});
+		
 		
 		saveChanges.setOnAction(e->{
-			
-			System.out.println(savedUser.getEmail());
-			System.out.println(savedUser.getEmail_id());
-			System.out.println(savedUser.getFirstname());
-			System.out.println(savedUser.getLastname());
-
+//			
+//			System.out.println(savedUser.getEmail());
+//			System.out.println(savedUser.getEmail_id());
+//			System.out.println(savedUser.getFirstname());
+//			System.out.println(savedUser.getLastname());
+          
 			usertable.updateUser(savedUser);
+
+		
+			
 			 
 //			proposedChanges.setEmail(null);
 //			proposedChanges.setFirstname(null);
