@@ -44,9 +44,12 @@ public class updateStockScreen
 
 	public updateStockScreen()
 	{
+		//create an productTable so we can reference this later
 		ProductTable productTable = new ProductTable();
+		//create an stockTable so we can reference this later
 		StockTable stockTable = new StockTable();
 
+		//create an updateStage so we can reference this later
 		Stage updateStage = new Stage();
 
 		//Create the root pane and give it styling
@@ -96,13 +99,21 @@ public class updateStockScreen
 		//Creating toolBar and adding navigation button and logout button to it
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
 
+		//create a button for a newtransaction inside the nav
 		Button newTransaction = new Button("New Transaction");
+		//create a button for a new completed transaction inside the nav
 		Button completedTransaction = new Button("Completed Transaction");
+		//create a addStock for a newtransaction inside the nav
 		Button addStock = new Button("Add Stock");
+		//create a updateStock for a newtransaction inside the nav
 		Button updateStock = new Button("Update Stock");
+		//create a deleteStock for a newtransaction inside the nav
 		Button deleteStock = new Button("Delete Stock");
+		//create a accountManagement for a newtransaction inside the nav
 		Button accountManagement = new Button("Account Management");
+		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
+
 		//If the user is clerk role, who cann't visit accountManager functionality
 		User loginUser=logInScreen.getUserInstance();
 		UserRoleTable userRoleTable=new UserRoleTable();

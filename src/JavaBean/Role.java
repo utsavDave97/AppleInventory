@@ -4,7 +4,9 @@ package JavaBean;
  * @author wjqcau
  */
 public class Role {
+//create an role_id so we can reference this for each user
  private int role_id;
+//create an role_name so we can reference this for each user
  private String role_name;
  //Constructor without parameter
  public Role() {}

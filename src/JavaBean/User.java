@@ -8,10 +8,13 @@ import Database.Const;
 import Database.DBConnection;
 
 public class User {
-	//Declare properties which are exactly the same with user_table fields
+	//create an email_id so we can reference this for each user
 	private int email_id;
+	//create an email so we can reference this for each user
 	private String email;
+	//create an fname so we can reference this for each user
 	private String fname;
+	//create an lname so we can reference this for each user
 	private String lname;
 
 	//Constructor:no parameter
