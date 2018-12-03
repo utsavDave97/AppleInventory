@@ -54,7 +54,7 @@ public class accountManagementScreen
 	public accountManagementScreen() 
 	{
 		
-
+		userRoleTable=new UserRoleTable();
 		
 		//create a stage to hold the content
 
@@ -99,7 +99,8 @@ public class accountManagementScreen
 		//create a forloop to add this data to the observable list
 	    for(int i=0; i< list.size(); i++ ) {
 	    		//add it to the list
-	    	if(list.get(i).getEmail_id()!=loginUser.getEmail_id())
+	    	int roleid=userRoleTable.getRoleId(list.get(i).getEmail_id());
+	    	if(roleid!=3)
 	    		userData.add(list.get(i));
 	    }
 
@@ -289,7 +290,7 @@ public class accountManagementScreen
 //					t.getTablePosition().getRow());
 //
 //		}
-		userRoleTable=new UserRoleTable();
+		
 		 
 		table.setOnMouseClicked(e->{
 			
