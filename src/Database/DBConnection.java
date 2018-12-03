@@ -35,7 +35,7 @@ public class DBConnection
 				//initiate the DBconnection and create a connection to the database
 				dbConnection = 
 						DriverManager//macbook xamp:  192.168.64.2 ::::::::::: jonathansPC: 127.0.0.1
-						.getConnection("jdbc:mysql://192.168.64.2/"+
+						.getConnection("jdbc:mysql://phpmyadmin.scweb.ca/"+
 								Const_Credential.DB_NAME + "?useSSL=false",
 								Const_Credential.DB_USER, Const_Credential.DB_PASS);
 				System.out.println("Successfully Created Connection");
