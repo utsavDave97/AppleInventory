@@ -2,6 +2,22 @@
 
 This is a JavaFX-MySQL Apple Inventory management software for those who wants to keep track of their apples.
 
+## Description
+
+This is a mid level entry inventory management software meant for small to medium size businesses. You can also process transactions inside this software. 
+Some of the features are:
+   * Log-In / Register functionality
+   * Passwords stored in Database are **SHA-256** protected
+   * Salted passwords stored inside database
+   * Add to your stock
+   * Update your stock
+   * Delete your stock
+   * Visual sales statistics
+   * New transactions with total amount
+   * Past transactions with timestamp
+   * Search past transactions on the basis of Date / Amount
+   * Manage accounts.
+
 ## Build With
 
 * [Eclipse](https://www.eclipse.org/ide/) - The IDE we used
@@ -14,13 +30,20 @@ This is a JavaFX-MySQL Apple Inventory management software for those who wants t
 * **Jianqin Wang**
 
 ## To Make It Work
-* Create a Const_Credential java file inside `Database` Package. Input the following code:
+* Create a `Const_Credential` class file inside `Database` Package. Input the following code:
 
-```
+```java
 public static final String DB_NAME = "yourDatabaseName";
 public static final String DB_PASS = "yourDatabasePassword";
 public static final String DB_USER = "yourUserNameDatabase";
+
 ```
+
+* After creating this file. Run `TestDatabase` file under `default` package.
+   * This would create all the necessary tables for the application.
+   
+* Than inside `role` table inside your database, insert 3 entries similar to picture shown below.
+![RoleTable](https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/RoleTable.png)
 
 ## Screen shots & its explanation
 
