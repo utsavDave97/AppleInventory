@@ -144,10 +144,10 @@ public class UserTable implements UserDAO{
 	@Override
 	public void deleteUser(int position) {
 		//create a query
-		String query = "DELETE FROM " +"`"+Const.TABLE_USER+"`"+" WHERE '"+Const.USER_COLUMN_EMAIL_ID+"' = "+position+";";
+		String query = "DELETE FROM " +"`"+Const.TABLE_USER+"`"+" WHERE "+Const.USER_COLUMN_EMAIL_ID+" = "+position+";";
 
 		try {
-			//System.out.println(query);
+			System.out.println(query);
 			//grab the instance of the dbconnection
 			DBConnection db = DBConnection.getInstance();
 			//create the prepared statement for the query
