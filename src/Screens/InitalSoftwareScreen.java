@@ -1,7 +1,6 @@
 package Screens;
 
 import Database.Const;
-import Database.Const_Credential;
 import Database.ReadCredential;
 import JavaBean.Password;
 import JavaBean.User;

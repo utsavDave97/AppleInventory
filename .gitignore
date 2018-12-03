@@ -57,9 +57,6 @@ local.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# Add igore database credential file
-*.properties
-
 # ignore credentials constants file
 src/Database/Const_Credential.java
 
