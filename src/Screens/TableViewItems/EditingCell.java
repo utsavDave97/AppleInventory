@@ -37,15 +37,19 @@ import javafx.scene.control.TextField;
  *
  * @Description This class mainly for TableFieldCell commit event processing
  * */
-public class EditingCell extends TableCell<ScreenSaleItem, String> {
+public class EditingCell extends TableCell<ScreenSaleItem, String> 
+{
 	private TextField textField;
 
-    public EditingCell() {
+    public EditingCell() 
+    {
     }
 
     @Override
-    public void startEdit() {
-      if (!isEmpty()) {
+    public void startEdit() 
+    {
+      if (!isEmpty()) 
+      {
         super.startEdit();
         createTextField();
         setText(null);
@@ -55,35 +59,43 @@ public class EditingCell extends TableCell<ScreenSaleItem, String> {
     }
 
     @Override
-    public void cancelEdit() {
+    public void cancelEdit() 
+    {
       super.cancelEdit();
-
       setText((String) getItem());
       setGraphic(null);
     }
 
     @Override
-    public void updateItem(String item, boolean empty) {
+    public void updateItem(String item, boolean empty) 
+    {
       super.updateItem(item, empty);
 
-      if (empty) {
+      if (empty) 
+      {
         setText(null);
         setGraphic(null);
-      } else {
-        if (isEditing()) {
-          if (textField != null) {
+      } else 
+      {
+        if (isEditing()) 
+        {
+          if (textField != null) 
+          {
             textField.setText(getString());
           }
           setText(null);
           setGraphic(textField);
-        } else {
+        } 
+        else 
+        {
           setText(getString());
           setGraphic(null);
         }
       }
     }
 
-    private void createTextField() {
+    private void createTextField() 
+    {
       textField = new TextField(getString());
       textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
       textField.focusedProperty()
@@ -96,8 +108,8 @@ public class EditingCell extends TableCell<ScreenSaleItem, String> {
               });
     }
 
-    private String getString() {
+    private String getString() 
+    {
       return getItem() == null ? "" : getItem().toString();
     }
-
 }

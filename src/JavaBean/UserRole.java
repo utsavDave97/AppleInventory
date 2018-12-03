@@ -4,7 +4,9 @@ package JavaBean;
  * @author wjqcau
  */
 public class UserRole {
+	//create an email_id so we can reference this for each user
 	private int email_id;
+	//create an role_id so we can reference this for each user
 	private int role_id;
 	//Constructor without parameter
 	public UserRole() {}

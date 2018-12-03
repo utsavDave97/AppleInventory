@@ -38,15 +38,19 @@ import javafx.scene.control.TextField;
  *
  * @Description This class mainly for TableFieldCell commit event processing
  * */
-public class EditCellAccountManagement extends TableCell<ScreenUser, String>{
+public class EditCellAccountManagement extends TableCell<ScreenUser, String>
+{
 	private TextField textField;
 
-    public EditCellAccountManagement() {
+    public EditCellAccountManagement() 
+    {
     }
 
     @Override
-    public void startEdit() {
-      if (!isEmpty()) {
+    public void startEdit() 
+    {
+      if (!isEmpty()) 
+      {
         super.startEdit();
         createTextField();
         setText(null);
@@ -56,7 +60,8 @@ public class EditCellAccountManagement extends TableCell<ScreenUser, String>{
     }
 
     @Override
-    public void cancelEdit() {
+    public void cancelEdit() 
+    {
       super.cancelEdit();
 
       setText((String) getItem());
@@ -64,27 +69,35 @@ public class EditCellAccountManagement extends TableCell<ScreenUser, String>{
     }
 
     @Override
-    public void updateItem(String item, boolean empty) {
+    public void updateItem(String item, boolean empty) 
+    {
       super.updateItem(item, empty);
 
-      if (empty) {
+      if (empty) 
+      {
         setText(null);
         setGraphic(null);
-      } else {
-        if (isEditing()) {
-          if (textField != null) {
+      } else 
+      {
+        if (isEditing()) 
+        {
+          if (textField != null) 
+          {
             textField.setText(getString());
           }
           setText(null);
           setGraphic(textField);
-        } else {
+        } 
+        else 
+        {
           setText(getString());
           setGraphic(null);
         }
       }
     }
 
-    private void createTextField() {
+    private void createTextField() 
+    {
       textField = new TextField(getString());
       textField.setMinWidth(this.getWidth() - this.getGraphicTextGap() * 2);
       textField.focusedProperty()
@@ -97,7 +110,8 @@ public class EditCellAccountManagement extends TableCell<ScreenUser, String>{
               });
     }
 
-    private String getString() {
+    private String getString() 
+    {
       return getItem() == null ? "" : getItem().toString();
     }
 }

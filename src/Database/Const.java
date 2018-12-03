@@ -4,6 +4,13 @@ package Database;
 
 public class Const 
 {
+	
+	
+	/**
+	 * 
+	 * @description this class is for table names, and columns and create table queries. this is for our database setup
+	 */
+	
 	//create a constant for each of the table and column names
 	
 	/*---------------Creating Constants for User Table------------------*/
@@ -132,7 +139,7 @@ public class Const
 			"FOREIGN KEY (" + SALE_ITEM_COLUMN_PROD_ID + ") REFERENCES " +
 			TABLE_PRODUCT + "(" + PRODUCT_COLUMN_ID + "), " +
 			"FOREIGN KEY (" + SALE_ITEM_COLUMN_SALE_ID + ") REFERENCES " +
-			TABLE_SALE + "(" + SALE_COLUMN_ID + "));";
+			TABLE_SALE + "(" + SALE_COLUMN_ID + ") ON DELETE CASCADE);";
 	
 	
 }

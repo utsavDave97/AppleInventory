@@ -37,6 +37,7 @@ public class Main extends Application
 	
 	public static void main(String[] args) 
 	{
+		//launching the program
 		Application.launch(args);
 	}
 
@@ -63,9 +64,13 @@ public class Main extends Application
 		
 		//Using JavaFX Effect on ImageView
 		DropShadow ds = new DropShadow();
+		//set the radius
 		ds.setRadius(5);
+		//set the offset x
 		ds.setOffsetX(8);
+		//set the offset y
 		ds.setOffsetY(8);
+		//set the color 
 		ds.setColor(Color.BLACK);
 		
 		//Setting DropShadow effect to ImageView
@@ -73,11 +78,13 @@ public class Main extends Application
 		
 		//Initializing ProgressBar
 		pb = new ProgressBar();
+		//set the minimum size x and y for the PB
 		pb.setMinSize(400, 20);
 		
 		//This line is for CSS Class selectors
 		//This line sets a class name for progress bar which I used css file
 		pb.getStyleClass().add("red-bar");
+		//set inital starting point for progress bar
 		pb.setProgress(0);
 		
 		/**
@@ -86,6 +93,7 @@ public class Main extends Application
 		 */
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
+			//launch a new loginscreen when the progressbar is finished
 			new logInScreen();
 			primaryStage.close();
 		};

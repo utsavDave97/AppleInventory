@@ -15,31 +15,34 @@ import Database.Const;
 import Database.DBConnection;
 
 /**
- * @description this class is responding to database table:password_table
+ * @description this class is responding to database table Password
  * @author wjqcau
  *
  */
 public class Password {
+	//create an email_id so we can reference this for each user
 	private int email_id;
+	//create a password so we can reference this for each user
 	private String password;
 	
     public Password() {}
 
-    //create a method for just taking a passoword
+    //create a construct for just taking a passoword
     
     public Password(String password) {
     		super();
+    		//set this password to the password given
     		this.password = password;
     }
-    
+    //create a second construct for both email, and password
 	public Password(int email_id, String password) {
 		super();
+		//set this email_id to the email_id given
 		this.email_id = email_id;
+		//set this password to the password given
 		this.password = password;
 	}
-    //getter and setter
-
-
+    //getter and setter's for each method
 	public int getEmail_id() {
 		return email_id;
 	}

@@ -5,9 +5,13 @@ package JavaBean;
  *
  */
 public class Product {
+//create an prod_id so we can reference this for each user
  private int prod_id;
+//create an prod_name so we can reference this for each user
  private String prod_name;
+//create an prod_price so we can reference this for each user
  private String prod_price;
+//create an prod_taste so we can reference this for each user
  private String prod_taste;
  
 
@@ -15,21 +19,20 @@ public class Product {
  public Product() {}
  
 
- 
+//create a construct that takes 3 params
 public Product(String prod_name, String prod_price, String prod_taste) {
 	super();
 	this.prod_name = prod_name;
 	this.prod_price = prod_price;
 	this.prod_taste = prod_taste;
 }
-
+//create a construct that takes 2 params
 public Product(String prod_name, String prod_price) {
 	super();
 	this.prod_name = prod_name;
 	this.prod_price = prod_price;
 }
-
-
+//create a construct that takes 3 different params
 public Product(int prod_id, String prod_name, String prod_price) {
 	super();
 	this.prod_id = prod_id;
@@ -37,6 +40,7 @@ public Product(int prod_id, String prod_name, String prod_price) {
 	this.prod_price = prod_price;
 }
 
+//create a construct that takes all params
 public Product(int prod_id, String prod_name, String prod_price, String prod_taste) {
 	super();
 	this.prod_id = prod_id;
