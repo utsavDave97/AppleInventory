@@ -13,6 +13,15 @@ This is a JavaFX-MySQL Apple Inventory management software for those who wants t
 * **Jonathan Stevanka**
 * **Jianqin Wang**
 
+## To Make It Work
+* Create a Const_Credential java file inside `Database` Package. Input the following code:
+
+```
+public static final String DB_NAME = "yourDatabaseName";
+public static final String DB_PASS = "yourDatabasePassword";
+public static final String DB_USER = "yourUserNameDatabase";
+```
+
 ## Screen shots & its explanation
 
  
