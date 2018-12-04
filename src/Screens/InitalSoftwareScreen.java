@@ -1,19 +1,26 @@
 package Screens;
 
+import java.sql.Statement;
+
 import Database.Const;
 import Database.Const_Credential;
+import Database.DBConnection;
 import Database.ReadCredential;
 import JavaBean.Password;
 import JavaBean.User;
+import JavaBean.UserRole;
 import Tables.PasswordTable;
+import Tables.UserRoleTable;
 import Tables.UserTable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -201,13 +208,75 @@ public class InitalSoftwareScreen {
 		stage.show();
 		
 		login.setOnAction(e->{
+			//Step1: Write to credential file
 			readCredential=new ReadCredential();
 		 
 		  String userName=dbUserField.getText();
 		  String password=dbPassWord.getText();
 		  String databaseName=dbName.getText();
 		  String address=serverAddress.getText();
-		 readCredential.WriteCredential(userName, password, databaseName, address, "no");
+		  readCredential.WriteCredential(userName, password, databaseName, address, "no");
+		  //Step2: Create Database table
+		  DBConnection dabase;			
+		  dabase= DBConnection.getInstance();
+		  //Step 3: Insert into roles 
+		  String query1="INSERT INTO "+Const.TABLE_ROLE+" VALUES(1,'clerk')";
+		  String query2="INSERT INTO "+Const.TABLE_ROLE+" VALUES(2,'manager')";
+		  String query3="INSERT INTO "+Const.TABLE_ROLE+" VALUES(3,'administrator')";
+		  try {
+			 Statement statement=dabase.getDbConnection().createStatement();
+			 statement.executeUpdate(query1);
+			 statement.executeUpdate(query2);
+			 statement.executeUpdate(query3);
+
+		  }catch (Exception e1) {
+		e1.printStackTrace();
+		
+		}
+		//Step4:Initial a admin for administrator
+		//create a new usertable object
+			UserTable usertable = new UserTable();
+
+			//create a new passwordtable object
+			PasswordTable passwordtable = new PasswordTable();
+
+			//create a new userrole object
+			UserRoleTable useroletable = new UserRoleTable();
+
+			//create new user object
+			User user = new User();
+			
+
+			//create a new password object
+			Password passwordobj = new Password();
+
+			//create a new userole object
+			UserRole userrole = new UserRole();
+			//create an instance of the password for the password hash
+			Password hashedPass = new Password();
+			//create a new passwouser.setEmail(email.getText());
+			user.setFirstname("admin");
+			user.setLastname("admin");
+            user.setEmail("admin@gmail.com");
+
+			//use the hashing method here to generate the string for the password
+
+			String salt = passwordobj.saltGen().toString();
+			//use the password methods
+			passwordobj.setUser_password(hashedPass.hashPassword("admin", salt));
+
+              userrole.setRole_Id(3);
+			//send the information to the database
+			usertable.createUser(user);
+			passwordtable.createPassword(passwordobj, salt);
+			useroletable.createUserRole(userrole);
+
+			Alert successInsert = new Alert(AlertType.INFORMATION);
+			successInsert.setTitle("Successful Initialization");
+			successInsert.setHeaderText(null);
+			successInsert.setContentText("Congratulation,You have initialization done!");
+			successInsert.showAndWait();
+
 		  
 		  new logInScreen();
 		  stage.close();
