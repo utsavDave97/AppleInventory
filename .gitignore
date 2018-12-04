@@ -57,7 +57,7 @@ local.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# Add igore database credential file
+# Add ignore database credential file
 *.properties
 
 # ignore credentials constants file

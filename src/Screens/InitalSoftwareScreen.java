@@ -3,7 +3,6 @@ package Screens;
 import java.sql.Statement;
 
 import Database.Const;
-import Database.Const_Credential;
 import Database.DBConnection;
 import Database.ReadCredential;
 import JavaBean.Password;
