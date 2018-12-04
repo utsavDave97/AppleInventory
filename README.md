@@ -30,20 +30,10 @@ Some of the features are:
 * **Jianqin Wang**
 
 ## To Make It Work
-* Create a `Const_Credential` class file inside `Database` Package. Input the following code:
+* As soon as you launch application, User Settings Screen will appear. Inside this screen just enter your Database UserName, Database Password, Database Name & IP Address.
 
-```java
-public static final String DB_NAME = "yourDatabaseName";
-public static final String DB_PASS = "yourDatabasePassword";
-public static final String DB_USER = "yourUserNameDatabase";
-
-```
-
-* After creating this file. Run `TestDatabase` file under `default` package.
-   * This would create all the necessary tables for the application.
-   
-* Than inside `role` table inside your database, insert 3 entries similar to picture shown below.
-![RoleTable](https://github.com/utsavDave97/AppleInventory/blob/master/ScreenShots/RoleTable.png)
+**THAT'S IT YOU ARE GOOD TO GO**
+![UserSetting](https://github.com/utsavDave97/AppleInventory/blob/DAObranch/ScreenShots/UserSetting.png)
 
 ## Screen shots & its explanation
 
