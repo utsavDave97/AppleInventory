@@ -31,6 +31,7 @@ public class DBConnection
 			//Try and make a connection
 			try {
 				ReadCredential credential=new ReadCredential();
+				credential.readCredentialValue();
 				//set the className for the mysql connector
 				Class.forName("com.mysql.jdbc.Driver");
 				//initiate the DBconnection and create a connection to the database

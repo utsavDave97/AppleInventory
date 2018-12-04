@@ -26,12 +26,10 @@ public class ReadCredential {
 private String wantInitialize;
   
   /**
-   * Constructor:Initializing dbDriver,dbURL,dbURL,dbUserName,dbPassword
+   * Constructor:Decide whether file exist, if no , create a empty template
    */
   public ReadCredential() {
 	  Properties prop = new Properties();
-	  InputStream inputStream=null;
-	  OutputStream outputStream=null;
 	try {
 	  f=new File("dbcredential.properties");}catch (Exception e) {
 		e.printStackTrace();
@@ -39,7 +37,6 @@ private String wantInitialize;
 	if(!f.exists()) {
 		
 		 try {
-		       
 		        prop.setProperty("USERNAME", "null");
 		        prop.setProperty("PASSWORD","null");
 		        prop.setProperty("DB_NAME", "null");
@@ -53,20 +50,6 @@ private String wantInitialize;
 		    }
 		
 	}  
-	  
- 
- 
-  try {
-	  //Initialize inputstream
-	 inputStream=new FileInputStream(f);
-	 prop.load(inputStream);
-	 this.dbDriver=prop.getProperty("DB_DRIVER");
-	 this.dbName=prop.getProperty("DB_NAME");
-	 this.dbUserName=prop.getProperty("USERNAME");
-	 this.dbPassword=prop.getProperty("PASSWORD");
-	 this.wantInitialize=prop.getProperty("wantInitialize");
-	 this.serverAddress=prop.getProperty("SERVERADDRESS");
-     } catch (IOException e) {e.printStackTrace(); }
 	
   }
   public void WriteCredential(String userName,String passWord,String dbName,String serverAddress,String wantInitialize) {
@@ -89,6 +72,29 @@ private String wantInitialize;
 	  
 	  
   }
+  //read and initialize the object'properties
+  public void readCredentialValue() {
+	  Properties prop = new Properties();
+	  InputStream inputStream=null;
+	  
+	  try {
+		  //Initialize inputstream
+		 inputStream=new FileInputStream(f);
+		 prop.load(inputStream);
+		 this.dbDriver=prop.getProperty("DB_DRIVER");
+		 this.dbName=prop.getProperty("DB_NAME");
+		 this.dbUserName=prop.getProperty("USERNAME");
+		 this.dbPassword=prop.getProperty("PASSWORD");
+		 this.wantInitialize=prop.getProperty("wantInitialize");
+		 this.serverAddress=prop.getProperty("SERVERADDRESS");
+	     } catch (IOException e) {e.printStackTrace(); }
+	  
+	  
+  }
+  
+  
+  
+  
 public String getDbDriver() {
 	return dbDriver;
 }
