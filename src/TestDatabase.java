@@ -18,15 +18,10 @@ public class TestDatabase {
  */
 	public static void main(String[] args) 
 	{
-//		DBConnection dabase;
-//		
-//		dabase= DBConnection.getInstance();
-	ReadCredential readCredential=new ReadCredential();
-	System.out.println(readCredential.getDbName());
-	System.out.println(readCredential.getDbPassword());
-	System.out.println(readCredential.getWantInitialize());
+		DBConnection dabase;
 		
-	readCredential.WriteCredential("pma", "pma", "AppleInventory", "yes","192.168.64.2");
+		dabase= DBConnection.getInstance();
+	
 	
 	}
 

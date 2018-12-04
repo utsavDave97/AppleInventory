@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import jdk.nashorn.internal.ir.CatchNode;
+
 
 /**
  * @author Jianqin Wang
@@ -20,16 +22,39 @@ public class ReadCredential {
   private String dbUserName;
   private String dbPassword;
   private String serverAddress;
-  
+  File f;
 private String wantInitialize;
-  File f = new File("dbcredential.properties");
+  
   /**
    * Constructor:Initializing dbDriver,dbURL,dbURL,dbUserName,dbPassword
    */
   public ReadCredential() {
-  Properties prop = new Properties();
-  InputStream inputStream=null;
-  OutputStream outputStream=null;
+	  Properties prop = new Properties();
+	  InputStream inputStream=null;
+	  OutputStream outputStream=null;
+	try {
+	  f=new File("dbcredential.properties");}catch (Exception e) {
+		e.printStackTrace();
+	}
+	if(!f.exists()) {
+		
+		 try {
+		       
+		        prop.setProperty("USERNAME", "null");
+		        prop.setProperty("PASSWORD","null");
+		        prop.setProperty("DB_NAME", "null");
+		        prop.setProperty("SERVERADDRESS", "null");
+		        prop.setProperty("wantInitialize", "yes");
+		        OutputStream out = new FileOutputStream(f);
+		        prop.store(out, "This is an optional header comment string");
+		    }
+		    catch (Exception e ) {
+		        e.printStackTrace();
+		    }
+		
+	}  
+	  
+ 
  
   try {
 	  //Initialize inputstream
