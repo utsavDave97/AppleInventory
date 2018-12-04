@@ -96,9 +96,10 @@ public class Main extends Application
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
 			//launch a new loginscreen when the progressbar is finished
-			//new logInScreen();
+			
 			ReadCredential readCredential=new ReadCredential();
-			if(readCredential.getWantInitialize().equals("yes")) 
+			readCredential.readCredentialValue();
+			if(!readCredential.getWantInitialize().equals("no")) 
 			{
 			new InitalSoftwareScreen();
 			}else {
