@@ -98,7 +98,7 @@ public class Main extends Application
 			//launch a new loginscreen when the progressbar is finished
 			//new logInScreen();
 			ReadCredential readCredential=new ReadCredential();
-			if(readCredential.getWantInitialize().equals("yes")) 
+			if(!readCredential.getWantInitialize().equals("no")) 
 			{
 			new InitalSoftwareScreen();
 			}else {
