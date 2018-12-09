@@ -1,8 +1,12 @@
-	import Screens.accountManagementScreen;
+	import Database.ReadCredential;
+import Screens.InitalSoftwareScreen;
+import Screens.accountManagementScreen;
 import Screens.completedTranScreen;
 import Screens.deleteStockScreen;
+import Screens.homeScreen;
 import Screens.logInScreen;
 import Screens.newTransactionScreen;
+import Screens.registerScreen;
 import Screens.statisticScreen;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -35,6 +39,7 @@ public class Main extends Application
 	
 	public static void main(String[] args) 
 	{
+		//launching the program
 		Application.launch(args);
 	}
 
@@ -61,9 +66,13 @@ public class Main extends Application
 		
 		//Using JavaFX Effect on ImageView
 		DropShadow ds = new DropShadow();
+		//set the radius
 		ds.setRadius(5);
+		//set the offset x
 		ds.setOffsetX(8);
+		//set the offset y
 		ds.setOffsetY(8);
+		//set the color 
 		ds.setColor(Color.BLACK);
 		
 		//Setting DropShadow effect to ImageView
@@ -71,11 +80,13 @@ public class Main extends Application
 		
 		//Initializing ProgressBar
 		pb = new ProgressBar();
+		//set the minimum size x and y for the PB
 		pb.setMinSize(400, 20);
 		
 		//This line is for CSS Class selectors
 		//This line sets a class name for progress bar which I used css file
 		pb.getStyleClass().add("red-bar");
+		//set inital starting point for progress bar
 		pb.setProgress(0);
 		
 		/**
@@ -84,8 +95,17 @@ public class Main extends Application
 		 */
 		EventHandler<ActionEvent> onFinished = e->
 		{ 
-			new logInScreen();
-			//new accountManagementScreen();
+			//launch a new loginscreen when the progressbar is finished
+			
+			ReadCredential readCredential=new ReadCredential();
+			readCredential.readCredentialValue();
+			if(!readCredential.getWantInitialize().equals("no")) 
+			{
+			new InitalSoftwareScreen();
+			}else {
+				new logInScreen();
+			}
+			
 			primaryStage.close();
 		};
 		

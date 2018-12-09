@@ -49,64 +49,69 @@ import javafx.util.Duration;
  */
 public class completedTranScreen 
 {
-	
+
 	public completedTranScreen() {
 		/**********************************************************************
 		 *                Basic Stage,Pane Definition                          *
 		 ***********************************************************************/
-        //create the stage 
+		//create the stage 
 		Stage comtransStage = new Stage();
-		
+
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #DCDCDC;");
-		
 
-		
+
+
 		/**********************************************************************
 		 *                  Navigation Items                                   *
 		 ***********************************************************************/
-		
-		
+
+
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
-		
+
 		//Creating space between navigation button and log out button
 		final Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-		
+
 		final Pane spacer2 = new Pane();
 		HBox.setHgrow(spacer2, Priority.ALWAYS);
-		
+
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
-		
+
 		logOutButton.setOnAction(e->{
 			new logInScreen();
 			comtransStage.close();
 		});
-				
+
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 30;");
-		
+
 		//Creating toolBar and adding navigation button and logout button to it
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
-		
-		Button newTransaction = new Button("New Transaction");
-		Button completedTransaction = new Button("Competed Transaction");
-		Button addStock = new Button("Add Stock");
-		Button updateStock = new Button("Update Stock");
-		Button deleteStock = new Button("Delete Stock");
-		Button accountManagement = new Button("Account Management");
-		Button statisticScreen = new Button("Statistic Screen");
 
+		//create a button for a newtransaction inside the nav
+		Button newTransaction = new Button("New Transaction");
+		//create a button for a new completed transaction inside the nav
+		Button completedTransaction = new Button("Completed Transaction");
+		//create a addStock for a newtransaction inside the nav
+		Button addStock = new Button("Add Stock");
+		//create a updateStock for a newtransaction inside the nav
+		Button updateStock = new Button("Update Stock");
+		//create a deleteStock for a newtransaction inside the nav
+		Button deleteStock = new Button("Delete Stock");
+		//create a accountManagement for a newtransaction inside the nav
+		Button accountManagement = new Button("Account Management");
+		//create a statisticScreen for a newtransaction inside the nav
+		Button statisticScreen = new Button("Statistic Screen");
 		//If the user is clerk role, who cann't visit accountManager functionality
-				logInScreen login=new logInScreen();
-				User loginUser=login.getUserInstance();
+				User loginUser=logInScreen.getUserInstance();
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
 				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
@@ -116,7 +121,6 @@ public class completedTranScreen
 					
 					accountManagement.setVisible(false);
 				}
-				
 				
 				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
 				
@@ -165,14 +169,14 @@ public class completedTranScreen
 	    });
 	    
 		//create the content for the Completed transaction
-		
-		
-	    /**********************************************************************
+
+
+		/**********************************************************************
 		 *                Table View Content                                  *
 		 ***********************************************************************/    
-	    TabPane compTransactionPane=new TabPane();
-	    
-	    compTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+		TabPane compTransactionPane=new TabPane();
+
+		compTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 		{
 
 			@Override
@@ -180,33 +184,30 @@ public class completedTranScreen
 				// TODO Auto-generated method stub
 				root.setLeft(null);
 			}
-	
+
 		});
-	    
-	    Tab newComtrasancionTab=new Tab("Search Transaction");
-	     
-	    newComtrasancionTab.setStyle("-fx-font-size:16;");
-	    newComtrasancionTab.setClosable(false);
-	    newComtrasancionTab.setContent(new searchTranTab());
-	    Tab updateTransactionTab=new Tab("Delete Transaction");
-	    updateTransactionTab.setClosable(false);
-	    updateTransactionTab.setStyle("-fx-font-size:16;");
-	    updateTransactionTab.setContent(new historyTranTab());
-	    compTransactionPane.getTabs().addAll(newComtrasancionTab,updateTransactionTab);
-	    root.setTop(navigationToolBar);
-	    root.setCenter(compTransactionPane);
-	    //root.setBottom(hbox);
-	  //create the scene
+
+		Tab newComtrasancionTab=new Tab("Search Transaction");
+
+		newComtrasancionTab.setStyle("-fx-font-size:16;");
+		newComtrasancionTab.setClosable(false);
+		newComtrasancionTab.setContent(new searchTranTab());
+		Tab updateTransactionTab=new Tab("Delete Transaction");
+		updateTransactionTab.setClosable(false);
+		updateTransactionTab.setStyle("-fx-font-size:16;");
+		updateTransactionTab.setContent(new historyTranTab());
+		compTransactionPane.getTabs().addAll(newComtrasancionTab,updateTransactionTab);
+		root.setTop(navigationToolBar);
+		root.setCenter(compTransactionPane);
+		//root.setBottom(hbox);
+		//create the scene
 		Scene scene = new Scene(root, 1024, 768);
-		
-		
+
+
 		//show the stage
 		comtransStage.setScene(scene);
 		comtransStage.show();
 
-
-  }
-	 
-   
+	}
 
 }

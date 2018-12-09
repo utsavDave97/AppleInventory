@@ -37,55 +37,65 @@ import javafx.util.Duration;
  */
 
 
-public class newTransactionScreen {
-	
-	public newTransactionScreen() {
-        //create the stage 
-		 Stage transactionStage= new Stage();
-		
+public class newTransactionScreen 
+{	
+	public newTransactionScreen() 
+	{
+		//create the stage 
+		Stage transactionStage= new Stage();
+
 		BorderPane root = new BorderPane();
 		root.setStyle("-fx-background-color: #DCDCDC;");
 		root.getStylesheets().add("https://fonts.googleapis.com/css?family=Quicksand");
-			
+
 		/************************************************************************************
 		 *                  Navigation Bar
 		 *************************************************************************************/
 		ToggleButton navigationButton = new ToggleButton();
 		ImageView menuImage = new ImageView("menu.png");
 		navigationButton.setGraphic(menuImage);
-		
+
 		//Creating space between navigation button and log out button
 		final Pane spacer = new Pane();
 		HBox.setHgrow(spacer, Priority.ALWAYS);
-		
+
 		final Pane spacer2 = new Pane();
 		HBox.setHgrow(spacer2, Priority.ALWAYS);
-		
+
 		//Creating logOutButton and setting its image
 		ImageView logOutImage = new ImageView("logout.png");
 		ToggleButton logOutButton = new ToggleButton("Log Out");
 		logOutButton.setGraphic(logOutImage);
-		
+
 		logOutButton.setOnAction(e->{
 			new logInScreen();
 			transactionStage.close();
 		});
-		
+
 		Label heading = new Label("AppleCore INC.");
 		heading.setStyle("-fx-text-fill: #B82F33;"
 				+ "-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 30;");
-		
+
 		ToolBar navigationToolBar = new ToolBar(navigationButton,spacer2,heading,spacer,logOutButton);
-		
+
+		//create a button for a newtransaction inside the nav
 		Button newTransaction = new Button("New Transaction");
+		//create a button for a new completed transaction inside the nav
 		Button completedTransaction = new Button("Completed Transaction");
+		//create a addStock for a newtransaction inside the nav
 		Button addStock = new Button("Add Stock");
+		//create a updateStock for a newtransaction inside the nav
 		Button updateStock = new Button("Update Stock");
+		//create a deleteStock for a newtransaction inside the nav
 		Button deleteStock = new Button("Delete Stock");
+		//create a accountManagement for a newtransaction inside the nav
 		Button accountManagement = new Button("Account Management");
+		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
+
 		//If the user is clerk role, who cann't visit accountManager functionality
+
 		logInScreen login=new logInScreen();
 		User loginUser=login.getUserInstance();
 		UserRoleTable userRoleTable=new UserRoleTable();
@@ -151,32 +161,31 @@ public class newTransactionScreen {
 
 	    currentranTab newTransactionPane=new currentranTab();
 	    
-	    newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-		{
+	    newTransactionPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent event) {
 				// TODO Auto-generated method stub
 				root.setLeft(null);
 			}
-	
+
 		});
-	    /****************************************************************************************************
-	     * 	   set pane and Add the page to stage 
-	     **************************************************************************************************/	    
-	    
-	    
-	    root.setTop(navigationToolBar);
-	    root.setCenter(newTransactionPane);
-	  //create the scene
+		/****************************************************************************************************
+		 * 	   set pane and Add the page to stage 
+		 **************************************************************************************************/	    
+
+
+		root.setTop(navigationToolBar);
+		root.setCenter(newTransactionPane);
+		//create the scene
 		Scene scene = new Scene(root, 1024, 768);
-		
-		
+
+
 		//show the stage
 		transactionStage.setScene(scene);
 		transactionStage.show();
 
 
-  }
+	}
 
 }

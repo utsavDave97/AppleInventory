@@ -37,24 +37,31 @@ import javafx.scene.layout.VBox;
  * @author jianqin Wang
  *
  */
-public class historyTranTab extends BorderPane{
+public class historyTranTab extends BorderPane
+{
 	//Declare variables and objects
 	SaleTable saleTable;
+	//create an saleItemTable so we can reference this later
 	SaleItemTable saleItemTable;
-	 LocalDate choiceDate;
-	 String choiceDateStr="";
-	 UserTable userTable;
-	 User user;
-	 ArrayList<Sale> sales;
-	 ArrayList<SaleItem> saleItems;
-	 final ObservableList<SaleHisItem> dataHis =FXCollections.observableArrayList();
+	//create an choiceDate so we can reference this later
+	LocalDate choiceDate;
+	//create an choiceDateStr so we can reference this later
+	String choiceDateStr="";
+	//create an choiceDateStr so we can reference this later
+	UserTable userTable;
+	User user;
+	ArrayList<Sale> sales;
+	ArrayList<SaleItem> saleItems;
+	final ObservableList<SaleHisItem> dataHis =FXCollections.observableArrayList();
 	//Declare formatter
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	
 	//Define constructor 
 	 @SuppressWarnings("unchecked")
-	public historyTranTab() {
+	 
+	public historyTranTab() 
+	 {
 		 //declare observableList to hold data for table View
 		
 		 /*******************************************************************************
@@ -62,11 +69,14 @@ public class historyTranTab extends BorderPane{
 		  ******************************************************************************/
             //define datePicker to choose time
 			final DatePicker datePicker = new DatePicker();
+			
 			//set datePicker style
 			datePicker.setMinHeight(40);
 			datePicker.setStyle("-fx-font-size:18");
+			
 			//set event for date picker
-		    datePicker.setOnAction(new EventHandler() {
+		    datePicker.setOnAction(new EventHandler() 
+		    {
 		    @Override
 			public void handle(Event event) {
 		    	choiceDate = datePicker.getValue();
@@ -76,24 +86,28 @@ public class historyTranTab extends BorderPane{
 		    	System.err.println("Selected date: " + choiceDateStr);
 			}
 		 });
+		    
 		 //Add search button   
 		 Button searchButton=new Button("Search");
 		 searchButton.setMinHeight(30);
 		 searchButton.setStyle("-fx-border-color:B82F33;"
 				  + "-fx-font-family: Quicksand;"
 				  + "-fx-font-size: 12pt;");
+		 
 		 //Declare HBox to contain datePicker and button
 		 HBox searchHbox=new HBox();
 		 searchHbox.setSpacing(50);
 		 searchHbox.setAlignment(Pos.CENTER);
 		 searchHbox.setMinWidth(700);
 		 searchHbox.setPadding(new Insets(30,0,0,30));
+		 
 		 //add botton line to seperate underneath content
 		 searchHbox.setStyle("-fx-border-color:gray;\n" + 
 		 		             "-fx-border-width:0 0 2 0;\n" + 
 		 		             "-fx-border-style:solid;\n"
 		 		             + "-fx-padding:20 0 20 0");
 		 searchHbox.getChildren().addAll(datePicker,searchButton);
+		 
 		 /*******************************************************************************
 		  *            Center Table View  Content                                       *
 		  ******************************************************************************/
@@ -147,8 +161,6 @@ public class historyTranTab extends BorderPane{
 						 + "-fx-font-family: Quicksand;"
 						 + "-fx-font-size: 14pt;");
 			
-			
-							
 			 final HBox hbox = new HBox();
 			
 			 hbox.setPadding(new Insets(10, 0, 100,300));
@@ -158,9 +170,7 @@ public class historyTranTab extends BorderPane{
 			 VBox centerVbox=new VBox();
 			 centerVbox.setSpacing(20);
 			 centerVbox.getChildren().addAll(hisTable,hbox);
-	        
-	        
-		 
+	    
 		 this.setTop(searchHbox);
 		 this.setCenter(centerVbox);
 		 
@@ -168,7 +178,8 @@ public class historyTranTab extends BorderPane{
 	   *          Register all   button events here                  
 	   ******************************************************************************/
 	   
-		 searchButton.setOnAction(e->{
+		 searchButton.setOnAction(e->
+		 {
 			 if(choiceDateStr.isEmpty()) {
 				 Alert alert=new Alert(AlertType.ERROR);
 				 alert.setTitle("Time Empty Error");
@@ -179,7 +190,9 @@ public class historyTranTab extends BorderPane{
 				 searchSaleByDate(choiceDateStr);
 			 }
 		 });
-		 delete.setOnAction(e->{
+		 
+		 delete.setOnAction(e->
+		 {
 		  //Loop to find which checkbox is selected
 		  for (SaleHisItem saleHisItem : dataHis) {
 			if(saleHisItem.getCheckDel().isSelected()) {
@@ -202,8 +215,6 @@ public class historyTranTab extends BorderPane{
 				} else {
 				  
 				}
-				
-				
 				
 			}
 		} 

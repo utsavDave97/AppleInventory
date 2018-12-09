@@ -5,11 +5,13 @@ package JavaBean;
  *
  */
 public class Stock {
+ //create an prod_id so we can reference this for each user
  private int prod_id;
+ //create an prod_qty so we can reference this for each user
  private int prod_qty;
- 
+ //create a baseic constructor
  public Stock() {}
-
+//create a constructor
 public Stock(int prod_id, int prod_qty) {
 	super();
 	this.prod_id = prod_id;

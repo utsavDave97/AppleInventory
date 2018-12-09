@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import Database.DBConnection;
+import Database.ReadCredential;
 import JavaBean.Stock;
 import JavaBean.User;
 import Tables.StockTable;
@@ -21,7 +22,7 @@ public class TestDatabase {
 		
 		dabase= DBConnection.getInstance();
 	
-		
+	
 	}
 
 }
