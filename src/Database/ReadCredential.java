@@ -9,8 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
-import jdk.nashorn.internal.ir.CatchNode;
-
 
 /**
  * @author Jianqin Wang
