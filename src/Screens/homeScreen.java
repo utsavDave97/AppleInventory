@@ -145,6 +145,8 @@ public class homeScreen
 		//create a statisticScreen for a newtransaction inside the nav
 		Button statisticScreen = new Button("Statistic Screen");
 		
+		User loginUser = logInScreen.getUserInstance();
+		UserRoleTable userRoleTable = new UserRoleTable();
 		if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
 			accountManagement.setVisible(false);
 			statisticScreen.setVisible(false);
