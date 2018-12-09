@@ -251,6 +251,17 @@ public class updateStockScreen
 					+ "-fx-font-size: 12pt;");
 			selectProduct.setPrefSize(300, 30);
 			gridPane.add(selectProduct, 1, 0, 3, 1);
+			selectProduct.valueProperty().addListener(new ChangeListener<Product>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Product> observable, Product oldValue, Product newValue) {
+				// TODO Auto-generated method stub
+				nameField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_name());
+				quantityField.setText(String.valueOf(stockTable.getStock(selectProduct.getSelectionModel().getSelectedItem().getProd_Id())));
+				priceField.setText(selectProduct.getSelectionModel().getSelectedItem().getProd_price());
+				tasteNames.setValue(selectProduct.getSelectionModel().getSelectedItem().getProd_taste());
+			}
+		});
 
 		});
 
