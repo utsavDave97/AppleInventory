@@ -41,7 +41,7 @@ public class updateStockScreen
 {
 	Product product;
 	Stock stock;
-
+	ComboBox<Product> selectProduct;
 	public updateStockScreen()
 	{
 		//create an productTable so we can reference this later
@@ -138,10 +138,9 @@ public class updateStockScreen
 		selectLabel.setStyle("-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
 
-		ComboBox<Product> selectProduct = new ComboBox<>();
+		selectProduct = new ComboBox<>();
 		selectProduct.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
-
-		selectProduct.getSelectionModel().select(0);
+		selectProduct.getSelectionModel().selectFirst();
 
 		selectProduct.setStyle("-fx-font-family: Quicksand;"
 				+ "-fx-font-size: 12pt;");
@@ -244,7 +243,14 @@ public class updateStockScreen
 			quantityField.clear();
 			priceField.clear();
 
+			gridPane.getChildren().remove(selectProduct);
+			selectProduct = new ComboBox<>();
 			selectProduct.setItems(FXCollections.observableArrayList(productTable.getAllProducts()));
+			selectProduct.getSelectionModel().selectFirst();
+			selectProduct.setStyle("-fx-font-family: Quicksand;"
+					+ "-fx-font-size: 12pt;");
+			selectProduct.setPrefSize(300, 30);
+			gridPane.add(selectProduct, 1, 0, 3, 1);
 
 		});
 
