@@ -114,57 +114,60 @@ public class completedTranScreen
 				User loginUser=logInScreen.getUserInstance();
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
-				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					accountManagement.setVisible(false);
+					statisticScreen.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2){
+					
 					accountManagement.setVisible(false);
 				}
 				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
 				
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
-				
-		navigationButton.setOnAction(e->{
-			root.setLeft(menu);
-		});
-
-		newTransaction.setOnAction(e->{
-			new newTransactionScreen();
-			comtransStage.close();
-		});
-
-		completedTransaction.setOnAction(e->{
-			new completedTranScreen();
-			comtransStage.close();
-		});
-
-		addStock.setOnAction(e->{
-			new addStockScreen();
-			comtransStage.close();
-		});
-
-		updateStock.setOnAction(e->{
-			new updateStockScreen();
-			comtransStage.close();
-		});
-
-		accountManagement.setOnAction(e->{
-			new accountManagementScreen();
-			comtransStage.close();
-		});
-
-		statisticScreen.setOnAction(e->{
-			new statisticScreen();
-			comtransStage.close();
-		});
-
-		deleteStock.setOnAction(e->{
-			new deleteStockScreen();
-			comtransStage.close();
-		});
-
-		logOutButton.setOnAction(e->{
-			new logInScreen();
-			comtransStage.close();
-		});
-
+	    navigationButton.setOnAction(e->{
+	    	root.setLeft(menu);
+	    });
+	    
+	    newTransaction.setOnAction(e->{
+	    	new newTransactionScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    completedTransaction.setOnAction(e->{
+	    	new completedTranScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    addStock.setOnAction(e->{
+	    	new addStockScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    updateStock.setOnAction(e->{
+	    	new updateStockScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    accountManagement.setOnAction(e->{
+	    	new accountManagementScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    statisticScreen.setOnAction(e->{
+	    	new statisticScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    deleteStock.setOnAction(e->{
+	    	new deleteStockScreen();
+	    	comtransStage.close();
+	    });
+	    
+	    logOutButton.setOnAction(e->{
+	    	new logInScreen();
+	    	comtransStage.close();
+	    });
+	    
 		//create the content for the Completed transaction
 
 

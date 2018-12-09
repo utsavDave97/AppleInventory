@@ -105,13 +105,17 @@ public class deleteStockScreen
 				User loginUser=logInScreen.getUserInstance();
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
-				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					accountManagement.setVisible(false);
+					statisticScreen.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2){
+					
 					accountManagement.setVisible(false);
 				}
 				
 				
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
-					//create the label for selectLabel
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
+					
 		Label selectLabel = new Label("Select Item to Delete:");
 		//set the style of the selectLabel
 		selectLabel.setStyle("-fx-font-family: Quicksand;"
