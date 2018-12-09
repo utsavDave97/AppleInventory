@@ -142,9 +142,15 @@ public class statisticScreen{
 				
 				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
 					accountManagement.setVisible(false);
+					statisticScreen.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2){
+					
+					accountManagement.setVisible(false);
 				}
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock, accountManagement);
-	
+				
+				
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
+				
 		borderpane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			
 			@Override

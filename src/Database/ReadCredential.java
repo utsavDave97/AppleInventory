@@ -1,9 +1,15 @@
 package Database;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Properties;
+
+import jdk.nashorn.internal.ir.CatchNode;
 
 
 /**
@@ -12,51 +18,119 @@ import java.util.Properties;
  */
 public class ReadCredential {
   private String dbDriver;
-  private String dbURL;
+  private String dbName;
   private String dbUserName;
   private String dbPassword;
+  private String serverAddress;
+  File f;
+private String wantInitialize;
+  
   /**
-   * Constructor:Initializing dbDriver,dbURL,dbURL,dbUserName,dbPassword
+   * Constructor:Decide whether file exist, if no , create a empty template
    */
   public ReadCredential() {
-  Properties dbcredential = new Properties();
-  InputStream inputStream=null;
-   
-  try {
-	  //Initialize inputstream
-	 inputStream=ReadCredential.class.getClassLoader().getResourceAsStream("dbcredential.properties");
-	 dbcredential.load(inputStream);
-	 this.dbDriver=dbcredential.getProperty("DB_DRIVER");
-	 this.dbURL=dbcredential.getProperty("DB_URL");
-	 this.dbUserName=dbcredential.getProperty("USERNAME");
-	 this.dbPassword=dbcredential.getProperty("PASSWORD");
-     } catch (IOException e) {e.printStackTrace(); }
+	  Properties prop = new Properties();
+	try {
+	  f=new File("dbcredential.properties");}catch (Exception e) {
+		e.printStackTrace();
+	}
+	if(!f.exists()) {
+		
+		 try {
+		        prop.setProperty("USERNAME", "null");
+		        prop.setProperty("PASSWORD","null");
+		        prop.setProperty("DB_NAME", "null");
+		        prop.setProperty("SERVERADDRESS", "null");
+		        prop.setProperty("wantInitialize", "yes");
+		        OutputStream out = new FileOutputStream(f);
+		        prop.store(out, "This is an optional header comment string");
+		    }
+		    catch (Exception e ) {
+		        e.printStackTrace();
+		    }
+		
+	}  
 	
   }
+  public void WriteCredential(String userName,String passWord,String dbName,String serverAddress,String wantInitialize) {
+	  try {
+	        Properties props = new Properties();
+	        props.setProperty("USERNAME", userName);
+	        props.setProperty("PASSWORD",passWord);
+	        props.setProperty("DB_NAME", dbName);
+	        props.setProperty("SERVERADDRESS", serverAddress);
+	        props.setProperty("wantInitialize", wantInitialize);
 
-/**
- * @return the dbDriver
- */
+	       
+	        
+	        OutputStream out = new FileOutputStream(f);
+	        props.store(out, "This is an optional header comment string");
+	    }
+	    catch (Exception e ) {
+	        e.printStackTrace();
+	    }
+	  
+	  
+  }
+  //read and initialize the object'properties
+  public void readCredentialValue() {
+	  Properties prop = new Properties();
+	  InputStream inputStream=null;
+	  
+	  try {
+		  //Initialize inputstream
+		 inputStream=new FileInputStream(f);
+		 prop.load(inputStream);
+		 this.dbDriver=prop.getProperty("DB_DRIVER");
+		 this.dbName=prop.getProperty("DB_NAME");
+		 this.dbUserName=prop.getProperty("USERNAME");
+		 this.dbPassword=prop.getProperty("PASSWORD");
+		 this.wantInitialize=prop.getProperty("wantInitialize");
+		 this.serverAddress=prop.getProperty("SERVERADDRESS");
+	     } catch (IOException e) {e.printStackTrace(); }
+	  
+	  
+  }
+  
+  
+  
+  
 public String getDbDriver() {
-	return String.format(dbDriver);
+	return dbDriver;
 }
-/**
- * @return the dbURL
- */
-public String getDbURL() {
-	return String.format(dbURL);
+public void setDbDriver(String dbDriver) {
+	this.dbDriver = dbDriver;
 }
-/**
- * @return the dbUserName
- */
+public String getDbName() {
+	return dbName;
+}
+public void setDbName(String dbName) {
+	this.dbName = dbName;
+}
 public String getDbUserName() {
-	return String.format(dbUserName);
+	return dbUserName;
 }
-/**
- * @return the dbPassword
- */
+public void setDbUserName(String dbUserName) {
+	this.dbUserName = dbUserName;
+}
 public String getDbPassword() {
-	return (dbPassword);
+	return dbPassword;
+}
+public void setDbPassword(String dbPassword) {
+	this.dbPassword = dbPassword;
+}
+public String getWantInitialize() {
+	return wantInitialize;
+}
+public void setWantInitialize(String wantInitialize) {
+	this.wantInitialize = wantInitialize;
+}
+  
+public String getServerAddress() {
+	return serverAddress;
+}
+public void setServerAddress(String serverAddress) {
+	this.serverAddress = serverAddress;
 }
 
 }
