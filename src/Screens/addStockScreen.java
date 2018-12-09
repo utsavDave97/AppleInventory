@@ -130,14 +130,10 @@ public class addStockScreen
 		
 		if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
 			accountManagement.setVisible(false);
-			statisticScreen.setVisible(false);
-		}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2){
-			
-			accountManagement.setVisible(false);
 		}
 		
 		
-		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock,  deleteStock,statisticScreen,accountManagement);
+		VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
 		
 	    String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 							+ "-fx-font-size:15pt;"
