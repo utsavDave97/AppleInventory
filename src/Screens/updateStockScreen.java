@@ -118,14 +118,20 @@ public class updateStockScreen
 				User loginUser=logInScreen.getUserInstance();
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
-				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					statisticScreen.setVisible(false);
+					accountManagement.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2) {
 					accountManagement.setVisible(false);
 				}
 				
 				
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock,statisticScreen, accountManagement);
 				
-		//Creating default textField style
+				
+				
+				
+				//Creating default textField style
 		String textFieldStyle="-fx-focus-color: #00FFFFFF;"
 				+ "-fx-font-size:15pt;"
 				+ "-fx-min-height:35";

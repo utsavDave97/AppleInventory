@@ -414,14 +414,22 @@ public class accountManagementScreen
 				
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
-				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					statisticScreen.setVisible(false);
+					accountManagement.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2) {
 					accountManagement.setVisible(false);
 				}
 				
 				
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
-						
-		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock,statisticScreen, accountManagement);
+				
+				
+				
+				
+				
+				pane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			
 			@Override
 			public void handle(MouseEvent event) {

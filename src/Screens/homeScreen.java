@@ -149,14 +149,21 @@ public class homeScreen
 				User loginUser=logInScreen.getUserInstance();
 				UserRoleTable userRoleTable=new UserRoleTable();
 				
-				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					statisticScreen.setVisible(false);
+					accountManagement.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2) {
 					accountManagement.setVisible(false);
 				}
 				
 				
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock,statisticScreen, accountManagement);
 				
-		navigationButton.setOnAction(e->{
+				
+				
+				
+				
+			navigationButton.setOnAction(e->{
 	    	root.setLeft(menu);
 	    });
 	    

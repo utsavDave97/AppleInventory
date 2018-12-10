@@ -19,10 +19,10 @@ public class navigationBar
 	public static VBox createNavigationBar(Button newTransaction,
 			Button completedTransaction,
 			Button addStock,
-			Button updateStock,
+			Button updateStock,			
+			Button deleteStock,
 			Button statisticScreen,
-			Button accountManagement,
-			Button deleteStock)
+			Button accountManagement)
 	{	
 		//set the vbox
 		VBox menu = new VBox();
@@ -265,11 +265,13 @@ public class navigationBar
 
 		menu.getChildren().addAll(newTransaction,
 				completedTransaction,
-				addStock,
-				accountManagement,
-				statisticScreen,
+				addStock,				
 				updateStock,
-				deleteStock);
+				deleteStock,
+				statisticScreen,
+				accountManagement
+				
+				);
 
 		return menu;
 	}
