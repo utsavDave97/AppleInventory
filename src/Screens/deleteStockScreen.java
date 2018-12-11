@@ -104,14 +104,20 @@ public class deleteStockScreen
 		//If the user is clerk role, who cann't visit accountManager functionality
 				User loginUser=logInScreen.getUserInstance();
 				UserRoleTable userRoleTable=new UserRoleTable();
-				
-				if(userRoleTable.getRoleId(loginUser.getEmail_id())!=3) {
+				if(userRoleTable.getRoleId(loginUser.getEmail_id())==1) {
+					statisticScreen.setVisible(false);
+					accountManagement.setVisible(false);
+				}else if(userRoleTable.getRoleId(loginUser.getEmail_id())==2) {
 					accountManagement.setVisible(false);
 				}
 				
 				
-				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, statisticScreen, deleteStock,accountManagement);
-					//create the label for selectLabel
+				VBox menu = navigationBar.createNavigationBar(newTransaction, completedTransaction, addStock, updateStock, deleteStock,statisticScreen, accountManagement);
+				
+				
+				
+				
+				//create the label for selectLabel
 		Label selectLabel = new Label("Select Item to Delete:");
 		//set the style of the selectLabel
 		selectLabel.setStyle("-fx-font-family: Quicksand;"
